@@ -1,23 +1,23 @@
-{
+﻿{
   "headerPrimary": [
     {
       "enable": true,
-      "name": "Contact",
+      "name": "Kontakt",
       "url": "/#contact-form"
     },
     {
       "enable": true,
-      "name": "Entreprise",
+      "name": "Unternehmen",
       "url": "/#company"
     },
     {
       "enable": true,
-      "name": "Nos Realisations",
+      "name": "Unsere Arbeiten",
       "url": "/#projects"
     },
     {
       "enable": true,
-      "name": "Services",
+      "name": "Leistungen",
       "url": "/#services"
     }
   ]

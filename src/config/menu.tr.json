@@ -1,0 +1,24 @@
+﻿{
+  "headerPrimary": [
+    {
+      "enable": true,
+      "name": "İletişim",
+      "url": "/#contact-form"
+    },
+    {
+      "enable": true,
+      "name": "Şirket",
+      "url": "/#company"
+    },
+    {
+      "enable": true,
+      "name": "Projelerimiz",
+      "url": "/#projects"
+    },
+    {
+      "enable": true,
+      "name": "Hizmetler",
+      "url": "/#services"
+    }
+  ]
+}

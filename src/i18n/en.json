@@ -15,7 +15,7 @@
     "buttonLabel": "Get Started"
   },
   "footer": {
-    "copyright": "Copyright © {{ year }} by your company / Crafted with [Getastrothemes](https://getastrothemes.com/)",
+    "copyright": "Copyright © {{ year }}",
     "_comment": "We kindly appreciate it if you retain the theme copyright. Thank you for supporting Getastrothemes!"
   }
 }

@@ -255,10 +255,23 @@
 
 /* Logo */
 .logo-wrapper {
+  --logo-min-height: 2.75rem;
+  --logo-max-height: 4rem;
+  --logo-target-height: 3.25rem;
+  --logo-max-width: 12rem;
   @apply flex items-center gap-2;
 
-  .logo {
-    @apply flex items-center gap-x-4;
+  .logo,
+  .logo-alternate {
+    height: clamp(
+      var(--logo-min-height),
+      var(--logo-height, var(--logo-target-height)),
+      var(--logo-max-height)
+    );
+    width: auto;
+    max-width: clamp(6rem, var(--logo-width, 7rem), var(--logo-max-width));
+    object-fit: contain;
+    @apply block;
   }
 
   .logo-text {

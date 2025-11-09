@@ -1,0 +1,21 @@
+﻿{
+  "common": {
+    "viewDetails": "Detayları Gör",
+    "learnMoreAbout": "Hakkında daha fazla bilgi al",
+    "paginationPrevious": "Önceki",
+    "paginationNext": "Sonraki",
+    "paginationPortfolioPrev": "Önceki Proje",
+    "paginationPortfolioNext": "Sonraki Proje"
+  },
+  "headerOffcanvas": {
+    "description": "İşletmelerin etkileyici deneyimler tasarlamasına yardımcı olan yapay zeka odaklı bir dijital ajansız.",
+    "buttonLabel": "Hemen İletişime Geç"
+  },
+  "navigation": {
+    "buttonLabel": "Başla"
+  },
+  "footer": {
+    "copyright": "Telif Hakkı © {{ year }} atylus / [Getastrothemes](https://getastrothemes.com/) ile geliştirildi",
+    "_comment": "Lütfen tema telif hakkını koruyun. Getastrothemes’i desteklediğiniz için teşekkürler!"
+  }
+}
