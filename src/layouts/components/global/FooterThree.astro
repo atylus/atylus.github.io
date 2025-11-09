@@ -1,0 +1,314 @@
+---
+import { parseTomlToJson } from "@/lib/utils/tomlUtils";
+import { markdownify } from "@/lib/utils/textConverter";
+import { splitProtectedText } from "@/lib/utils/splitProtectedText";
+import SocialComponent from "@/components/widgets/Social.astro";
+import social from "@/config/social.json";
+import { useTranslations, getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
+import { getEntryCTM } from "@/lib/customContentLoader.astro";
+import ContactForm from "../widgets/ContactForm.astro";
+import Logo from "../global/Logo.astro";
+import ReactIcons from "@/helpers/ReactIcons.astro";
+import { format } from "date-fns";
+
+const config = parseTomlToJson();
+const t = await useTranslations(Astro.currentLocale as string);
+
+let {
+  copyright,
+  footerDescription,
+  contactInfo: { address, email, phone },
+} = config.settings;
+
+const { footerSpaceTop = true } = Astro.props;
+
+const callToActionEntry =
+  (await getEntryCTM("sections", "call-to-action", Astro.currentLocale)) || {};
+const contactSectionEntry =
+  (await getEntryCTM("sections", "contact-section", Astro.currentLocale)) || {};
+
+const {
+  data: { title: ctaTitle, description: ctaDescription } = {},
+} = callToActionEntry;
+
+let { form } = contactSectionEntry.data || {};
+
+footerDescription = footerDescription || t("footer.description") || "";
+
+const copyrightText = copyright.text || t("footer.copyright") || "";
+const copyrightParts: string[] = splitProtectedText(copyrightText);
+
+const phoneContent =
+  phone || "[+1 800 123 654 987](tel:+1800123654987)";
+
+const localeLink = (path: string) =>
+  getLocaleUrlCTM(path, Astro.currentLocale);
+
+const navigationColumns = [
+  {
+    title: "Digital Marketing Services",
+    links: [
+      { label: "Web Design", href: localeLink("/digital-services/#web-design") },
+      {
+        label: "PPC Advertising",
+        href: localeLink("/digital-services/#ppc-advertising"),
+      },
+      {
+        label: "Organic SEO",
+        href: localeLink("/digital-services/#organic-seo"),
+      },
+      {
+        label: "Email & SMS Marketing",
+        href: localeLink("/digital-services/#email-sms"),
+      },
+      {
+        label: "Social Media Marketing",
+        href: localeLink("/digital-services/#social-media"),
+      },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About Atylus", href: localeLink("/company/#about") },
+      { label: "Testimonials", href: localeLink("/company/#testimonials") },
+      { label: "Meet The Team", href: localeLink("/company/#team") },
+      { label: "Careers", href: localeLink("/company/#careers") },
+      { label: "Contact Us", href: localeLink("/company/#contact") },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      {
+        label: "Thought Leadership",
+        href: localeLink("/resources/#thought-leadership"),
+      },
+      { label: "Our Work", href: localeLink("/resources/#our-work") },
+      { label: "Partners", href: localeLink("/resources/#partners") },
+      { label: "Industries We Serve", href: localeLink("/resources/#industries") },
+      { label: "Blog", href: localeLink("/resources/#blog") },
+    ],
+  },
+];
+
+const recentPosts = [
+  {
+    title: "6 Creative Web Design Ideas For Interior Designers",
+    date: "2025-11-05",
+    href: localeLink("/resources/#post-interior-design"),
+  },
+  {
+    title: "6 Web Design Examples For Architects",
+    date: "2025-11-03",
+    href: localeLink("/resources/#post-architects"),
+  },
+  {
+    title: "The Value Of SEO Impressions For Business Success",
+    date: "2025-10-31",
+    href: localeLink("/resources/#post-seo-impressions"),
+  },
+];
+
+const partnerBadges = [
+  "Inc. 5000",
+  "Google Premier Partner",
+  "Microsoft Advertising",
+  "Meta Business",
+  "HubSpot Solutions",
+  "BBB A+",
+  "Amazon Ads",
+  "Klaviyo Master",
+];
+
+const highlights = [
+  "Leading Digital Marketing Agency",
+  "900+ Websites Launched",
+  "$100M+ Client Revenue Generated",
+];
+
+const testimonial = {
+  badge: "Google Verified Reviews",
+  quote:
+    '"On the first day of launching my campaign my phone was ringing and it never stopped!"',
+  author: "Tanya Martinez-Cardenas",
+  role: "United Counseling Services",
+};
+
+if (!form) {
+  return null;
+}
+---
+
+<footer
+  id="footer-with-contact"
+  class:list={[
+    "bg-[#03050A] text-white",
+    !footerSpaceTop && "mt-0",
+  ]}>
+  <div class="bg-gradient-to-b from-[#02030F] via-[#050A1E] to-[#02030F]">
+    <div class="container space-y-16 py-16 md:space-y-20 md:py-24">
+      <div
+        class="grid items-start gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+        <div
+          class="rounded-[2rem] bg-white/95 p-8 shadow-[0_30px_120px_rgba(15,23,42,0.25)] backdrop-blur">
+          <p class="text-xs font-semibold uppercase tracking-[0.5em] text-slate-500">
+            Get Started
+          </p>
+          <h2 class="mt-4 text-3xl font-semibold text-slate-900">
+            {ctaTitle || "Tell us about your next launch"}
+          </h2>
+          {
+            ctaDescription && (
+              <p class="mt-3 text-base text-slate-600" set:html={markdownify(ctaDescription)} />
+            )
+          }
+          <div class="mt-8">
+            <ContactForm class="text-slate-900" form={form} />
+          </div>
+        </div>
+
+        <div
+          class="rounded-[2rem] bg-gradient-to-br from-[#0F172A] via-[#0B1120] to-[#01030A] p-8 shadow-[0_40px_140px_rgba(2,6,23,0.6)]">
+          <p class="text-sm font-semibold uppercase tracking-[0.45em] text-slate-300">
+            Ready to speak with a marketing expert?
+          </p>
+          <div class="mt-4 text-3xl font-semibold leading-snug text-white">
+            Give us a ring&nbsp;
+            <span class="text-amber-300" set:html={markdownify(phoneContent)} />
+          </div>
+          <ul class="mt-8 space-y-4 text-base text-slate-100">
+            {highlights.map((item) => (
+              <li class="flex items-start gap-3">
+                <span
+                  class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-emerald-300">
+                  <ReactIcons icon="IoIosCheckmark" class="text-xl" />
+                </span>
+                <span class="text-lg font-medium">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div
+            class="mt-8 space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-3">
+              <div class="flex h-14 w-14 items-center justify-center rounded-full bg-white/10">
+                <span class="text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
+                  {testimonial.badge}
+                </span>
+              </div>
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-white/70">
+                Reviews
+              </p>
+            </div>
+            <blockquote class="text-lg text-white/90">{testimonial.quote}</blockquote>
+            <div>
+              <p class="text-base font-semibold text-white">
+                {testimonial.author}
+              </p>
+              <p class="text-sm text-white/60">{testimonial.role}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-12 border-t border-white/10 pt-12">
+        <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {navigationColumns.map((column) => (
+            <div class="space-y-4">
+              <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
+                {column.title}
+              </p>
+              <ul class="space-y-2">
+                {column.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-base text-slate-200 transition hover:text-white">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div class="space-y-4">
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
+              Recent Blog Posts
+            </p>
+            <ul class="space-y-4">
+              {recentPosts.map((post) => (
+                <li class="space-y-1">
+                  <span class="text-xs uppercase tracking-[0.35em] text-white/50">
+                    {format(new Date(post.date), "MMMM d, yyyy")}
+                  </span>
+                  <a
+                    href={post.href}
+                    class="block text-base text-slate-200 transition hover:text-white">
+                    {post.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
+            Partners
+          </p>
+          <div class="flex flex-wrap gap-3">
+            {partnerBadges.map((badge) => (
+              <span
+                class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/80">
+                {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-10 border-t border-white/10 pt-10">
+        <div class="grid gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+          <div class="space-y-6">
+            <Logo
+              class="justify-start text-white [&_.logo]:h-8 [&_.logo]:w-auto [&_.logo-alternate]:h-8"
+              src={config.site.logoAlternate}
+            />
+            {
+              footerDescription && (
+                <p class="text-base text-white/70" set:html={markdownify(footerDescription)} />
+              )
+            }
+          </div>
+          <div class="space-y-4 text-sm text-white/70">
+            {address && <p set:html={markdownify(address)} />}
+            <div class="space-y-1">
+              {phone && <p set:html={markdownify(phone)} />}
+              {email && <p set:html={markdownify(email)} />}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center md:justify-between">
+          <div class="flex flex-wrap items-center gap-3 text-sm text-white/60">
+            {copyrightParts.map((value: string) => (
+              <span
+                class="text-sm text-white/60 [&_a]:text-white/80 [&_a]:underline [&_a]:underline-offset-2"
+                set:html={markdownify(value)}
+              />
+            ))}
+          </div>
+          <SocialComponent
+            size="lg"
+            layout="dark-modern"
+            class="gap-4"
+            linkType="follow"
+            list={social.main.filter((s) => s.enable)}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

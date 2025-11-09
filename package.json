@@ -1,0 +1,100 @@
+{
+  "name": "folex-lite-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A highly customizable creative agency & personal portfolio business theme built with Tailwind CSS and Astro Js",
+  "author": "getastrothemes",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "packageManager": "pnpm@9.15.1",
+  "private": true,
+  "keywords": [
+    "astro",
+    "template",
+    "tailwindcss"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getastrothemes/folex-lite-astro.git"
+  },
+  "engines": {
+    "node": ">=18.20.8 <19 || >=20.3.0 <21 || >=22.0.0",
+    "npm": ">=9.6.7",
+    "pnpm": ">=9.0.0",
+    "yarn": ">=1.22.22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "preview": "astro build && npm run remove-draft-from-sitemap && astro preview",
+    "build": "npm run check && astro build && npm run remove-draft-from-sitemap",
+    "check": "astro check",
+    "format": "prettier --write ./src",
+    "generate-favicons": "node ./scripts/generate-favicons.mjs",
+    "remove-multilingual": "node ./scripts/remove-multilingual.mjs",
+    "remove-draft-from-sitemap": "node ./scripts/remove-draft-from-sitemap.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.5",
+    "@astrojs/mdx": "^4.3.10",
+    "@astrojs/preact": "^4.1.3",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/rss": "^4.0.13",
+    "@astrojs/sitemap": "^3.6.0",
+    "@floating-ui/dom": "^1.7.4",
+    "@popperjs/core": "^2.11.8",
+    "@preline/accordion": "^3.2.3",
+    "@preline/collapse": "^3.2.3",
+    "@preline/overlay": "^3.2.3",
+    "@preline/select": "^3.2.3",
+    "@tailwindcss/vite": "^4.1.17",
+    "@vercel/speed-insights": "^1.2.0",
+    "alpinejs": "^3.15.1",
+    "aos": "^2.3.4",
+    "astro": "^5.15.4",
+    "astro-font": "^1.1.0",
+    "astro-icon": "^1.1.5",
+    "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.0",
+    "preact": "^10.27.2",
+    "preline": "^3.2.3",
+    "prismjs": "^1.30.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-icons": "^5.5.0",
+    "rehype-external-links": "^3.0.0",
+    "remark-toc": "^9.0.0",
+    "sharp": "0.34.5",
+    "smoothscroll-for-websites": "^1.5.1",
+    "swiper": "^12.0.3",
+    "tailwindcss": "^4.1.17",
+    "toml": "^3.0.0",
+    "unist-util-visit": "^5.0.0",
+    "xml2js": "^0.6.2",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@realfavicongenerator/generate-favicon": "^0.4.16",
+    "@realfavicongenerator/image-adapter-node": "^0.4.16",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
+    "eslint": "^9.39.1",
+    "eslint-plugin-astro": "^1.5.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.13",
+    "prettier-plugin-toml": "^2.0.6",
+    "slugify": "^1.6.6",
+    "tailwindcss-animated": "^2.0.0",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+  "overrides": {
+    "sharp": "^0.34.5",
+    "@taplo/lib": "0.5.0"
+  }
+}
+}
