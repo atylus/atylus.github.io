@@ -1,5 +1,5 @@
 {
-  "name": "folex-lite-astro",
+  "name": "atylus-lite-astro",
   "type": "module",
   "version": "1.0.0",
   "description": "A highly customizable creative agency & personal portfolio business theme built with Tailwind CSS and Astro Js",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/getastrothemes/folex-lite-astro.git"
+    "url": "https://github.com/getastrothemes/atylus-lite-astro.git"
   },
   "engines": {
     "node": ">=18.20.8 <19 || >=20.3.0 <21 || >=22.0.0",
@@ -53,6 +53,7 @@
     "astro-font": "^1.1.0",
     "astro-icon": "^1.1.5",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
     "marked": "^17.0.0",
     "preact": "^10.27.2",
@@ -92,9 +93,9 @@
     "typescript": "^5.9.3"
   },
   "pnpm": {
-  "overrides": {
-    "sharp": "^0.34.5",
-    "@taplo/lib": "0.5.0"
+    "overrides": {
+      "sharp": "^0.34.5",
+      "@taplo/lib": "0.5.0"
+    }
   }
-}
 }

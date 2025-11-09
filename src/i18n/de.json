@@ -1,0 +1,21 @@
+﻿{
+  "common": {
+    "viewDetails": "Details ansehen",
+    "learnMoreAbout": "Mehr erfahren über",
+    "paginationPrevious": "Zurück",
+    "paginationNext": "Weiter",
+    "paginationPortfolioPrev": "Vorheriges Projekt",
+    "paginationPortfolioNext": "Nächstes Projekt"
+  },
+  "headerOffcanvas": {
+    "description": "Wir sind eine KI-getriebene Digitalagentur und schaffen eindrucksvolle Markenerlebnisse.",
+    "buttonLabel": "Jetzt Kontakt aufnehmen"
+  },
+  "navigation": {
+    "buttonLabel": "Los geht’s"
+  },
+  "footer": {
+    "copyright": "Urheberrecht © {{ year }} atylus / erstellt mit [Getastrothemes](https://getastrothemes.com/)",
+    "_comment": "Bitte entferne den Theme-Hinweis nicht. Danke für deine Unterstützung!"
+  }
+}

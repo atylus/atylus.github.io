@@ -38,11 +38,17 @@ if (Astro.props.width) {
 if (Astro.props.height) {
   logoHeight = Astro.props.height;
 }
+
+const logoSizing = {
+  ...(logoHeight ? { "--logo-height": logoHeight } : {}),
+  ...(logoWidth ? { "--logo-width": logoWidth } : {}),
+};
 ---
 
 <a
   href={getLocaleUrlCTM("/", Astro.currentLocale)}
-  class:list={["logo-wrapper", className]}>
+  class:list={["logo-wrapper", className]}
+  style={Object.keys(logoSizing).length ? logoSizing : undefined}>
   {
     src || logoAlternate || logo ? (
       <>
@@ -50,20 +56,12 @@ if (Astro.props.height) {
           src={src ? src : logo}
           class="logo"
           alt={toSentenceCase("Brand logo of " + title)}
-          style={{
-            height: logoHeight,
-            width: logoWidth,
-          }}
         />
         {logoAlternate && (
           <OptimizedImage
             src={logoAlternate}
             class="logo-alternate"
             alt={toSentenceCase("Brand logo of " + title)}
-            style={{
-              height: logoHeight,
-              width: logoWidth,
-            }}
           />
         )}
 

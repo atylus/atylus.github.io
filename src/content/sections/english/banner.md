@@ -3,18 +3,55 @@
 
 enable: true # Control the visibility of this section across all pages where it is used
 titleSize: "display-2" # If your title text is larger, use a smaller text size like "display-3", "display-2", or "display-1".
-title: "We Help to Grow <br /> Your Business"
-
+title: "Transform Your Business with <span class=\"text-[#7ffbae]\">AI</span>"
+description: "We guide your team through AI-powered automation, predictive analytics, and tailored intelligent systems so you can scale faster, deliver smarter products, and reduce operational costs."
 image: "/images/banner/startup.png"
-description: "We are digital agency that helps businesses develop immersive and engaging user experiences that drive top level growth"
+
+badge:
+  enable: true
+  label: "🤖 AI-Powered Digital Transformation"
+
+gallery:
+  - src: "/images/portfolio/5.jpg"
+    alt: "AI workflow dashboard"
+  - src: "/images/portfolio/6.jpg"
+    alt: "Automation sprint"
+  - src: "/images/portfolio/3.jpg"
+    alt: "Product design review"
+  - src: "/images/portfolio/2.jpg"
+    alt: "Collaboration hub"
 
 button:
-  # Refer to the `sharedButton` schema in `src/sections.schema.ts` for all available configuration options (e.g., enable, label, url, hoverEffect, variant, icon, tag, rel, class, target, etc.)
-  enable: false
-  label: "VIEW OUR WORKS"
-  url: "/"
-  # hoverEffect: "" # Optional: text-flip | creative-fill | magnetic | magnetic-text-flip
-  # variant: "" # Optional: fill | outline | text | circle
-  # rel: "" # Optional
-  # target: "" # Optional
+  enable: true
+  label: "Book a Free AI Audit"
+  url: "/contact"
+  hoverEffect: "creative-fill"
+
+secondaryButton:
+  enable: true
+  label: "Chat with Experts"
+  url: "https://cal.com/atylus/60min"
+
+partners:
+  - icon: "🤖"
+    label: "OpenAI"
+  - icon: "🧠"
+    label: "Google AI"
+  - icon: "☁️"
+    label: "Microsoft Azure AI"
+  - icon: "🔥"
+    label: "TensorFlow"
+
+stats:
+  - value: "50+"
+    label: "AI Projects"
+    tone: "primary"
+  - value: "200%"
+    label: "Productivity Lift"
+    tone: "secondary"
+  - value: "24/7"
+    label: "Dedicated Support"
+    tone: "accent"
+
+ctaNote: "✨ Let’s get started—claim your free strategy plan!"
 ---

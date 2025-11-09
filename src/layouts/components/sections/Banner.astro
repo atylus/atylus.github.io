@@ -7,10 +7,54 @@ import CustomButton from "@/components/CustomButton.astro";
 import overrideObjects from "@/lib/utils/overrideObjects.ts";
 import type { bannerAgencySectionSchema } from "@/sections.schema";
 import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
+import { getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
 
 // Type for this section data
 type bannerAgency = Section &
   NonNullable<z.infer<typeof bannerAgencySectionSchema>>;
+
+type CTACommon = {
+  enable?: boolean;
+  url?: string;
+  rel?: string;
+  target?: string;
+  class?: string;
+  hoverEffect?: "text-flip" | "creative-fill" | "magnetic" | "magnetic-text-flip";
+  [key: string]: any;
+};
+
+type CTAInput = CTACommon & {
+  label?: string;
+};
+
+type CTAResolved = CTACommon & {
+  label: string;
+};
+
+type GalleryImage = {
+  src: string;
+  alt?: string;
+};
+
+type Partner = {
+  label: string;
+  icon?: string;
+};
+
+type Stat = {
+  value: string;
+  label: string;
+  tone?: "primary" | "secondary" | "accent";
+};
+
+type ExtendedBanner = bannerAgency & {
+  button?: CTAInput;
+  secondaryButton?: CTAInput;
+  gallery?: Array<GalleryImage | string>;
+  partners?: Partner[];
+  stats?: Stat[];
+  ctaNote?: string;
+};
 
 type Props = {
   content?: bannerAgency;
@@ -31,86 +75,421 @@ let actualContent = overrideObjects(
 ) as bannerAgency;
 
 // Extracting required values from 'content' object
-let { title, image, titleSize, description, button } =
-  actualContent as bannerAgency;
+let {
+  title,
+  image,
+  titleSize,
+  description,
+  button,
+  secondaryButton,
+  gallery,
+  partners,
+  badge,
+  stats,
+  ctaNote,
+} = actualContent as ExtendedBanner;
+
+const resolvedTitle = Array.isArray(title)
+  ? title.filter(Boolean).join(" ")
+  : title;
+const safeGallery = Array.isArray(gallery)
+  ? gallery
+      .map((item) =>
+        typeof item === "string" ? { src: item } : (item as GalleryImage),
+      )
+      .filter((item): item is GalleryImage => Boolean(item?.src))
+  : [];
+
+const fallbackGallery: GalleryImage[] = [
+  { src: "/images/portfolio/1.jpg", alt: "Strategy workshop" },
+  { src: "/images/portfolio/2.jpg", alt: "Remote sprint" },
+  { src: "/images/portfolio/3.jpg", alt: "Creative standup" },
+  { src: "/images/portfolio/4.jpg", alt: "Product review" },
+];
+
+const collageImages = [
+  ...safeGallery,
+  ...(image ? [{ src: image, alt: resolvedTitle || "Hero visual" }] : []),
+  ...fallbackGallery,
+]
+  .filter(
+    (img, index, self): img is GalleryImage =>
+      Boolean(img?.src) &&
+      self.findIndex((item) => item?.src === img?.src) === index,
+  )
+  .slice(0, 4);
+
+const createCTA = (
+  source: CTAInput | undefined,
+  fallback: CTAResolved,
+): CTAResolved | undefined => {
+  if (source?.enable === false) return undefined;
+  const merged = {
+    enable: true,
+    ...fallback,
+    ...(source ?? {}),
+  } as CTAResolved;
+
+  merged.label = merged.label || fallback.label;
+  return merged;
+};
+
+const primaryCta = createCTA(button, {
+  label: "Get Started",
+  url: "/contact",
+  hoverEffect: "creative-fill",
+});
+
+const secondaryCta = createCTA(secondaryButton, {
+  label: "Watch Demo",
+  url: "#watch-demo",
+});
+
+const secondaryCtaUrl = getLocaleUrlCTM(
+  (secondaryCta?.url || "#watch-demo") as string,
+  Astro.currentLocale,
+);
+
+const partnerBadges =
+  partners?.length && partners?.every((entry) => entry?.label)
+    ? partners
+    : [
+        { label: "OpenAI", icon: "🤖" },
+        { label: "Microsoft Azure AI", icon: "☁️" },
+        { label: "Google AI", icon: "🧠" },
+        { label: "TensorFlow", icon: "🔥" },
+      ];
+
+const fallbackStats: Stat[] = [
+  { value: "50+", label: "AI Projesi", tone: "primary" },
+  { value: "%200", label: "Verimlilik Artışı", tone: "secondary" },
+  { value: "24/7", label: "Teknik Destek", tone: "accent" },
+];
+
+const statToneClasses: Record<
+  NonNullable<Stat["tone"]>,
+  string
+> = {
+  primary: "text-[#7ffbae]",
+  secondary: "text-[#64d9e8]",
+  accent: "text-[#a78bfa]",
+};
+
+const statItems =
+  stats && stats.length
+    ? stats.map((item, index) => ({
+        ...item,
+        tone:
+          item.tone && statToneClasses[item.tone]
+            ? item.tone
+            : (["primary", "secondary", "accent"][index % 3] as Stat["tone"]),
+      }))
+    : fallbackStats;
+
+const helperNote =
+  ctaNote || "✨ Hemen başlayalım, ücretsiz teklifinizi alın!";
+
+const cardHeightMap = [
+  "h-64 lg:h-[420px]",
+  "h-52 lg:h-[240px]",
+  "h-48 lg:h-[260px]",
+  "h-60 lg:h-[320px]",
+];
+
+const primaryButtonClass = [
+  "btn-primary inline-flex items-center justify-center rounded-full bg-[#7ffbae] px-8 py-3 text-lg font-semibold text-[#1b1c1b] shadow-[0_25px_45px_rgba(19,251,149,0.35)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#6ee5a0]",
+  primaryCta?.class,
+]
+  .filter(Boolean)
+  .join(" ");
+
+const secondaryButtonClass = [
+  "group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-base font-medium text-white transition duration-300 hover:border-white/30 hover:bg-white/10",
+  secondaryCta?.class,
+]
+  .filter(Boolean)
+  .join(" ");
 
 // Font sizes for the heading (useful if you have a long heading)
 const fontSizeMap: Record<NonNullable<typeof titleSize>, string> = {
-  "display-1": "text-display-3 lg:text-display-2 xl:text-display-1",
-  "display-2": "text-display-5 md:text-display-3 xl:text-display-2",
-  "display-3": "text-display-5 md:text-display-4 xl:text-display-3",
+  "display-1": "text-4xl md:text-6xl xl:text-7xl",
+  "display-2": "text-4xl md:text-5xl xl:text-6xl",
+  "display-3": "text-3xl md:text-5xl xl:text-5xl",
 };
 
 const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
 ---
 
-<section class="text-light mb-24 bg-black pt-52 md:mb-32">
-  <div class="container">
-    <div class="mx-auto max-w-7xl space-y-7 text-center md:space-y-10">
-      {
-        title && (
-          <h1
-            data-aos="reveal-anim-top"
-            data-aos-duration="1500"
-            class:list={[
-              "text-inherit",
-              fontSize,
-              "block leading-tight font-bold break-words text-inherit",
-            ]}
-            set:html={markdownify(title)}
-          />
-        )
-      }
-      {
-        button?.enable ? (
-          <div
-            data-aos="reveal-anim-top"
-            data-aos-duration="1500"
-            data-aos-delay="200"
-            class="mx-auto max-w-2xl space-y-6">
-            {description && (
-              <p
-                class="text-lg text-inherit opacity-80"
-                set:html={markdownify(description)}
-              />
-            )}
-            {button && button.enable && (
-              <CustomButton
-                hoverEffect="creative-fill"
-                class="btn-accent effect-color-dark mx-auto"
-                {...button}
-              />
-            )}
-          </div>
-        ) : (
-          description && (
-            <p
-              data-aos="reveal-anim-top"
-              data-aos-delay="200"
-              data-aos-duration="1500"
-              class="mx-auto max-w-2xl text-lg text-inherit opacity-80"
-              set:html={markdownify(description)}
-            />
-          )
-        )
-      }
+<section
+  data-hero-section
+  class="relative isolate mb-24 overflow-hidden rounded-b-[2.75rem] bg-[#050505] text-white md:mb-32">
+  <div
+    class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,52,35,0.25),transparent_55%)]"
+    aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-0">
+    <div
+      class="absolute inset-0 opacity-20"
+      aria-hidden="true">
+      <div class="h-full w-full bg-[linear-gradient(0deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:72px_72px]"></div>
+    </div>
+    <div
+      class="absolute -left-40 top-0 hidden h-[720px] w-[720px] rounded-full border border-white/10 opacity-40 lg:block"
+      aria-hidden="true"></div>
+    <div
+      class="absolute left-1/2 top-1/3 h-[560px] w-[560px] -translate-x-1/2 rounded-full border border-white/5 opacity-30"
+      aria-hidden="true"></div>
+    <div
+      class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#153528]/40 to-transparent"
+      aria-hidden="true"></div>
+  </div>
 
-      {
-        image && (
+  <div class="container relative z-10">
+    <div class="grid items-start gap-10 pb-16 pt-14 md:gap-12 md:pb-20 md:pt-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 lg:pb-24 lg:pt-20 xl:pb-28 xl:pt-24">
+      <div class="space-y-8" data-hero-column="text">
+        {badge?.enable && badge?.label && (
           <div
-            data-aos="reveal-anim-top"
-            data-aos-duration="1500"
-            data-aos-delay="300"
-            data-aos-offset="0"
-            class="mx-auto mt-10 -mb-24 max-w-4xl md:mt-20 md:-mb-32">
-            <OptimizedImage
-              src={image}
-              alt={title || "Banner"}
-              class="h-110 w-full object-cover md:h-135"
-            />
+            data-hero-motion="text"
+            class="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-[0.62rem] uppercase tracking-[0.35em] text-white/70">
+            {badge.icon && (
+              <OptimizedImage
+                src={badge.icon}
+                alt={badge.label}
+                loading="lazy"
+                decoding="async"
+                class="h-4 w-4"
+              />
+            )}
+            <span class="font-semibold">{badge.label}</span>
           </div>
-        )
-      }
+        )}
+
+        {resolvedTitle && (
+          <h1
+            data-hero-motion="text"
+            class:list={[
+              fontSize,
+              "text-balance font-semibold leading-[1.05] text-white",
+            ]}
+            set:html={markdownify(resolvedTitle)}
+          />
+        )}
+
+        {description && (
+          <p
+            data-hero-motion="text"
+            class="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
+            set:html={markdownify(description)}
+          />
+        )}
+
+        <div class="flex flex-wrap items-center gap-4">
+          {primaryCta?.enable && (
+            <CustomButton
+              data-hero-motion="button"
+              {...primaryCta}
+              class={primaryButtonClass}
+              hoverEffect={primaryCta?.hoverEffect ?? "creative-fill"}
+            />
+          )}
+
+          {secondaryCta?.enable && (
+            <a
+              href={secondaryCtaUrl}
+              data-hero-motion="button"
+              class={secondaryButtonClass}
+              rel={secondaryCta.url?.startsWith("http") ? "noopener noreferrer" : undefined}
+              target={secondaryCta.url?.startsWith("http") ? "_blank" : undefined}>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-[#7ffbae] transition duration-300 group-hover:bg-[#7ffbae]/15">
+                <svg
+                  class="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2.5 14.5v-9l7 4.5-7 4.5z" />
+                </svg>
+              </span>
+              <span>{secondaryCta.label}</span>
+            </a>
+          )}
+        </div>
+
+        <div class="flex items-center gap-4 pt-4" data-hero-motion="text">
+          <svg
+            class="h-16 w-16 text-[#7ffbae]"
+            viewBox="0 0 80 80"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3">
+            <path
+              d="M10 54C21 36 39 31 62 34"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M58 24l10 10-10 10"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <p class="font-['Reenie_Beanie',cursive] text-xl text-white/90">
+            {helperNote}
+          </p>
+        </div>
+
+        {statItems.length > 0 && (
+          <div
+            data-hero-motion="text"
+            class="mt-6 border-t border-white/10 pt-6">
+            <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-2">
+              {statItems.slice(0, 3).map((stat, index) => (
+                <div class="space-y-1">
+                  <p
+                    class:list={[
+                      "text-2xl font-bold",
+                      stat.tone ? statToneClasses[stat.tone] : statToneClasses.primary,
+                    ]}>
+                    {stat.value}
+                  </p>
+                  <p class="text-xs uppercase tracking-[0.3em] text-white/55">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="space-y-4 pt-8" data-hero-motion="text">
+          <p class="text-xs uppercase tracking-[0.4em] text-white/45">
+            Trusted by teams at
+          </p>
+          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-white/60">
+            {partnerBadges.map((partner) => (
+              <span class="flex items-center gap-2 text-lg font-semibold tracking-wide">
+                {partner.icon && <span aria-hidden="true">{partner.icon}</span>}
+                <span>{partner.label}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="relative -mt-4 sm:-mt-2 md:mt-2 lg:-mt-6 xl:-mt-10" data-hero-motion="scene">
+        <div
+          class="pointer-events-none absolute -left-8 top-6 hidden h-[520px] w-[520px] rounded-[2.5rem] border border-white/10 opacity-50 lg:block"
+          aria-hidden="true"></div>
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
+          {collageImages.map((art, index) => (
+            <div
+              data-hero-motion="card"
+              class:list={[
+                "group relative overflow-hidden rounded-[1.75rem] ring-1 ring-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur",
+                cardHeightMap[index % cardHeightMap.length],
+                index % 2 === 0 ? "mt-0 lg:mt-1" : "mt-4 lg:mt-5",
+              ]}>
+              <OptimizedImage
+                src={art.src}
+                alt={art.alt || `Hero image ${index + 1}`}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover"
+              />
+              <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent"
+                aria-hidden="true"></div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<script type="module" is:inline>
+  const heroSection = document.querySelector("[data-hero-section]");
+
+  if (heroSection && heroSection.dataset.motionApplied !== "true") {
+    heroSection.dataset.motionApplied = "true";
+
+    const initMotion = async () => {
+      try {
+        const { animate, inView, stagger } = await import("framer-motion/dom");
+
+        inView(
+          heroSection,
+          () => {
+            heroSection.dataset.motionReady = "true";
+
+            const textTargets = heroSection.querySelectorAll(
+              "[data-hero-motion='text']",
+            );
+            const buttonTargets = heroSection.querySelectorAll(
+              "[data-hero-motion='button']",
+            );
+            const cardTargets = heroSection.querySelectorAll(
+              "[data-hero-motion='card']",
+            );
+
+            animate(
+              textTargets,
+              { opacity: [0, 1], y: [28, 0] },
+              {
+                duration: 0.7,
+                easing: [0.23, 1, 0.32, 1],
+                delay: stagger(0.12),
+                fill: "forwards",
+              },
+            );
+
+            animate(
+              buttonTargets,
+              { opacity: [0, 1], y: [24, 0] },
+              {
+                duration: 0.55,
+                easing: "easeOut",
+                delay: stagger(0.1, { start: 0.25 }),
+                fill: "forwards",
+              },
+            );
+
+            animate(
+              cardTargets,
+              {
+                opacity: [0, 1],
+                scale: [0.9, 1],
+                filter: ["blur(12px)", "blur(0px)"],
+              },
+              {
+                duration: 0.7,
+                easing: "easeOut",
+                delay: stagger(0.12, { start: 0.35 }),
+                fill: "forwards",
+              },
+            );
+          },
+          { amount: 0.4, once: true },
+        );
+      } catch (error) {
+        console.error("framer-motion failed to load", error);
+        heroSection.dataset.motionReady = "true";
+      }
+    };
+
+    initMotion();
+  }
+</script>
+
+<style is:inline>
+  [data-hero-section]:not([data-motion-ready="true"])
+    [data-hero-motion="text"],
+  [data-hero-section]:not([data-motion-ready="true"])
+    [data-hero-motion="button"] {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  [data-hero-section]:not([data-motion-ready="true"])
+    [data-hero-motion="card"] {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(14px);
+  }
+</style>

@@ -1,15 +1,15 @@
 ---
 # For Updating Contact Info Like Email, Phone Number, Address, etc. Please update in `src/config/config.toml` `settings.contactInfo` table
 enable: true # Control the visibility of this section across all pages where it is used
-title: "Let’s Work Together"
+title: "Let’s Build Your AI Roadmap"
 description: |
-  We are digital agency that helps businesses develop immersive and engaging user experiences
+  Book a 30-minute strategy call to uncover automation quick wins, integration opportunities, and the most effective AI stack for your team.
 
 button:
   enable: true
   variant: "fill" # Options: "fill" | "outline" | "text" | "circle"
-  label: "Let’s Talk with us"
-  url: "/"
+  label: "Book a Free Call"
+  url: "/contact"
   rel: ""
   target: ""
 
