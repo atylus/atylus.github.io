@@ -9,6 +9,7 @@ import { getEntryCTM } from "@/lib/customContentLoader.astro";
 import ContactForm from "../widgets/ContactForm.astro";
 import Logo from "../global/Logo.astro";
 import ReactIcons from "@/helpers/ReactIcons.astro";
+import ThemeToggle from "../widgets/ThemeToggle.astro";
 import { format } from "date-fns";
 
 const config = parseTomlToJson();
@@ -291,22 +292,27 @@ if (!form) {
           </div>
         </div>
 
-        <div class="flex flex-col gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center md:justify-between">
-          <div class="flex flex-wrap items-center gap-3 text-sm text-white/60">
-            {copyrightParts.map((value: string) => (
-              <span
-                class="text-sm text-white/60 [&_a]:text-white/80 [&_a]:underline [&_a]:underline-offset-2"
-                set:html={markdownify(value)}
+        <div class="space-y-4 border-t border-white/10 pt-6">
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="flex flex-wrap items-center gap-3 text-sm text-white/60">
+              {copyrightParts.map((value: string) => (
+                <span
+                  class="text-sm text-white/60 [&_a]:text-white/80 [&_a]:underline [&_a]:underline-offset-2"
+                  set:html={markdownify(value)}
+                />
+              ))}
+            </div>
+            <div class="flex flex-wrap items-center gap-4">
+              <ThemeToggle />
+              <SocialComponent
+                size="lg"
+                layout="dark-modern"
+                class="gap-4"
+                linkType="follow"
+                list={social.main.filter((s) => s.enable)}
               />
-            ))}
+            </div>
           </div>
-          <SocialComponent
-            size="lg"
-            layout="dark-modern"
-            class="gap-4"
-            linkType="follow"
-            list={social.main.filter((s) => s.enable)}
-          />
         </div>
       </div>
     </div>

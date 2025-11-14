@@ -1,0 +1,169 @@
+---
+/**
+ * ThemeToggle Component
+ *
+ * A theme switcher that toggles between light and dark modes.
+ * Uses localStorage to persist user preference.
+ * Prevents FOUC (Flash of Unstyled Content) with inline script.
+ */
+---
+
+<div class="theme-toggle-wrapper">
+  <button
+    id="theme-toggle"
+    aria-label="Toggle theme"
+    class="group relative flex items-center gap-3 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/80 transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white"
+  >
+    <span class="theme-toggle-label">Theme</span>
+    <div class="relative h-5 w-10">
+      <!-- Toggle Track -->
+      <div
+        class="absolute inset-0 rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-white/30"
+      >
+      </div>
+      <!-- Toggle Circle -->
+      <div
+        id="toggle-circle"
+        class="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white shadow-lg transition-transform duration-300"
+      >
+      </div>
+      <!-- Sun Icon (Light Mode) -->
+      <svg
+        class="sun-icon absolute left-1 top-1 h-3 w-3 text-amber-500 opacity-100 transition-opacity duration-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+          clip-rule="evenodd"></path>
+      </svg>
+      <!-- Moon Icon (Dark Mode) -->
+      <svg
+        class="moon-icon absolute right-1 top-1 h-3 w-3 text-slate-700 opacity-0 transition-opacity duration-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+        ></path>
+      </svg>
+    </div>
+  </button>
+</div>
+
+<!-- Inline script to prevent FOUC (Flash of Unstyled Content) -->
+<script is:inline>
+  // This script runs before the page is rendered to prevent flash
+  (function () {
+    const getThemePreference = () => {
+      if (typeof localStorage !== "undefined") {
+        const stored = localStorage.getItem("theme");
+        if (stored) {
+          return stored;
+        }
+      }
+      // Default to system preference
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    };
+
+    const theme = getThemePreference();
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  })();
+</script>
+
+<!-- Client-side script for toggle functionality -->
+<script>
+  function setupThemeToggle() {
+    const themeToggle = document.getElementById("theme-toggle");
+    const toggleCircle = document.getElementById("toggle-circle");
+    const sunIcon = document.querySelector(".sun-icon");
+    const moonIcon = document.querySelector(".moon-icon");
+
+    if (!themeToggle || !toggleCircle || !sunIcon || !moonIcon) {
+      return;
+    }
+
+    const getTheme = () => {
+      if (typeof localStorage !== "undefined") {
+        const stored = localStorage.getItem("theme");
+        if (stored) {
+          return stored;
+        }
+      }
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    };
+
+    const setTheme = (theme: string) => {
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        toggleCircle.style.transform = "translateX(20px)";
+        sunIcon.style.opacity = "0";
+        moonIcon.style.opacity = "1";
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        toggleCircle.style.transform = "translateX(0)";
+        sunIcon.style.opacity = "1";
+        moonIcon.style.opacity = "0";
+      }
+    };
+
+    // Set initial state
+    const currentTheme = getTheme();
+    setTheme(currentTheme);
+
+    // Toggle theme on click
+    themeToggle.addEventListener("click", () => {
+      const newTheme = getTheme() === "dark" ? "light" : "dark";
+      setTheme(newTheme);
+    });
+
+    // Listen for system theme changes
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        if (!localStorage.getItem("theme")) {
+          setTheme(e.matches ? "dark" : "light");
+        }
+      });
+  }
+
+  // Run on initial load
+  setupThemeToggle();
+
+  // Re-run after navigation (for SPAs or view transitions)
+  document.addEventListener("astro:after-swap", setupThemeToggle);
+</script>
+
+<style>
+  .theme-toggle-wrapper {
+    display: inline-block;
+  }
+
+  #toggle-circle {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark #toggle-circle {
+    transform: translateX(20px);
+  }
+
+  .dark .sun-icon {
+    opacity: 0;
+  }
+
+  .dark .moon-icon {
+    opacity: 1;
+  }
+</style>
