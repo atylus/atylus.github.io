@@ -25,35 +25,36 @@ const {
   enable && (
     <div
       class:list={[
-        "bg-theme-light flex flex-col justify-between space-y-10 p-8",
+        "bg-bg-secondary flex flex-col justify-between space-y-10 p-8 text-text-primary",
         className,
       ]}
+      style="border-radius: var(--radius-card); box-shadow: var(--shadow-card);"
       {...rest}>
       <div class="space-y-4">
         <div>
           {name && (
             <h3
-              class="text-h5 md:text-h4 font-semibold"
+              class="text-title-2-bold"
               set:html={markdownify(name)}
             />
           )}
           {price && (
-            <div class="sm:text-display-5 text-display-6 md:text-display-4 font-secondary font-semibold text-black">
+            <div class="text-large-title-bold font-secondary text-text-primary">
               {price.prependValue}
               {price.value}
-              <span class="text-lg">{price.appendValue}</span>
+              <span class="text-title-3-regular">{price.appendValue}</span>
             </div>
           )}
         </div>
         {description && (
-          <p class="text-lg" set:html={markdownify(description)} />
+          <p class="text-title-3-regular text-text-secondary" set:html={markdownify(description)} />
         )}
       </div>
       {features && (
-        <ul class="font-secondary space-y-4 text-sm font-medium text-black">
+        <ul class="font-secondary space-y-4 text-callout-semibold text-text-primary">
           {features.map((feature) => (
             <li class="flex items-center gap-2">
-              <ReactIcons icon="IoMdCheckmark" class="text-xl text-black" />
+              <ReactIcons icon="IoMdCheckmark" class="text-title-2-bold text-accent-green" />
               <span set:html={markdownify(feature)} />
             </li>
           ))}

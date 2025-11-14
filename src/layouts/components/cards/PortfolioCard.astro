@@ -42,7 +42,7 @@ const isDarkAppearance = options?.appearance === "dark";
         className,
         "group",
         layout === "grid" && "flex flex-col items-start justify-start",
-        isDarkAppearance ? "text-white" : "text-text-default",
+        isDarkAppearance ? "text-light-text" : "text-text-primary",
       ]}
       {...rest}>
       {image && (
@@ -73,9 +73,9 @@ const isDarkAppearance = options?.appearance === "dark";
       {hasCategories && (
         <ul
           class:list={[
-            "flex flex-wrap items-center gap-x-2 gap-y-1 opacity-80",
+            "flex flex-wrap items-center gap-x-2 gap-y-1 opacity-80 text-callout-regular",
             layout === "grid" && "order-3 mt-3",
-            isDarkAppearance ? "text-light" : "text-inherit",
+            isDarkAppearance ? "text-light-text" : "text-text-secondary",
           ]}>
           {categories.map((category: string, index: number) => (
             <>
@@ -87,7 +87,7 @@ const isDarkAppearance = options?.appearance === "dark";
       )}
 
       {title && (
-        <h3 class="text-h3-sm md:text-h3 order-2 leading-snug text-inherit">
+        <h3 class="text-title-2-bold order-2 leading-snug text-inherit">
           <a
             href={slug}
             title={toSentenceCase(t("common.learnMoreAbout") + " " + title)}>
@@ -96,7 +96,7 @@ const isDarkAppearance = options?.appearance === "dark";
         </h3>
       )}
 
-      {description && <p class="mt-4" set:html={markdownify(description)} />}
+      {description && <p class="mt-4 text-body-regular text-text-secondary" set:html={markdownify(description)} />}
     </div>
   ) : layout === "slider" ? (
     <div class="py-8 text-center text-sm text-gray-400 italic">

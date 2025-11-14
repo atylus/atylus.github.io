@@ -170,9 +170,9 @@ const statToneClasses: Record<
   NonNullable<Stat["tone"]>,
   string
 > = {
-  primary: "text-[#7ffbae]",
-  secondary: "text-[#64d9e8]",
-  accent: "text-[#a78bfa]",
+  primary: "text-accent-green",
+  secondary: "text-accent-cyan",
+  accent: "text-accent-purple",
 };
 
 const statItems =
@@ -197,14 +197,15 @@ const cardHeightMap = [
 ];
 
 const primaryButtonClass = [
-  "btn-primary inline-flex items-center justify-center rounded-full bg-[#7ffbae] px-8 py-3 text-lg font-semibold text-[#1b1c1b] shadow-[0_25px_45px_rgba(19,251,149,0.35)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#6ee5a0]",
+  "btn-primary inline-flex items-center justify-center bg-accent-green px-8 py-3 text-title-3-semibold text-dark-text transition duration-300 hover:-translate-y-0.5",
   primaryCta?.class,
 ]
   .filter(Boolean)
   .join(" ");
 
 const secondaryButtonClass = [
-  "group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-base font-medium text-white transition duration-300 hover:border-white/30 hover:bg-white/10",
+  "group inline-flex items-center gap-3 border border-white/15 px-6 py-3 text-title-3-regular text-light-text transition duration-300 hover:border-white/30",
+  "bg-fill-tertiary hover:bg-fill-secondary",
   secondaryCta?.class,
 ]
   .filter(Boolean)
@@ -212,9 +213,9 @@ const secondaryButtonClass = [
 
 // Font sizes for the heading (useful if you have a long heading)
 const fontSizeMap: Record<NonNullable<typeof titleSize>, string> = {
-  "display-1": "text-4xl md:text-6xl xl:text-7xl",
-  "display-2": "text-4xl md:text-5xl xl:text-6xl",
-  "display-3": "text-3xl md:text-5xl xl:text-5xl",
+  "display-1": "text-large-title-bold md:text-large-title-bold",
+  "display-2": "text-title-1-bold md:text-large-title-bold",
+  "display-3": "text-title-2-bold md:text-title-1-bold",
 };
 
 const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
@@ -222,7 +223,8 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
 
 <section
   data-hero-section
-  class="relative isolate mb-24 overflow-hidden rounded-b-[2.75rem] bg-[#050505] text-white md:mb-32">
+  class="relative isolate mb-24 overflow-hidden bg-bg-tertiary text-text-primary md:mb-32"
+  style="border-radius: var(--radius-card);">
   <div
     class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,52,35,0.25),transparent_55%)]"
     aria-hidden="true"></div>
@@ -249,7 +251,8 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
         {badge?.enable && badge?.label && (
           <div
             data-hero-motion="text"
-            class="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-[0.62rem] uppercase tracking-[0.35em] text-white/70">
+            class="inline-flex items-center gap-3 border border-white/15 px-5 py-2 text-caption-2-semibold uppercase tracking-[0.35em] text-text-secondary"
+            style="border-radius: var(--radius-pill); background-color: var(--color-fill-tertiary);">
             {badge.icon && (
               <OptimizedImage
                 src={badge.icon}
@@ -268,7 +271,7 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
             data-hero-motion="text"
             class:list={[
               fontSize,
-              "text-balance font-semibold leading-[1.05] text-white",
+              "text-balance text-text-primary",
             ]}
             set:html={markdownify(resolvedTitle)}
           />
@@ -277,7 +280,7 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
         {description && (
           <p
             data-hero-motion="text"
-            class="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
+            class="max-w-2xl text-title-3-regular text-text-secondary"
             set:html={markdownify(description)}
           />
         )}
@@ -299,7 +302,7 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
               class={secondaryButtonClass}
               rel={secondaryCta.url?.startsWith("http") ? "noopener noreferrer" : undefined}
               target={secondaryCta.url?.startsWith("http") ? "_blank" : undefined}>
-              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-[#7ffbae] transition duration-300 group-hover:bg-[#7ffbae]/15">
+              <span class="flex h-10 w-10 items-center justify-center bg-fill-primary text-accent-green transition duration-300 group-hover:bg-fill-quinary" style="border-radius: var(--radius-pill);">
                 <svg
                   class="h-4 w-4"
                   viewBox="0 0 24 24"
@@ -315,7 +318,7 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
 
         <div class="flex items-center gap-4 pt-4" data-hero-motion="text">
           <svg
-            class="h-16 w-16 text-[#7ffbae]"
+            class="h-16 w-16 text-accent-green"
             viewBox="0 0 80 80"
             fill="none"
             stroke="currentColor"
@@ -329,7 +332,7 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
               stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
-          <p class="font-['Reenie_Beanie',cursive] text-xl text-white/90">
+          <p class="font-['Reenie_Beanie',cursive] text-title-1-regular text-text-primary">
             {helperNote}
           </p>
         </div>
@@ -343,12 +346,12 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
                 <div class="space-y-1">
                   <p
                     class:list={[
-                      "text-2xl font-bold",
+                      "text-title-1-bold",
                       stat.tone ? statToneClasses[stat.tone] : statToneClasses.primary,
                     ]}>
                     {stat.value}
                   </p>
-                  <p class="text-xs uppercase tracking-[0.3em] text-white/55">
+                  <p class="text-caption-2-semibold uppercase tracking-[0.3em] text-text-tertiary">
                     {stat.label}
                   </p>
                 </div>
@@ -358,12 +361,12 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
         )}
 
         <div class="space-y-4 pt-8" data-hero-motion="text">
-          <p class="text-xs uppercase tracking-[0.4em] text-white/45">
+          <p class="text-caption-2-semibold uppercase tracking-[0.4em] text-text-quaternary">
             Trusted by teams at
           </p>
-          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-white/60">
+          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-text-tertiary">
             {partnerBadges.map((partner) => (
-              <span class="flex items-center gap-2 text-lg font-semibold tracking-wide">
+              <span class="flex items-center gap-2 text-title-3-semibold tracking-wide">
                 {partner.icon && <span aria-hidden="true">{partner.icon}</span>}
                 <span>{partner.label}</span>
               </span>
@@ -381,10 +384,11 @@ const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
             <div
               data-hero-motion="card"
               class:list={[
-                "group relative overflow-hidden rounded-[1.75rem] ring-1 ring-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur",
+                "group relative overflow-hidden ring-1 ring-white/10 backdrop-blur",
                 cardHeightMap[index % cardHeightMap.length],
                 index % 2 === 0 ? "mt-0 lg:mt-1" : "mt-4 lg:mt-5",
-              ]}>
+              ]}
+              style="border-radius: var(--radius-card); box-shadow: var(--shadow-overlay);">
               <OptimizedImage
                 src={art.src}
                 alt={art.alt || `Hero image ${index + 1}`}

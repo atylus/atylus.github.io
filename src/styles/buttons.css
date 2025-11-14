@@ -1,21 +1,33 @@
 /* ====================================================== */
-/* Button Style */
+/* Button Style - Using Design System */
 /* ====================================================== */
 
 @utility btn {
-  @apply font-secondary text-light inline-block overflow-hidden px-6 py-4 text-sm font-normal whitespace-nowrap uppercase disabled:cursor-not-allowed xl:px-9 xl:py-5;
+  @apply font-secondary inline-block overflow-hidden px-6 py-4 text-callout-semibold whitespace-nowrap uppercase disabled:cursor-not-allowed xl:px-9 xl:py-5 text-text-primary;
+  border-radius: var(--radius-button);
+  box-shadow: var(--shadow-button);
+  transition: all 0.3s ease;
 }
 
 @utility btn-circle {
-  @apply font-secondary inline-flex h-44 w-44 items-center justify-center rounded-full px-8 py-3 text-center text-sm;
+  @apply font-secondary inline-flex h-44 w-44 items-center justify-center px-8 py-3 text-center text-callout-semibold;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-button);
 }
 
 @utility btn-accent {
-  @apply bg-accent text-dark;
+  background-color: var(--color-accent-blue);
+  color: var(--color-light-text);
 }
 
 @utility btn-primary {
-  @apply bg-primary text-light;
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+@utility btn:hover {
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-2px);
 }
 
 .creative-hover-anim:not([disabled="true"]) {
@@ -34,26 +46,26 @@
   }
 
   &.effect-color-primary .hover-bg {
-    background: var(--color-theme-primary);
+    background: var(--color-accent-blue);
   }
   &.effect-color-light .hover-bg {
-    background: var(--color-theme-light);
+    background: var(--color-bg-primary);
   }
   &.effect-color-dark .hover-bg {
-    background: var(--color-theme-dark);
+    background: var(--color-bg-tertiary);
   }
   &.effect-color-accent .hover-bg {
-    background: var(--color-accent);
+    background: var(--color-accent-blue);
   }
 
   &:hover {
     &.effect-color-primary,
     &.effect-color-dark {
-      color: var(--color-light) !important;
+      color: var(--color-light-text) !important;
     }
     &.effect-color-light,
     &.effect-color-accent {
-      color: var(--color-dark) !important;
+      color: var(--color-dark-text) !important;
     }
   }
 }

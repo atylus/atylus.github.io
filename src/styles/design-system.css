@@ -1,0 +1,413 @@
+/**
+ * Design System - Core Variables & Typography
+ *
+ * This file contains the complete design system based on Apple's Human Interface Guidelines.
+ * It includes Colors, Materials, Typography, and all necessary CSS variables.
+ *
+ * Structure:
+ * 1. Color System (Standard, Fill, Label, Backgrounds)
+ * 2. Material System (Shadows, Border Radius, Spacing)
+ * 3. Typography System (Font sizes, line heights, weights)
+ * 4. Typography Component Classes (@layer components)
+ */
+
+/* ========================================
+   COLOR SYSTEM - Light Mode (:root)
+   ======================================== */
+
+@theme {
+  /* ================== STANDARD COLORS ================== */
+  --color-red: #FF3B30;
+  --color-orange: #FF9500;
+  --color-yellow: #FFCC00;
+  --color-green: #34C759;
+  --color-mint: #00C7BE;
+  --color-teal: #5AC8FA;
+  --color-cyan: #32ADE6;
+  --color-blue: #007AFF;
+  --color-indigo: #5856D6;
+  --color-purple: #AF52DE;
+  --color-pink: #FF2D55;
+  --color-brown: #A2845E;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-gray: #8E8E93;
+
+  /* ================== SEMANTIC COLORS ================== */
+
+  /* Background Colors (Light Mode) */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9F9F9;
+  --color-bg-tertiary: #EBEBEB;
+  --color-bg-ultra-thick: rgba(249, 249, 249, 0.9);
+  --color-bg-thick: rgba(242, 242, 242, 0.85);
+  --color-bg-regular: rgba(235, 235, 235, 0.8);
+  --color-bg-thin: rgba(229, 229, 229, 0.75);
+  --color-bg-ultra-thin: rgba(224, 224, 224, 0.7);
+
+  /* Fill Colors (Light Mode) - Subtle backgrounds for cards, buttons, etc. */
+  --color-fill-primary: rgba(255, 255, 255, 0.1);
+  --color-fill-secondary: rgba(255, 255, 255, 0.08);
+  --color-fill-tertiary: rgba(255, 255, 255, 0.05);
+  --color-fill-quaternary: rgba(255, 255, 255, 0.02);
+  --color-fill-quinary: rgba(255, 255, 255, 0.15);
+
+  /* Label/Text Colors (Light Mode) */
+  --color-text-primary: rgba(0, 0, 0, 0.85);
+  --color-text-secondary: rgba(0, 0, 0, 0.5);
+  --color-text-tertiary: rgba(0, 0, 0, 0.25);
+  --color-text-quaternary: rgba(0, 0, 0, 0.1);
+  --color-text-quinary: rgba(0, 0, 0, 0.05);
+
+  /* Vibrant Fill Colors (Light Mode) - For materials with backdrop */
+  --color-vibrant-fill-primary: rgba(249, 249, 249, 0.1);
+  --color-vibrant-fill-secondary: rgba(249, 249, 249, 0.08);
+  --color-vibrant-fill-tertiary: rgba(249, 249, 249, 0.05);
+  --color-vibrant-fill-quaternary: rgba(249, 249, 249, 0.02);
+  --color-vibrant-fill-quinary: rgba(249, 249, 249, 0.15);
+
+  /* Vibrant Label Colors (Light Mode) */
+  --color-vibrant-label-primary: rgba(249, 249, 249, 0.85);
+  --color-vibrant-label-secondary: rgba(249, 249, 249, 0.5);
+  --color-vibrant-label-tertiary: rgba(249, 249, 249, 0.25);
+
+  /* Accent Colors (Semantic) */
+  --color-accent-red: #FF3B30;
+  --color-accent-orange: #FF9500;
+  --color-accent-yellow: #FFCC00;
+  --color-accent-green: #34C759;
+  --color-accent-mint: #00C7BE;
+  --color-accent-teal: #5AC8FA;
+  --color-accent-cyan: #32ADE6;
+  --color-accent-blue: #007AFF;
+  --color-accent-indigo: #5856D6;
+  --color-accent-purple: #AF52DE;
+  --color-accent-pink: #FF2D55;
+  --color-accent-brown: #A2845E;
+  --color-accent-gray: #8E8E93;
+
+  /* Non-Adaptable Colors (Always the same) */
+  --color-dark-text: #000000;
+  --color-light-text: #FFFFFF;
+
+  /* ================== MATERIAL SYSTEM ================== */
+
+  /* Border Radius */
+  --radius-card: 1.75rem;      /* 28px - Cards */
+  --radius-button: 0.75rem;    /* 12px - Buttons */
+  --radius-pill: 9999px;       /* Full rounded - Pills/Badges */
+  --radius-input: 0.5rem;      /* 8px - Inputs */
+  --radius-dialog: 1.25rem;    /* 20px - Dialogs */
+
+  /* Shadows (Elevation) */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.2);
+  --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Spacing (Material-specific) */
+  --spacing-card: 1.5rem;      /* 24px */
+  --spacing-section: 4rem;     /* 64px */
+  --spacing-component: 1rem;   /* 16px */
+
+  /* ================== TYPOGRAPHY SYSTEM ================== */
+
+  /* Large Title */
+  --font-size-large-title: 1.625rem;    /* 26px */
+  --line-height-large-title: 2rem;      /* 32px */
+  --font-weight-large-title-bold: 700;
+  --font-weight-large-title-regular: 400;
+
+  /* Title 1 */
+  --font-size-title-1: 1.375rem;        /* 22px */
+  --line-height-title-1: 1.625rem;      /* 26px */
+  --font-weight-title-1-bold: 700;
+  --font-weight-title-1-regular: 400;
+
+  /* Title 2 */
+  --font-size-title-2: 1.0625rem;       /* 17px */
+  --line-height-title-2: 1.375rem;      /* 22px */
+  --font-weight-title-2-bold: 700;
+  --font-weight-title-2-regular: 400;
+
+  /* Title 3 */
+  --font-size-title-3: 0.9375rem;       /* 15px */
+  --line-height-title-3: 1.25rem;       /* 20px */
+  --font-weight-title-3-semibold: 600;
+  --font-weight-title-3-regular: 400;
+
+  /* Headline */
+  --font-size-headline: 0.8125rem;      /* 13px */
+  --line-height-headline: 1rem;         /* 16px */
+  --font-weight-headline-heavy: 800;
+  --font-weight-headline-bold: 700;
+
+  /* Body */
+  --font-size-body: 0.8125rem;          /* 13px */
+  --line-height-body: 1rem;             /* 16px */
+  --font-weight-body-semibold: 600;
+  --font-weight-body-regular: 400;
+
+  /* Callout */
+  --font-size-callout: 0.75rem;         /* 12px */
+  --line-height-callout: 0.9375rem;     /* 15px */
+  --font-weight-callout-semibold: 600;
+  --font-weight-callout-regular: 400;
+
+  /* Subheadline */
+  --font-size-subheadline: 0.6875rem;   /* 11px */
+  --line-height-subheadline: 0.875rem;  /* 14px */
+  --font-weight-subheadline-semibold: 600;
+  --font-weight-subheadline-regular: 400;
+
+  /* Footnote */
+  --font-size-footnote: 0.625rem;       /* 10px */
+  --line-height-footnote: 0.8125rem;    /* 13px */
+  --font-weight-footnote-semibold: 600;
+  --font-weight-footnote-regular: 400;
+
+  /* Caption 1 */
+  --font-size-caption-1: 0.625rem;      /* 10px */
+  --line-height-caption-1: 0.8125rem;   /* 13px */
+  --font-weight-caption-1-medium: 500;
+  --font-weight-caption-1-regular: 400;
+
+  /* Caption 2 */
+  --font-size-caption-2: 0.625rem;      /* 10px */
+  --line-height-caption-2: 0.8125rem;   /* 13px */
+  --font-weight-caption-2-semibold: 600;
+  --font-weight-caption-2-medium: 500;
+}
+
+/* ========================================
+   COLOR SYSTEM - Dark Mode (.dark)
+   ======================================== */
+
+@theme {
+  .dark {
+    /* ================== STANDARD COLORS (Dark) ================== */
+    --color-red: #FF453A;
+    --color-orange: #FF9F0A;
+    --color-yellow: #FFD60A;
+    --color-green: #30D158;
+    --color-mint: #66D4CF;
+    --color-teal: #6AC4FF;
+    --color-cyan: #64D2FF;
+    --color-blue: #0A84FF;
+    --color-indigo: #5E5CE6;
+    --color-purple: #BF5AF2;
+    --color-pink: #FF375F;
+    --color-brown: #AC8E68;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray: #98989D;
+
+    /* ================== SEMANTIC COLORS (Dark) ================== */
+
+    /* Background Colors (Dark Mode) */
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #171717;
+    --color-bg-tertiary: #2C2C2E;
+    --color-bg-ultra-thick: rgba(23, 23, 23, 0.9);
+    --color-bg-thick: rgba(28, 28, 30, 0.85);
+    --color-bg-regular: rgba(44, 44, 46, 0.8);
+    --color-bg-thin: rgba(58, 58, 60, 0.75);
+    --color-bg-ultra-thin: rgba(72, 72, 74, 0.7);
+
+    /* Fill Colors (Dark Mode) */
+    --color-fill-primary: rgba(0, 0, 0, 0.1);
+    --color-fill-secondary: rgba(0, 0, 0, 0.08);
+    --color-fill-tertiary: rgba(0, 0, 0, 0.05);
+    --color-fill-quaternary: rgba(0, 0, 0, 0.02);
+    --color-fill-quinary: rgba(0, 0, 0, 0.15);
+
+    /* Label/Text Colors (Dark Mode) */
+    --color-text-primary: rgba(255, 255, 255, 0.85);
+    --color-text-secondary: rgba(255, 255, 255, 0.5);
+    --color-text-tertiary: rgba(255, 255, 255, 0.25);
+    --color-text-quaternary: rgba(255, 255, 255, 0.1);
+    --color-text-quinary: rgba(255, 255, 255, 0.05);
+
+    /* Vibrant Fill Colors (Dark Mode) */
+    --color-vibrant-fill-primary: rgba(23, 23, 23, 0.1);
+    --color-vibrant-fill-secondary: rgba(23, 23, 23, 0.08);
+    --color-vibrant-fill-tertiary: rgba(23, 23, 23, 0.05);
+    --color-vibrant-fill-quaternary: rgba(23, 23, 23, 0.02);
+    --color-vibrant-fill-quinary: rgba(23, 23, 23, 0.15);
+
+    /* Vibrant Label Colors (Dark Mode) */
+    --color-vibrant-label-primary: rgba(23, 23, 23, 0.85);
+    --color-vibrant-label-secondary: rgba(23, 23, 23, 0.5);
+    --color-vibrant-label-tertiary: rgba(23, 23, 23, 0.25);
+
+    /* Accent Colors (Dark) */
+    --color-accent-red: #FF453A;
+    --color-accent-orange: #FF9F0A;
+    --color-accent-yellow: #FFD60A;
+    --color-accent-green: #30D158;
+    --color-accent-mint: #66D4CF;
+    --color-accent-teal: #6AC4FF;
+    --color-accent-cyan: #64D2FF;
+    --color-accent-blue: #0A84FF;
+    --color-accent-indigo: #5E5CE6;
+    --color-accent-purple: #BF5AF2;
+    --color-accent-pink: #FF375F;
+    --color-accent-brown: #AC8E68;
+    --color-accent-gray: #98989D;
+
+    /* Shadows (Dark Mode - Softer) */
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.5);
+    --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ========================================
+   TYPOGRAPHY COMPONENT CLASSES
+   ======================================== */
+
+@layer components {
+  /* Large Title */
+  .text-large-title-bold {
+    font-size: var(--font-size-large-title);
+    line-height: var(--line-height-large-title);
+    font-weight: var(--font-weight-large-title-bold);
+  }
+
+  .text-large-title-regular {
+    font-size: var(--font-size-large-title);
+    line-height: var(--line-height-large-title);
+    font-weight: var(--font-weight-large-title-regular);
+  }
+
+  /* Title 1 */
+  .text-title-1-bold {
+    font-size: var(--font-size-title-1);
+    line-height: var(--line-height-title-1);
+    font-weight: var(--font-weight-title-1-bold);
+  }
+
+  .text-title-1-regular {
+    font-size: var(--font-size-title-1);
+    line-height: var(--line-height-title-1);
+    font-weight: var(--font-weight-title-1-regular);
+  }
+
+  /* Title 2 */
+  .text-title-2-bold {
+    font-size: var(--font-size-title-2);
+    line-height: var(--line-height-title-2);
+    font-weight: var(--font-weight-title-2-bold);
+  }
+
+  .text-title-2-regular {
+    font-size: var(--font-size-title-2);
+    line-height: var(--line-height-title-2);
+    font-weight: var(--font-weight-title-2-regular);
+  }
+
+  /* Title 3 */
+  .text-title-3-semibold {
+    font-size: var(--font-size-title-3);
+    line-height: var(--line-height-title-3);
+    font-weight: var(--font-weight-title-3-semibold);
+  }
+
+  .text-title-3-regular {
+    font-size: var(--font-size-title-3);
+    line-height: var(--line-height-title-3);
+    font-weight: var(--font-weight-title-3-regular);
+  }
+
+  /* Headline */
+  .text-headline-heavy {
+    font-size: var(--font-size-headline);
+    line-height: var(--line-height-headline);
+    font-weight: var(--font-weight-headline-heavy);
+  }
+
+  .text-headline-bold {
+    font-size: var(--font-size-headline);
+    line-height: var(--line-height-headline);
+    font-weight: var(--font-weight-headline-bold);
+  }
+
+  /* Body */
+  .text-body-semibold {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-body-semibold);
+  }
+
+  .text-body-regular {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-body-regular);
+  }
+
+  /* Callout */
+  .text-callout-semibold {
+    font-size: var(--font-size-callout);
+    line-height: var(--line-height-callout);
+    font-weight: var(--font-weight-callout-semibold);
+  }
+
+  .text-callout-regular {
+    font-size: var(--font-size-callout);
+    line-height: var(--line-height-callout);
+    font-weight: var(--font-weight-callout-regular);
+  }
+
+  /* Subheadline */
+  .text-subheadline-semibold {
+    font-size: var(--font-size-subheadline);
+    line-height: var(--line-height-subheadline);
+    font-weight: var(--font-weight-subheadline-semibold);
+  }
+
+  .text-subheadline-regular {
+    font-size: var(--font-size-subheadline);
+    line-height: var(--line-height-subheadline);
+    font-weight: var(--font-weight-subheadline-regular);
+  }
+
+  /* Footnote */
+  .text-footnote-semibold {
+    font-size: var(--font-size-footnote);
+    line-height: var(--line-height-footnote);
+    font-weight: var(--font-weight-footnote-semibold);
+  }
+
+  .text-footnote-regular {
+    font-size: var(--font-size-footnote);
+    line-height: var(--line-height-footnote);
+    font-weight: var(--font-weight-footnote-regular);
+  }
+
+  /* Caption 1 */
+  .text-caption-1-medium {
+    font-size: var(--font-size-caption-1);
+    line-height: var(--line-height-caption-1);
+    font-weight: var(--font-weight-caption-1-medium);
+  }
+
+  .text-caption-1-regular {
+    font-size: var(--font-size-caption-1);
+    line-height: var(--line-height-caption-1);
+    font-weight: var(--font-weight-caption-1-regular);
+  }
+
+  /* Caption 2 */
+  .text-caption-2-semibold {
+    font-size: var(--font-size-caption-2);
+    line-height: var(--line-height-caption-2);
+    font-weight: var(--font-weight-caption-2-semibold);
+  }
+
+  .text-caption-2-medium {
+    font-size: var(--font-size-caption-2);
+    line-height: var(--line-height-caption-2);
+    font-weight: var(--font-weight-caption-2-medium);
+  }
+}

@@ -38,7 +38,7 @@ if (typeof content.render === "function") {
 
       <div class="space-y-2">
         <ul
-          class="text-dark flex flex-wrap items-center gap-x-5 gap-y-1 tracking-wide">
+          class="flex flex-wrap items-center gap-x-5 gap-y-1 tracking-wide text-text-secondary text-body-regular">
           {
             date && (
               <li>
@@ -49,13 +49,13 @@ if (typeof content.render === "function") {
 
           {
             categories?.map((category: string) => (
-              <li class="before:bg-dark relative pe-5 before:absolute before:end-0 before:top-1/2 before:h-1 before:w-1 before:-translate-y-1/2 before:rounded-full before:content-['']">
+              <li class="relative pe-5 before:absolute before:end-0 before:top-1/2 before:h-1 before:w-1 before:-translate-y-1/2 before:content-['']" style="before:background-color: var(--color-text-secondary); before:border-radius: var(--radius-pill);">
                 {markdownify(category)}
               </li>
             ))
           }
         </ul>
-        {title && <h1 class="text-h2-sm md:text-h2" set:html={title} />}
+        {title && <h1 class="text-large-title-bold text-text-primary" set:html={title} />}
       </div>
       {
         Content && (

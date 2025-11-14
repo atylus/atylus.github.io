@@ -8,6 +8,7 @@ import type { JSONLDProps } from "@/lib/utils/JsonLdGenerator";
 import HelperButtons from "@/components/utilities/HelperButtons.astro";
 import BreakpointIndicator from "@/components/widgets/BreakpointIndicator.astro";
 import FooterThree from "@/components/global/FooterThree.astro";
+import ThemeToggle from "@/components/global/ThemeToggle.astro";
 
 interface Props extends JSONLDProps {
   className?: string;
@@ -82,6 +83,7 @@ className = fitToScreen
       ) : null
     }
 
+    <ThemeToggle />
     <HelperButtons />
     <script>
       // @ts-nocheck
