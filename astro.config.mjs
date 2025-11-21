@@ -53,6 +53,48 @@ export default defineConfig({
     extendDefaultPlugins: true,
   },
   vite: {
-    plugins: [tailwindcss(), reloadOnTomlChange()],
+    plugins: [
+      tailwindcss(),
+      reloadOnTomlChange(),
+      {
+        name: "astro-dev-locale-redirect",
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (!req?.url || !req?.method) return next();
+
+            const method = req.method.toUpperCase();
+            if (method !== "GET" && method !== "HEAD") {
+              return next();
+            }
+
+            try {
+              const url = new URL(req.url, "http://localhost");
+              const pathname = url.pathname;
+
+              if (!pathname || pathname === "/" || pathname.endsWith("/")) {
+                return next();
+              }
+
+              const segments = pathname.split("/").filter(Boolean);
+              if (segments.length !== 1) {
+                return next();
+              }
+
+              const candidate = segments[0];
+              if (!enabledLanguages.includes(candidate)) {
+                return next();
+              }
+
+              url.pathname = `/${candidate}/`;
+              res.statusCode = 308;
+              res.setHeader("Location", url.pathname + url.search);
+              res.end();
+            } catch (error) {
+              return next();
+            }
+          });
+        },
+      },
+    ],
   },
 });

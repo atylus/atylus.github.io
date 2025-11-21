@@ -1,5 +1,10 @@
+import type { APIContext } from "astro";
 import { defineMiddleware } from "astro/middleware";
-import { enabledLanguages } from "@/lib/utils/i18nUtils";
+import {
+  createRedirectMiddleware,
+  type MiddlewareStage,
+  type RedirectLocals,
+} from "@/middleware/redirectMiddleware";
 import { parseTomlToJson } from "@/lib/utils/tomlUtils";
 
 const config = parseTomlToJson();
@@ -8,7 +13,7 @@ const {
   showDefaultLangInUrl,
 } = config.settings.multilingual;
 
-const supportedLocales = new Set(enabledLanguages);
+const enforceTrailingSlash = Boolean(config.site.trailingSlash);
 
 const ASSET_PREFIXES = [
   "/_astro",
@@ -20,41 +25,6 @@ const ASSET_PREFIXES = [
   "/.well-known",
 ];
 
-const parseAcceptLanguage = (header: string | null) => {
-  if (!header) return [];
-
-  return header
-    .split(",")
-    .map((part) => {
-      const [langPart, weightPart] = part.trim().split(";q=");
-      const normalized = langPart.toLowerCase();
-      const quality = weightPart ? parseFloat(weightPart) : 1;
-      return {
-        lang: normalized,
-        quality: Number.isFinite(quality) ? quality : 1,
-      };
-    })
-    .sort((a, b) => b.quality - a.quality)
-    .map(({ lang }) => lang);
-};
-
-const resolvePreferredLocale = (header: string | null) => {
-  const candidates = parseAcceptLanguage(header);
-
-  for (const candidate of candidates) {
-    if (supportedLocales.has(candidate)) {
-      return candidate;
-    }
-
-    const base = candidate.split("-")[0];
-    if (base && supportedLocales.has(base)) {
-      return base;
-    }
-  }
-
-  return undefined;
-};
-
 const shouldBypass = (pathname: string) => {
   return (
     ASSET_PREFIXES.some((prefix) => pathname.startsWith(prefix)) ||
@@ -63,39 +33,53 @@ const shouldBypass = (pathname: string) => {
   );
 };
 
-export const onRequest = defineMiddleware(async (context, next) => {
-  const { request } = context;
-  const method = request.method.toUpperCase();
+const composeMiddleware = (...stages: MiddlewareStage[]) => {
+  return defineMiddleware(async (context, next) => {
+    let index = -1;
+    const dispatch = async (stageIndex: number): Promise<Response> => {
+      if (stageIndex <= index) {
+        throw new Error("next() called multiple times in middleware chain");
+      }
 
-  if (!["GET", "HEAD"].includes(method)) {
-    return next();
+      index = stageIndex;
+      const stage = stages[stageIndex];
+
+      if (!stage) {
+        return next();
+      }
+
+      return stage(context, () => dispatch(stageIndex + 1));
+    };
+
+    return dispatch(0);
+  });
+};
+
+const getLocals = (context: APIContext) => context.locals as RedirectLocals;
+
+const coreMiddleware: MiddlewareStage = async (context, next) => {
+  const url = new URL(context.request.url);
+  const method = context.request.method.toUpperCase();
+  const pathname = url.pathname;
+
+  const locals = getLocals(context);
+  locals.requestMeta = { url, pathname, method };
+
+  const isBypassed =
+    !["GET", "HEAD"].includes(method) || shouldBypass(pathname);
+
+  if (isBypassed) {
+    locals.skipRedirects = true;
   }
 
-  const url = new URL(request.url);
-  const { pathname } = url;
+  return next();
+};
 
-  const hasLocalePrefix = enabledLanguages.some(
-    (lang) => pathname === `/${lang}` || pathname.startsWith(`/${lang}/`),
-  );
-
-  if (hasLocalePrefix || shouldBypass(pathname)) {
-    return next();
-  }
-
-  const preferred =
-    resolvePreferredLocale(request.headers.get("accept-language")) ||
-    defaultLanguage;
-
-  const needsPrefix =
-    preferred !== defaultLanguage || showDefaultLangInUrl;
-
-  if (!needsPrefix || !supportedLocales.has(preferred)) {
-    return next();
-  }
-
-  const normalizedPath = pathname === "/" ? "" : pathname;
-  const redirect = new URL(request.url);
-  redirect.pathname = `/${preferred}${normalizedPath}`.replace(/\/{2,}/g, "/");
-
-  return Response.redirect(redirect, 307);
+const redirectMiddleware = createRedirectMiddleware({
+  getLocals,
+  enforceTrailingSlash,
+  defaultLanguage,
+  showDefaultLangInUrl,
 });
+
+export const onRequest = composeMiddleware(coreMiddleware, redirectMiddleware);
