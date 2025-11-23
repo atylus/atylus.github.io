@@ -3,13 +3,17 @@
 
 enable: true
 titleSize: "display-2"
-title: "İşinizi <span class=\"text-[#7ffbae]\">Yapay Zeka</span> ile Dönüştürün"
-description: "İşletmenizi yapay zeka destekli çözümlerle dijital çağa taşıyoruz. Akıllı otomasyon, veri analitiği ve özelleştirilmiş AI sistemleriyle verimliliğinizi artırırken operasyon maliyetlerini düşürüyoruz."
+title: "<span class=\"text-[#ff5d00]\">Otonom AI motorları</span> ile dönüşümünüzü kendiliğinden optimize ediyoruz."
+description: "ATYLUS, AI-first ve veri odaklı otomasyon motorlarıyla pazarlama, ürün ve operasyon süreçlerinin kendi kendine gözlemleyip karar almasını sağlar."
+ctaTitle: "ATYLUS ürünleri hazır; sizin için uçtan uca otonom AI çözümleri sunuyoruz."
+ctaDescription: "Hemen katılın ve işletmenizi telemetri verisiyle beslenen, kendini optimize eden dijital sistemlere dönüştürün."
+watchEyebrow: "Tanıtımı izle"
+watchTitle: "AI-First Otonom Dönüşüm"
 image: "/images/banner/startup.png"
 
 badge:
   enable: true
-  label: "🤖 Yapay Zeka Odaklı Dönüşüm"
+  label: "🤖 AI-First Otonom Dijital Dönüşüm"
 
 gallery:
   - src: "/images/portfolio/5.jpg"
@@ -23,7 +27,7 @@ gallery:
 
 button:
   enable: true
-  label: "Potansiyelinizi Keşfedin"
+  label: "İşiniz için başlayın"
   url: "/contact"
   hoverEffect: "creative-fill"
 

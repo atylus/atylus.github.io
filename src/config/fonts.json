@@ -1,7 +1,7 @@
 {
   "fontFamily": [
     {
-      "name": "Poppins",
+      "name": "Inter",
       "src": [
         {
           "weight": "400"
@@ -16,19 +16,11 @@
       "cssVariable": "font-primary",
       "fallback": "sans-serif",
       "locallyHosted": true,
-      "__comment": "set locallyHosted: true if you want to download google fonts and hosted them locally automatically"
+      "__comment": "Body copy uses Inter for a readable AI-first aesthetic"
     },
     {
-      "name": "Unbounded",
+      "name": "Poppins",
       "src": [
-        {
-          "style": "normal",
-          "weight": "400"
-        },
-        {
-          "style": "normal",
-          "weight": "500"
-        },
         {
           "style": "normal",
           "weight": "600"
@@ -44,7 +36,7 @@
       "provider": "google-fonts",
       "fallback": "sans-serif",
       "locallyHosted": true,
-      "__comment": "set locallyHosted: true if you want to download google fonts and hosted them locally automatically"
+      "__comment": "Headings and CTAs leverage Poppins for premium contrast"
     }
   ]
 }

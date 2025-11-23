@@ -1,19 +1,11 @@
 ---
-title: ""
 enable: true
-
-options:
-  layout: "grid" # masonry | grid | full-width | slider
-  appearance: "light" # dark | light - applicable only if layout is "grid"
-  limit: 4
-
-button:
-  # Refer to the `sharedButton` schema in `src/sections.schema.ts` for all available configuration options (e.g., enable, label, url, hoverEffect, variant, icon, tag, rel, class, target, etc.)
-  enable: true
-  label: "View all"
-  url: "/"
-  # hoverEffect: "" # Optional: text-flip | creative-fill | magnetic | magnetic-text-flip
-  # variant: "" # Optional: fill | outline | text | circle
-  # rel: "" # Optional
-  # target: "" # Optional
+eyebrow: "Selected Works"
+title: "Architecting"
+highlight: "Intelligence."
+ctaTitle: "Your Vision <span class=\"text-[#fffafa]/30\">Undefined?</span>"
+ctaSubtitle: "CONFIDENTIAL PROJECT"
+ctaDescription: "Existing market tools are built for the average. We architect custom neural engines for the exceptional. If your problem hasn't been solved yet, <span class=\"text-[#fffafa] font-semibold\">we should talk.</span>"
+ctaUrl: "#contact"
+limit: 3
 ---

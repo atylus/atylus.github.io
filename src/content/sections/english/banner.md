@@ -3,13 +3,17 @@
 
 enable: true # Control the visibility of this section across all pages where it is used
 titleSize: "display-2" # If your title text is larger, use a smaller text size like "display-3", "display-2", or "display-1".
-title: "Transform Your Business with <span class=\"text-[#7ffbae]\">AI</span>"
-description: "We guide your team through AI-powered automation, predictive analytics, and tailored intelligent systems so you can scale faster, deliver smarter products, and reduce operational costs."
+title: "Launch <span class=\"text-[#ff5d00]\">autonomous AI engines</span> that self-optimize every workflow."
+description: "ATYLUS builds AI-first, data-native automation motors that observe, decide, and act across marketing, product, and operations without waiting for dashboards."
+ctaTitle: "ATYLUS engines stand up autonomous AI stacks for your team in days."
+ctaDescription: "Join now and turn your business into self-optimizing systems powered by telemetry-grade intelligence."
+watchEyebrow: "Watch Intro"
+watchTitle: "AI-First Autonomous Transformation"
 image: "/images/banner/startup.png"
 
 badge:
   enable: true
-  label: "🤖 AI-Powered Digital Transformation"
+  label: "🤖 AI-First Autonomous Transformation"
 
 gallery:
   - src: "/images/portfolio/5.jpg"
@@ -23,7 +27,7 @@ gallery:
 
 button:
   enable: true
-  label: "Book a Free AI Audit"
+  label: "Start for Your Business"
   url: "/contact"
   hoverEffect: "creative-fill"
 

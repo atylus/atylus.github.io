@@ -1,26 +1,10 @@
 ---
-enable: true # Control the visibility of this section across all pages where it is used
-title: ""
-
-list:
-  - alt: "example alt text"
-    src: "/images/clients/1.svg"
-  - alt: "example alt text"
-    src: "/images/clients/2.svg"
-  - alt: "example alt text"
-    src: "/images/clients/3.svg"
-  - alt: "example alt text"
-    src: "/images/clients/4.svg"
-  - alt: "example alt text"
-    src: "/images/clients/5.svg"
-  - alt: "example alt text"
-    src: "/images/clients/6.svg"
-  - alt: "example alt text"
-    src: "/images/clients/1.svg"
-  - alt: "example alt text"
-    src: "/images/clients/2.svg"
-
-options:
-  appearance: "light" # light / dark
-  columnsPerRow: 4 # 4 / 6 (default - 4)
+enable: true
+title: "Öncü İş Ortaklıkları"
+reservedLabel: "Rezerv"
+cta:
+  label: "Markanız"
+  sublabel: "İlk başarı hikayemiz olun"
+  url: "#contact"
+subtext: "Kalabalık bir logo duvarımız yok.<br/>Kurucu partnerlerimiz için <span class=\"text-[#fffafa] font-medium\">kesintisiz odağımız</span> var."
 ---

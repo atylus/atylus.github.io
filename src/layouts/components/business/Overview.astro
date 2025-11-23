@@ -1,0 +1,53 @@
+---
+interface Step {
+  id: string;
+  title: string;
+  description: string;
+}
+interface Props {
+  title: string;
+  p1: string;
+  p2: string;
+  approachTitle: string;
+  steps: Step[];
+}
+const { title, p1, p2, approachTitle, steps } = Astro.props;
+---
+<section class="py-24 bg-dark text-light">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row gap-16">
+            
+            <div class="lg:w-1/2 h-fit lg:sticky lg:top-32 reveal">
+                <span class="text-accent font-bold tracking-widest text-sm uppercase mb-4 block">Overview</span>
+                <h2 class="text-5xl lg:text-7xl font-bold leading-none mb-8" set:html={title}></h2>
+                <div class="w-24 h-1 bg-accent mb-8"></div>
+            </div>
+
+            <div class="lg:w-1/2 space-y-24 pb-24">
+                <div class="reveal">
+                    <p class="text-2xl md:text-3xl font-light leading-snug text-light">
+                        {p1}
+                    </p>
+                    <p class="mt-6 text-light/50 text-lg">
+                        {p2}
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl font-bold mb-6 text-light">{approachTitle}</h3>
+                    <ul class="space-y-8">
+                        {steps.map((step) => (
+                            <li class="flex items-start">
+                                <div class="w-12 h-12 rounded-full border border-accent/30 flex items-center justify-center text-accent text-xl mr-6 shrink-0">{step.id}</div>
+                                <div>
+                                    <h4 class="font-bold text-lg">{step.title}</h4>
+                                    <p class="text-light/50 mt-2">{step.description}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

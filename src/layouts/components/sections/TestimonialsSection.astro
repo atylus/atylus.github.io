@@ -1,0 +1,470 @@
+---
+import type { Section } from "@/types";
+import { markdownify } from "@/lib/utils/textConverter";
+import overrideObjects from "@/lib/utils/overrideObjects.ts";
+import { getEntryCTM } from "@/lib/customContentLoader.astro";
+
+export type TestimonialsInterface = Section & {
+  eyebrow?: string;
+  testimonials?: Array<{
+    name: string;
+    role: string;
+    avatar?: string;
+    quote: string;
+  }>;
+};
+
+type Props = {
+  content?: TestimonialsInterface;
+};
+
+const defaultContent = (
+  await getEntryCTM("sections", "testimonials-section", Astro.currentLocale)
+)?.data as TestimonialsInterface;
+
+const actualContent = overrideObjects(
+  { ...defaultContent },
+  Astro.props.content,
+) as TestimonialsInterface;
+
+const {
+  enable = true,
+  eyebrow,
+  title,
+  testimonials = [],
+} = actualContent || {};
+
+if (!enable) {
+  return null;
+}
+---
+
+<section id="leadership" class="testimonials-section relative overflow-hidden py-24">
+  <div class="absolute right-0 bottom-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+  
+  <div class="container mx-auto px-6 lg:px-12 relative z-10">
+    <div class="mb-20 text-center testimonials-reveal">
+      {eyebrow && (
+        <span class="text-xs font-bold tracking-[0.2em] uppercase text-accent mb-4 block">
+          {eyebrow}
+        </span>
+      )}
+      {title && (
+        <h2 class="text-4xl md:text-6xl font-bold text-[#fffafa] tracking-tight" set:html={markdownify(title)} />
+      )}
+    </div>
+
+    <div class="testimonials-scroll-container overflow-x-auto pb-6 -mx-6 px-6 lg:-mx-12 lg:px-12">
+      <div class="testimonials-grid flex gap-8 lg:gap-12">
+        {testimonials.map((testimonial, index) => {
+          const avatarUrl =
+            testimonial.avatar ||
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=1c1c1e&color=fffafa&size=128`;
+          const delay = (index + 1) * 100;
+          const signalStrength = 78 + ((index * 11) % 15);
+          const decisionWindow = 18 + ((index * 7) % 6);
+
+          return (
+            <article
+              class="testimonials-card rounded-[40px] relative shrink-0 w-[85vw] sm:w-[75vw] md:w-[45vw] lg:w-[520px]"
+              style={`animation-delay: ${delay}ms`}>
+              <div class="card-glow"></div>
+              <div class="card-outline"></div>
+              <div class="card-body relative z-10 flex flex-col gap-6">
+                <div class="card-header flex items-center justify-between gap-6">
+                  <div class="flex items-center gap-4">
+                    <div class="avatar-ring">
+                      <span class="avatar-glare" aria-hidden="true"></span>
+                      <img src={avatarUrl} alt={testimonial.name} decoding="async" loading="lazy" />
+                    </div>
+                    <div>
+                      <p class="role-tag">{testimonial.role}</p>
+                      <h3 class="leader-name">{testimonial.name}</h3>
+                    </div>
+                  </div>
+                  <div class="quote-icon" aria-hidden="true">
+                    <span>“</span>
+                  </div>
+                </div>
+
+                <blockquote
+                  class="testimonial-quote"
+                  set:html={markdownify(testimonial.quote)}
+                />
+
+                <div class="card-metrics">
+                  <div class="metric-block">
+                    <p class="metric-label">Signal Integrity</p>
+                    <div class="metric-bar">
+                      <span style={`width: ${signalStrength}%`}></span>
+                    </div>
+                    <p class="metric-value">{signalStrength}%</p>
+                  </div>
+                  <div class="metric-chip">Decision Window · {decisionWindow}h</div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+
+    {testimonials.length > 1 && (
+      <div class="testimonials-indicators mt-10 flex items-center justify-center gap-3">
+        {testimonials.map((_, index) => (
+          <button
+            class="indicator-dot"
+            data-index={index}
+            aria-label={`Go to testimonial ${index + 1}`}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style is:inline>
+  .testimonials-section {
+    background: #0a0101;
+  }
+
+  .testimonials-card {
+    background: linear-gradient(140deg, rgba(24, 9, 6, 0.95), rgba(10, 10, 11, 0.9));
+    border: 1px solid rgba(255, 250, 250, 0.06);
+    box-shadow: 0 25px 90px rgba(3, 0, 0, 0.55);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    scroll-snap-align: start;
+  }
+
+  .card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 0%, rgba(255, 93, 0, 0.35), transparent 55%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08), transparent 40%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .card-outline {
+    position: absolute;
+    inset: 1px;
+    border-radius: 38px;
+    border: 1px solid rgba(255, 250, 250, 0.08);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .card-body {
+    padding: 2.5rem;
+  }
+
+  .card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 1.5rem;
+  }
+
+  .avatar-ring {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 93, 0, 0.4);
+    padding: 0.35rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-ring img {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    object-fit: cover;
+  }
+
+  .avatar-glare {
+    position: absolute;
+    inset: 6px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 60%);
+    mix-blend-mode: screen;
+  }
+
+  .role-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255, 93, 0, 0.9);
+  }
+
+  .leader-name {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fffafa;
+    letter-spacing: -0.02em;
+  }
+
+  .quote-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 2.75rem;
+    font-family: "Times New Roman", serif;
+  }
+
+  .testimonial-quote {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(255, 250, 250, 0.85);
+  }
+
+  .card-metrics {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .metric-block {
+    flex: 1;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 250, 250, 0.55);
+    margin-bottom: 0.4rem;
+  }
+
+  .metric-bar {
+    width: 100%;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .metric-bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ff5d00, #ffae00);
+  }
+
+  .metric-value {
+    font-size: 0.95rem;
+    color: #fffafa;
+    margin-top: 0.35rem;
+  }
+
+  .metric-chip {
+    padding: 0.65rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 93, 0, 0.08);
+    color: rgba(255, 250, 250, 0.85);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  .testimonials-indicators .indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .testimonials-indicators .indicator-dot.is-active {
+    width: 32px;
+    background: linear-gradient(90deg, #ff5d00, #ffae00);
+    border-color: transparent;
+  }
+
+  .testimonials-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 93, 0, 0.3) rgba(255, 250, 250, 0.05);
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+  }
+
+  .testimonials-scroll-container::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .testimonials-scroll-container::-webkit-scrollbar-track {
+    background: rgba(255, 250, 250, 0.05);
+    border-radius: 4px;
+  }
+
+  .testimonials-scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 93, 0, 0.3);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  .testimonials-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 93, 0, 0.5);
+  }
+
+  .testimonials-reveal,
+  .testimonials-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .testimonials-reveal.is-visible,
+  .testimonials-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    // Reveal animations
+    const reveals = document.querySelectorAll(
+      ".testimonials-section .testimonials-reveal, .testimonials-section .testimonials-card",
+    );
+
+    if (reveals.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+
+      reveals.forEach((el) => observer.observe(el));
+    }
+
+    // Auto-scroll functionality
+    const scrollContainer = document.querySelector(".testimonials-scroll-container");
+    if (!scrollContainer) return;
+
+    const cards = scrollContainer.querySelectorAll(".testimonials-card");
+    const indicators = document.querySelectorAll(".indicator-dot");
+    if (cards.length <= 1) return;
+
+    let currentIndex = 0;
+    let autoScrollInterval;
+    let isUserScrolling = false;
+    let scrollTimeout;
+
+    const setActiveIndicator = (index) => {
+      if (!indicators.length) return;
+      indicators.forEach((dot, idx) => {
+        dot.classList.toggle("is-active", idx === index);
+      });
+    };
+
+    const scrollToCard = (index) => {
+      const card = cards[index];
+      if (!card) return;
+
+      const cardRect = card.getBoundingClientRect();
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const scrollLeft = scrollContainer.scrollLeft;
+      const targetScroll = scrollLeft + cardRect.left - containerRect.left;
+
+      scrollContainer.scrollTo({
+        left: targetScroll,
+        behavior: "smooth",
+      });
+
+      setActiveIndicator(index);
+    };
+
+    const startAutoScroll = () => {
+      stopAutoScroll();
+      autoScrollInterval = setInterval(() => {
+        if (!isUserScrolling) {
+          currentIndex = (currentIndex + 1) % cards.length;
+          scrollToCard(currentIndex);
+        }
+      }, 5000);
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+      }
+    };
+
+    scrollContainer.addEventListener(
+      "scroll",
+      () => {
+        isUserScrolling = true;
+        stopAutoScroll();
+
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isUserScrolling = false;
+
+          let closestIndex = currentIndex;
+          let closestDistance = Infinity;
+
+          cards.forEach((card, index) => {
+            const distance = Math.abs(
+              card.getBoundingClientRect().left -
+                scrollContainer.getBoundingClientRect().left,
+            );
+
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestIndex = index;
+            }
+          });
+
+          currentIndex = closestIndex;
+          setActiveIndicator(currentIndex);
+          startAutoScroll();
+        }, 1500);
+      },
+      { passive: true },
+    );
+
+    indicators.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const target = Number(dot.dataset.index ?? 0);
+        stopAutoScroll();
+        currentIndex = target;
+        scrollToCard(currentIndex);
+        isUserScrolling = false;
+        startAutoScroll();
+      });
+    });
+
+    scrollContainer.addEventListener("mouseenter", stopAutoScroll);
+    scrollContainer.addEventListener("mouseleave", () => {
+      if (!isUserScrolling) startAutoScroll();
+    });
+
+    setActiveIndicator(0);
+
+    setTimeout(() => {
+      startAutoScroll();
+    }, 2000);
+
+    window.addEventListener("beforeunload", () => {
+      stopAutoScroll();
+    });
+  })();
+</script>

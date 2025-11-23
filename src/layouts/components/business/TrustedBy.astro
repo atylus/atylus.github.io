@@ -1,0 +1,20 @@
+---
+import ReactIcons from "@/layouts/helpers/ReactIcons.astro";
+
+const partners = [
+    { icon: "FaAws", label: "AWS" },
+    { icon: "FaGoogle", label: "Google" },
+    { icon: "FaMeta", label: "Meta" },
+    { icon: "FaStripe", label: "Stripe" },
+];
+---
+<div class="border-y border-light/10 bg-dark py-8 text-light">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between opacity-60 hover:opacity-100 transition-opacity">
+        <span class="text-sm font-medium mb-4 md:mb-0">Trusted by industry leaders:</span>
+        <div class="flex gap-8 items-center grayscale">
+            {partners.map((partner) => (
+                <ReactIcons icon={partner.icon} aria-label={partner.label} class="text-2xl" />
+            ))}
+        </div>
+    </div>
+</div>

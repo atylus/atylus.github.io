@@ -3,13 +3,17 @@
 
 enable: true
 titleSize: "display-2"
-title: "Transformieren Sie Ihr Business mit <span class=\"text-[#7ffbae]\">KI</span>"
-description: "Wir begleiten Ihr Team mit KI-gestützter Automatisierung, Predictive Analytics und maßgeschneiderten intelligenten Systemen. So beschleunigen Sie Abläufe, liefern bessere Produkte und senken Kosten."
+title: "Entwickeln Sie <span class=\"text-[#ff5d00]\">autonome KI-Motoren</span>, die jeden Ablauf selbst optimieren."
+description: "ATYLUS baut AI-first, datengetriebene Automationsmotoren, die Marketing, Produkt und Operations beobachten, entscheiden und handeln – ganz ohne manuelle Dashboards."
+ctaTitle: "ATYLUS Engines stellen autonome KI-Stacks in wenigen Tagen für Ihr Team bereit."
+ctaDescription: "Treten Sie jetzt bei und verwandeln Sie Ihr Unternehmen in sich selbst verbessernde, telemetriegestützte Systeme."
+watchEyebrow: "Intro ansehen"
+watchTitle: "AI-First Autonome Transformation"
 image: "/images/banner/startup.png"
 
 badge:
   enable: true
-  label: "🤖 KI-getriebene Transformation"
+  label: "🤖 AI-First Autonome Transformation"
 
 gallery:
   - src: "/images/portfolio/5.jpg"
@@ -23,7 +27,7 @@ gallery:
 
 button:
   enable: true
-  label: "Kostenlose KI-Analyse"
+  label: "Für Ihr Unternehmen starten"
   url: "/contact"
   hoverEffect: "creative-fill"
 

@@ -143,45 +143,45 @@ if (!form) {
 <footer
   id="footer-with-contact"
   class:list={[
-    "bg-[#03050A] text-white",
+    "bg-[#0d0101] text-[#fffafa]",
     !footerSpaceTop && "mt-0",
   ]}>
-  <div class="bg-gradient-to-b from-[#02030F] via-[#050A1E] to-[#02030F]">
+  <div class="bg-[#0d0101]">
     <div class="container space-y-16 py-16 md:space-y-20 md:py-24">
       <div
         class="grid items-start gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div
-          class="rounded-[2rem] bg-white/95 p-8 shadow-[0_30px_120px_rgba(15,23,42,0.25)] backdrop-blur">
-          <p class="text-xs font-semibold uppercase tracking-[0.5em] text-slate-500">
+          class="rounded-[2rem] bg-[#fffafa]/95 p-8 shadow-[0_30px_120px_rgba(13,1,1,0.25)] backdrop-blur">
+          <p class="text-xs font-semibold uppercase tracking-[0.5em] text-[#0d0101]/60">
             Get Started
           </p>
-          <h2 class="mt-4 text-3xl font-semibold text-slate-900">
+          <h2 class="mt-4 text-3xl font-semibold text-[#0d0101]">
             {ctaTitle || "Tell us about your next launch"}
           </h2>
           {
             ctaDescription && (
-              <p class="mt-3 text-base text-slate-600" set:html={markdownify(ctaDescription)} />
+              <p class="mt-3 text-base text-[#0d0101]/70" set:html={markdownify(ctaDescription)} />
             )
           }
           <div class="mt-8">
-            <ContactForm class="text-slate-900" form={form} />
+            <ContactForm class="text-[#0d0101]" form={form} />
           </div>
         </div>
 
         <div
-          class="rounded-[2rem] bg-gradient-to-br from-[#0F172A] via-[#0B1120] to-[#01030A] p-8 shadow-[0_40px_140px_rgba(2,6,23,0.6)]">
-          <p class="text-sm font-semibold uppercase tracking-[0.45em] text-slate-300">
+          class="rounded-[2rem] bg-[#0d0101] border border-[#fffafa]/10 p-8 shadow-[0_40px_140px_rgba(255,93,0,0.05)]">
+          <p class="text-sm font-semibold uppercase tracking-[0.45em] text-[#fffafa]/60">
             Ready to speak with a marketing expert?
           </p>
-          <div class="mt-4 text-3xl font-semibold leading-snug text-white">
+          <div class="mt-4 text-3xl font-semibold leading-snug text-[#fffafa]">
             Give us a ring&nbsp;
-            <span class="text-amber-300" set:html={markdownify(phoneContent)} />
+            <span class="text-accent" set:html={markdownify(phoneContent)} />
           </div>
-          <ul class="mt-8 space-y-4 text-base text-slate-100">
+          <ul class="mt-8 space-y-4 text-base text-[#fffafa]/90">
             {highlights.map((item) => (
               <li class="flex items-start gap-3">
                 <span
-                  class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-emerald-300">
+                  class="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-accent">
                   <ReactIcons icon="IoIosCheckmark" class="text-xl" />
                 </span>
                 <span class="text-lg font-medium">{item}</span>
@@ -190,33 +190,33 @@ if (!form) {
           </ul>
 
           <div
-            class="mt-8 space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+            class="mt-8 space-y-6 rounded-2xl border border-[#fffafa]/10 bg-[#fffafa]/5 p-6">
             <div class="flex items-center gap-3">
-              <div class="flex h-14 w-14 items-center justify-center rounded-full bg-white/10">
-                <span class="text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
+              <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#fffafa]/10">
+                <span class="text-xs font-semibold uppercase tracking-[0.25em] text-[#fffafa]/80">
                   {testimonial.badge}
                 </span>
               </div>
-              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-white/70">
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-[#fffafa]/70">
                 Reviews
               </p>
             </div>
-            <blockquote class="text-lg text-white/90">{testimonial.quote}</blockquote>
+            <blockquote class="text-lg text-[#fffafa]/90">{testimonial.quote}</blockquote>
             <div>
-              <p class="text-base font-semibold text-white">
+              <p class="text-base font-semibold text-[#fffafa]">
                 {testimonial.author}
               </p>
-              <p class="text-sm text-white/60">{testimonial.role}</p>
+              <p class="text-sm text-[#fffafa]/60">{testimonial.role}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="space-y-12 border-t border-white/10 pt-12">
+      <div class="space-y-12 border-t border-[#fffafa]/10 pt-12">
         <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {navigationColumns.map((column) => (
             <div class="space-y-4">
-              <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
+              <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#fffafa]/50">
                 {column.title}
               </p>
               <ul class="space-y-2">
@@ -224,7 +224,7 @@ if (!form) {
                   <li>
                     <a
                       href={link.href}
-                      class="text-base text-slate-200 transition hover:text-white">
+                      class="text-base text-[#fffafa]/70 transition hover:text-accent">
                       {link.label}
                     </a>
                   </li>
@@ -234,18 +234,18 @@ if (!form) {
           ))}
 
           <div class="space-y-4">
-            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#fffafa]/50">
               Recent Blog Posts
             </p>
             <ul class="space-y-4">
               {recentPosts.map((post) => (
                 <li class="space-y-1">
-                  <span class="text-xs uppercase tracking-[0.35em] text-white/50">
+                  <span class="text-xs uppercase tracking-[0.35em] text-[#fffafa]/40">
                     {format(new Date(post.date), "MMMM d, yyyy")}
                   </span>
                   <a
                     href={post.href}
-                    class="block text-base text-slate-200 transition hover:text-white">
+                    class="block text-base text-[#fffafa]/70 transition hover:text-accent">
                     {post.title}
                   </a>
                 </li>
@@ -255,13 +255,13 @@ if (!form) {
         </div>
 
         <div class="space-y-6">
-          <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
+          <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#fffafa]/50">
             Partners
           </p>
           <div class="flex flex-wrap gap-3">
             {partnerBadges.map((badge) => (
               <span
-                class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/80">
+                class="rounded-full border border-[#fffafa]/15 bg-[#fffafa]/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-[#fffafa]/80">
                 {badge}
               </span>
             ))}
@@ -269,20 +269,20 @@ if (!form) {
         </div>
       </div>
 
-      <div class="space-y-10 border-t border-white/10 pt-10">
+      <div class="space-y-10 border-t border-[#fffafa]/10 pt-10">
         <div class="grid gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
           <div class="space-y-6">
             <Logo
-              class="justify-start text-white [&_.logo]:h-8 [&_.logo]:w-auto [&_.logo-alternate]:h-8"
+              class="justify-start text-[#fffafa] [&_.logo]:h-8 [&_.logo]:w-auto [&_.logo-alternate]:h-8"
               src={config.site.logoAlternate}
             />
             {
               footerDescription && (
-                <p class="text-base text-white/70" set:html={markdownify(footerDescription)} />
+                <p set:html={markdownify(footerDescription)} />
               )
             }
           </div>
-          <div class="space-y-4 text-sm text-white/70">
+          <div class="space-y-4 text-sm text-[#fffafa]/70">
             {address && <p set:html={markdownify(address)} />}
             <div class="space-y-1">
               {phone && <p set:html={markdownify(phone)} />}
@@ -291,11 +291,11 @@ if (!form) {
           </div>
         </div>
 
-        <div class="flex flex-col gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center md:justify-between">
-          <div class="flex flex-wrap items-center gap-3 text-sm text-white/60">
+        <div class="flex flex-col gap-4 border-t border-[#fffafa]/10 pt-6 md:flex-row md:items-center md:justify-between">
+          <div class="flex flex-wrap items-center gap-3 text-sm text-[#fffafa]/60">
             {copyrightParts.map((value: string) => (
               <span
-                class="text-sm text-white/60 [&_a]:text-white/80 [&_a]:underline [&_a]:underline-offset-2"
+                class="text-sm text-[#fffafa]/60 [&_a]:text-[#fffafa]/80 [&_a]:underline [&_a]:underline-offset-2"
                 set:html={markdownify(value)}
               />
             ))}

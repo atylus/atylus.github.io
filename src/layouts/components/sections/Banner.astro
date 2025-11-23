@@ -2,494 +2,374 @@
 import type { z } from "astro/zod";
 import type { Section } from "@/types";
 import { getEntryCTM } from "@/lib/customContentLoader.astro";
-import { markdownify } from "@/lib/utils/textConverter";
-import CustomButton from "@/components/CustomButton.astro";
 import overrideObjects from "@/lib/utils/overrideObjects.ts";
+import { markdownify } from "@/lib/utils/textConverter";
 import type { bannerAgencySectionSchema } from "@/sections.schema";
 import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
 import { getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
+import ReactIcons from "@/layouts/helpers/ReactIcons.astro";
 
-// Type for this section data
 type bannerAgency = Section &
   NonNullable<z.infer<typeof bannerAgencySectionSchema>>;
 
-type CTACommon = {
-  enable?: boolean;
+type SocialLink = {
+  label: string;
+  icon: string;
+  url: string;
+};
+
+type HighlightProject = {
+  tag?: string;
+  title: string;
+  subtitle?: string;
   url?: string;
-  rel?: string;
-  target?: string;
-  class?: string;
-  hoverEffect?: "text-flip" | "creative-fill" | "magnetic" | "magnetic-text-flip";
-  [key: string]: any;
 };
 
-type CTAInput = CTACommon & {
+type ButtonConfig = {
+  enable?: boolean;
   label?: string;
-};
-
-type CTAResolved = CTACommon & {
-  label: string;
-};
-
-type GalleryImage = {
-  src: string;
-  alt?: string;
-};
-
-type Partner = {
-  label: string;
-  icon?: string;
-};
-
-type Stat = {
-  value: string;
-  label: string;
-  tone?: "primary" | "secondary" | "accent";
+  url?: string;
 };
 
 type ExtendedBanner = bannerAgency & {
-  button?: CTAInput;
-  secondaryButton?: CTAInput;
-  gallery?: Array<GalleryImage | string>;
-  partners?: Partner[];
-  stats?: Stat[];
-  ctaNote?: string;
+  socialLinks?: SocialLink[];
+  highlightProject?: HighlightProject;
+  videoUrl?: string;
+  button?: ButtonConfig;
+  ctaTitle?: string;
+  ctaDescription?: string;
+  watchEyebrow?: string;
+  watchTitle?: string;
 };
 
 type Props = {
   content?: bannerAgency;
 };
 
-// Fetching the default content for the this section
-let defaultContent = (
+const defaultContent = (
   await getEntryCTM("sections", "banner", Astro.currentLocale)
 )?.data as bannerAgency;
 
-// Enables content customization (e.g., title, description) with a fallback to 'defaultContent' if not provided.
-// The 'content' prop should match the structure of 'defaultContent'.
-// Allows using this section with different content across multiple pages.
-// If 'content' is missing, 'defaultContent' will be used.
-let actualContent = overrideObjects(
+const actualContent = overrideObjects(
   { ...defaultContent },
   Astro.props.content,
-) as bannerAgency;
+) as ExtendedBanner;
 
-// Extracting required values from 'content' object
-let {
+const {
   title,
-  image,
-  titleSize,
   description,
-  button,
-  secondaryButton,
-  gallery,
-  partners,
+  image,
   badge,
-  stats,
-  ctaNote,
-} = actualContent as ExtendedBanner;
+  socialLinks,
+  highlightProject,
+  videoUrl,
+  button,
+  ctaTitle,
+  ctaDescription,
+  watchEyebrow,
+  watchTitle,
+} = actualContent;
 
 const resolvedTitle = Array.isArray(title)
   ? title.filter(Boolean).join(" ")
   : title;
-const safeGallery = Array.isArray(gallery)
-  ? gallery
-      .map((item) =>
-        typeof item === "string" ? { src: item } : (item as GalleryImage),
-      )
-      .filter((item): item is GalleryImage => Boolean(item?.src))
-  : [];
 
-const fallbackGallery: GalleryImage[] = [
-  { src: "/images/portfolio/1.jpg", alt: "Strategy workshop" },
-  { src: "/images/portfolio/2.jpg", alt: "Remote sprint" },
-  { src: "/images/portfolio/3.jpg", alt: "Creative standup" },
-  { src: "/images/portfolio/4.jpg", alt: "Product review" },
+const fallbackSocials: SocialLink[] = [
+  { label: "Dribbble", icon: "FaDribbble", url: "#" },
+  { label: "Behance", icon: "FaBehance", url: "#" },
+  { label: "LinkedIn", icon: "FaLinkedinIn", url: "#" },
 ];
 
-const collageImages = [
-  ...safeGallery,
-  ...(image ? [{ src: image, alt: resolvedTitle || "Hero visual" }] : []),
-  ...fallbackGallery,
-]
-  .filter(
-    (img, index, self): img is GalleryImage =>
-      Boolean(img?.src) &&
-      self.findIndex((item) => item?.src === img?.src) === index,
-  )
-  .slice(0, 4);
+const safeSocialLinks =
+  socialLinks?.length && socialLinks.every((entry) => entry?.icon && entry.url)
+    ? socialLinks
+    : fallbackSocials;
 
-const createCTA = (
-  source: CTAInput | undefined,
-  fallback: CTAResolved,
-): CTAResolved | undefined => {
-  if (source?.enable === false) return undefined;
-  const merged = {
-    enable: true,
-    ...fallback,
-    ...(source ?? {}),
-  } as CTAResolved;
+const heroImage = image || "/images/portfolio/1.jpg";
 
-  merged.label = merged.label || fallback.label;
-  return merged;
+const heroProject: HighlightProject = {
+  tag: "Recently Launched",
+  title: "Branding Design",
+  subtitle: "Particle AI",
+  url: "#",
+  ...highlightProject,
 };
 
-const primaryCta = createCTA(button, {
-  label: "Get Started",
-  url: "/contact",
-  hoverEffect: "creative-fill",
-});
+const watchUrl = videoUrl?.startsWith("http")
+  ? videoUrl
+  : getLocaleUrlCTM(videoUrl || "https://www.youtube.com/watch?v=go7QYaQR494", Astro.currentLocale);
 
-const secondaryCta = createCTA(secondaryButton, {
-  label: "Watch Demo",
-  url: "#watch-demo",
-});
+const projectUrl = heroProject.url
+  ? heroProject.url.startsWith("http")
+    ? heroProject.url
+    : getLocaleUrlCTM(heroProject.url, Astro.currentLocale)
+  : "#";
 
-const secondaryCtaUrl = getLocaleUrlCTM(
-  (secondaryCta?.url || "#watch-demo") as string,
-  Astro.currentLocale,
-);
+const badgeLabel = badge?.label || "Global AI Agency";
+const primaryCtaEnabled = button?.enable !== false;
+const primaryCtaLabel = button?.label || "Start for Your Business";
+const primaryCtaUrl = button?.url
+  ? button.url.startsWith("http")
+    ? button.url
+    : getLocaleUrlCTM(button.url, Astro.currentLocale)
+  : "#";
+const resolvedCtaTitle =
+  ctaTitle || "ATYLUS engines are ready to deploy autonomous AI systems for you.";
+const resolvedCtaDescription =
+  ctaDescription ||
+  "Join now and transform operations with self-optimizing, data-native intelligence.";
+const resolvedWatchEyebrow = watchEyebrow || "Watch Intro";
+const resolvedWatchTitle = watchTitle || "AI-First Digital Transformation";
 
-const partnerBadges =
-  partners?.length && partners?.every((entry) => entry?.label)
-    ? partners
-    : [
-        { label: "OpenAI", icon: "🤖" },
-        { label: "Microsoft Azure AI", icon: "☁️" },
-        { label: "Google AI", icon: "🧠" },
-        { label: "TensorFlow", icon: "🔥" },
-      ];
-
-const fallbackStats: Stat[] = [
-  { value: "50+", label: "AI Projesi", tone: "primary" },
-  { value: "%200", label: "Verimlilik Artışı", tone: "secondary" },
-  { value: "24/7", label: "Teknik Destek", tone: "accent" },
-];
-
-const statToneClasses: Record<
-  NonNullable<Stat["tone"]>,
-  string
-> = {
-  primary: "text-[#7ffbae]",
-  secondary: "text-[#64d9e8]",
-  accent: "text-[#a78bfa]",
-};
-
-const statItems =
-  stats && stats.length
-    ? stats.map((item, index) => ({
-        ...item,
-        tone:
-          item.tone && statToneClasses[item.tone]
-            ? item.tone
-            : (["primary", "secondary", "accent"][index % 3] as Stat["tone"]),
-      }))
-    : fallbackStats;
-
-const helperNote =
-  ctaNote || "✨ Hemen başlayalım, ücretsiz teklifinizi alın!";
-
-const cardHeightMap = [
-  "h-64 lg:h-[420px]",
-  "h-52 lg:h-[240px]",
-  "h-48 lg:h-[260px]",
-  "h-60 lg:h-[320px]",
-];
-
-const primaryButtonClass = [
-  "btn-primary inline-flex items-center justify-center rounded-full bg-[#7ffbae] px-8 py-3 text-lg font-semibold text-[#1b1c1b] shadow-[0_25px_45px_rgba(19,251,149,0.35)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#6ee5a0]",
-  primaryCta?.class,
-]
-  .filter(Boolean)
-  .join(" ");
-
-const secondaryButtonClass = [
-  "group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-base font-medium text-white transition duration-300 hover:border-white/30 hover:bg-white/10",
-  secondaryCta?.class,
-]
-  .filter(Boolean)
-  .join(" ");
-
-// Font sizes for the heading (useful if you have a long heading)
-const fontSizeMap: Record<NonNullable<typeof titleSize>, string> = {
-  "display-1": "text-4xl md:text-6xl xl:text-7xl",
-  "display-2": "text-4xl md:text-5xl xl:text-6xl",
-  "display-3": "text-3xl md:text-5xl xl:text-5xl",
-};
-
-const fontSize = titleSize ? fontSizeMap[titleSize] : fontSizeMap["display-1"];
 ---
 
-<section
-  data-hero-section
-  class="relative isolate mb-24 overflow-hidden rounded-b-[2.75rem] bg-[#050505] text-white md:mb-32">
+<section class="banner-hero relative isolate">
   <div
-    class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,52,35,0.25),transparent_55%)]"
+    class="absolute top-0 right-0 h-[600px] w-[600px] -translate-y-1/4 translate-x-1/3 rounded-full bg-accent/10 blur-[150px] opacity-80"
     aria-hidden="true"></div>
-  <div class="pointer-events-none absolute inset-0">
-    <div
-      class="absolute inset-0 opacity-20"
-      aria-hidden="true">
-      <div class="h-full w-full bg-[linear-gradient(0deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:72px_72px]"></div>
-    </div>
-    <div
-      class="absolute -left-40 top-0 hidden h-[720px] w-[720px] rounded-full border border-white/10 opacity-40 lg:block"
-      aria-hidden="true"></div>
-    <div
-      class="absolute left-1/2 top-1/3 h-[560px] w-[560px] -translate-x-1/2 rounded-full border border-white/5 opacity-30"
-      aria-hidden="true"></div>
-    <div
-      class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#153528]/40 to-transparent"
-      aria-hidden="true"></div>
-  </div>
+  <div
+    class="absolute bottom-0 left-0 h-[400px] w-[400px] translate-y-1/4 -translate-x-1/3 rounded-full bg-accent-blue/10 blur-[120px]"
+    aria-hidden="true"></div>
 
-  <div class="container relative z-10">
-    <div class="grid items-start gap-10 pb-10 pt-10 md:gap-12 md:pb-20 md:pt-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 lg:pb-24 lg:pt-20 xl:pb-28 xl:pt-24">
-      <div class="space-y-8" data-hero-column="text">
-        {badge?.enable && badge?.label && (
-          <div
-            data-hero-motion="text"
-            class="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-[0.62rem] uppercase tracking-[0.35em] text-white/70">
-            {badge.icon && (
-              <OptimizedImage
-                src={badge.icon}
-                alt={badge.label}
-                loading="lazy"
-                decoding="async"
-                class="h-4 w-4"
-              />
-            )}
-            <span class="font-semibold">{badge.label}</span>
-          </div>
-        )}
-
-        {resolvedTitle && (
-          <h1
-            data-hero-motion="text"
-            class:list={[
-              fontSize,
-              "text-balance font-semibold leading-[1.05] text-white",
-            ]}
-            set:html={markdownify(resolvedTitle)}
-          />
-        )}
-
-        {description && (
-          <p
-            data-hero-motion="text"
-            class="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
-            set:html={markdownify(description)}
-          />
-        )}
-
-        <div class="flex flex-wrap items-center gap-4">
-          {primaryCta?.enable && (
-            <CustomButton
-              data-hero-motion="button"
-              {...primaryCta}
-              class={primaryButtonClass}
-              hoverEffect={primaryCta?.hoverEffect ?? "creative-fill"}
-            />
-          )}
-
-          {secondaryCta?.enable && (
+  <div class="container relative z-10 mx-auto px-6 pb-12 pt-12 md:pb-20 md:pt-20 lg:px-12">
+    <div class="flex flex-col gap-12 lg:flex-row lg:gap-20">
+      <aside
+        class="reveal-on-scroll hidden w-12 shrink-0 flex-col items-center gap-8 pt-12 text-[#fffafa]/50 lg:flex"
+        style="animation-delay:0.1s;">
+        <span class="text-xs font-medium uppercase tracking-[0.35em] [writing-mode:vertical-rl]">
+          Follow Us
+        </span>
+        <span class="block h-16 w-px bg-linear-to-b from-accent to-transparent"></span>
+        <div class="flex flex-col gap-6 text-lg text-[#fffafa]/50">
+          {safeSocialLinks.map((social) => (
             <a
-              href={secondaryCtaUrl}
-              data-hero-motion="button"
-              class={secondaryButtonClass}
-              rel={secondaryCta.url?.startsWith("http") ? "noopener noreferrer" : undefined}
-              target={secondaryCta.url?.startsWith("http") ? "_blank" : undefined}>
-              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-[#7ffbae] transition duration-300 group-hover:bg-[#7ffbae]/15">
-                <svg
-                  class="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2.5 14.5v-9l7 4.5-7 4.5z" />
-                </svg>
-              </span>
-              <span>{secondaryCta.label}</span>
+              href={social.url}
+              aria-label={social.label}
+              class="transition-colors duration-300 hover:text-accent">
+              <ReactIcons icon={social.icon} />
             </a>
+          ))}
+        </div>
+      </aside>
+
+      <div class="flex-1 space-y-16">
+        <div class="reveal-on-scroll space-y-6" style="animation-delay:0.2s;">
+          {badge?.enable !== false && (
+            <div class="inline-flex items-center gap-2 rounded-full border border-[#fffafa]/10 bg-[#fffafa]/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#fffafa]/80">
+              <span class="h-2 w-2 animate-pulse rounded-full bg-accent"></span>
+              <span>{badgeLabel}</span>
+            </div>
           )}
-        </div>
 
-        <div class="flex items-center gap-4 pt-4" data-hero-motion="text">
-          <svg
-            class="h-16 w-16 text-[#7ffbae]"
-            viewBox="0 0 80 80"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="3">
-            <path
-              d="M10 54C21 36 39 31 62 34"
-              stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path
-              d="M58 24l10 10-10 10"
-              stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-          <p class="font-['Reenie_Beanie',cursive] text-xl text-white/90">
-            {helperNote}
-          </p>
-        </div>
+          {resolvedTitle && (
+            <h1
+              class="text-5xl font-bold leading-[1.05] tracking-tight text-[#fffafa] md:text-7xl xl:text-[90px]"
+              set:html={markdownify(
+                resolvedTitle ||
+                  "We’re <br /> <span class=\"text-transparent bg-clip-text bg-linear-to-r from-[#fffafa] via-[#fffafa] to-[#fffafa]/40\">Creative Design</span><br /> & Development.",
+              )}>
+            </h1>
+          )}
 
-        {statItems.length > 0 && (
-          <div
-            data-hero-motion="text"
-            class="mt-6 border-t border-white/10 pt-6">
-            <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-2">
-              {statItems.slice(0, 3).map((stat, index) => (
-                <div class="space-y-1">
+          <div class="grid gap-10 md:grid-cols-12 md:items-start">
+            <div class="md:col-span-5 lg:col-span-4">
+              <div class="mb-4 flex flex-col gap-4">
+                {resolvedCtaTitle && (
+                  <h3
+                    class="text-lg font-semibold text-[#fffafa]"
+                    set:html={markdownify(resolvedCtaTitle)}
+                  />
+                )}
+                {resolvedCtaDescription && (
                   <p
-                    class:list={[
-                      "text-2xl font-bold",
-                      stat.tone ? statToneClasses[stat.tone] : statToneClasses.primary,
-                    ]}>
-                    {stat.value}
+                    class="text-base text-[#fffafa]/75"
+                    set:html={markdownify(resolvedCtaDescription)}
+                  />
+                )}
+                {primaryCtaEnabled && (
+                  <a
+                    href={primaryCtaUrl}
+                    class="inline-block mt-2 rounded-lg bg-accent px-6 py-3 font-medium text-[#0d0101] transition-all duration-300 hover:bg-[#ff5d00]/90"
+                  >
+                    {primaryCtaLabel}
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div class="md:col-span-7 lg:col-span-8 md:border-l md:border-[#fffafa]/10 md:pl-8">
+              {description && (
+                <p
+                  class="mb-8 text-xl font-light leading-relaxed text-[#fffafa]/70"
+                  set:html={markdownify(description)}
+                />
+              )}
+              <div class="flex items-center gap-6">
+                <a
+                  href={watchUrl}
+                  target={watchUrl.startsWith("http") ? "_blank" : undefined}
+                  rel={watchUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+                  class="group relative flex h-16 w-16 items-center justify-center rounded-full border border-[#fffafa]/10 bg-[#fffafa]/5 transition-all duration-300 hover:scale-105 hover:border-accent hover:bg-accent">
+                  <span class="text-lg text-[#fffafa] transition-transform duration-300 group-hover:scale-110">
+                    ▶
+                  </span>
+                  <span class="absolute inset-0 rounded-full border border-[#fffafa]/20 transition-all duration-700 group-hover:scale-150 group-hover:opacity-0"></span>
+                </a>
+                <div>
+                  <p class="text-sm font-medium uppercase tracking-[0.3em] text-[#fffafa]/50">
+                    {resolvedWatchEyebrow}
                   </p>
-                  <p class="text-xs uppercase tracking-[0.3em] text-white/55">
-                    {stat.label}
+                  <p class="text-lg font-semibold text-[#fffafa]">
+                    {resolvedWatchTitle}
                   </p>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
-        )}
+        </div>
 
-        <div class="space-y-4 pt-8" data-hero-motion="text">
-          <p class="text-xs uppercase tracking-[0.4em] text-white/45">
-            Trusted by teams at
-          </p>
-          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-white/60">
-            {partnerBadges.map((partner) => (
-              <span class="flex items-center gap-2 text-lg font-semibold tracking-wide">
-                {partner.icon && <span aria-hidden="true">{partner.icon}</span>}
-                <span>{partner.label}</span>
-              </span>
-            ))}
+        <div class="reveal-on-scroll" style="animation-delay:0.4s;">
+          <div class="relative h-[500px] w-full overflow-hidden rounded-[40px] md:h-[600px]">
+            <OptimizedImage
+              src={heroImage}
+              alt={resolvedTitle || "Banner visual"}
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-1200 hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-linear-to-t from-[#0d0101]/80 via-transparent"></div>
+
+            <div class="absolute top-8 right-8 hidden md:block">
+              <svg
+                width="120"
+                height="120"
+                viewBox="0 0 100 100"
+                class="animate-spin-slow opacity-80">
+                <path d="M0,50 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0" fill="none" id="banner-circle"></path>
+                <text fill="#fffafa" font-size="10" font-weight="bold" letter-spacing="4">
+                  <textPath href="#banner-circle">
+                    CREATIVE • AESTHETICS • DESIGN •
+                  </textPath>
+                </text>
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-xl text-accent">★</span>
+              </div>
+            </div>
+
+            <div class="absolute bottom-6 right-6 left-6 md:bottom-12 md:right-12 md:left-auto md:w-96">
+              <div class="glass-panel relative overflow-hidden rounded-4xl p-6">
+                <div class="absolute -right-10 -bottom-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl transition-all duration-500"></div>
+                <div class="relative z-10 flex items-end justify-between gap-4">
+                  <div>
+                    <span class="text-sm font-medium text-[#fffafa]/60">
+                      {heroProject.tag}
+                    </span>
+                    <h3 class="text-2xl font-bold leading-tight text-[#fffafa]">
+                      {heroProject.title}
+                      <br />
+                      {heroProject.subtitle}
+                    </h3>
+                  </div>
+                  <a
+                    href={projectUrl}
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-[#fffafa] text-[#0d0101] transition-colors duration-300 hover:bg-accent hover:text-[#fffafa]">
+                    <ReactIcons icon="FaArrowRight" class="-rotate-45" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="relative -mt-4 sm:-mt-2 md:mt-2 lg:-mt-6 xl:-mt-10" data-hero-motion="scene">
-        <div
-          class="pointer-events-none absolute -left-8 top-6 hidden h-[520px] w-[520px] rounded-[2.5rem] border border-white/10 opacity-50 lg:block"
-          aria-hidden="true"></div>
-        <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
-          {collageImages.map((art, index) => (
-            <div
-              data-hero-motion="card"
-              class:list={[
-                "group relative overflow-hidden rounded-[1.75rem] ring-1 ring-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur",
-                cardHeightMap[index % cardHeightMap.length],
-                index % 2 === 0 ? "mt-0 lg:mt-1" : "mt-4 lg:mt-5",
-              ]}>
-              <OptimizedImage
-                src={art.src}
-                alt={art.alt || `Hero image ${index + 1}`}
-                loading="lazy"
-                decoding="async"
-                class="h-full w-full object-cover"
-              />
-              <div
-                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent"
-                aria-hidden="true"></div>
-            </div>
-          ))}
+      <div class="reveal-on-scroll hidden w-12 pt-40 lg:block" style="animation-delay:0.5s;">
+        <div class="relative h-full border-l border-dashed border-[#fffafa]/15">
+          <span class="absolute -left-1.5 top-0 block h-3 w-3 rounded-full bg-accent"></span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<script type="module" is:inline>
-  const heroSection = document.querySelector("[data-hero-section]");
-
-  if (heroSection && heroSection.dataset.motionApplied !== "true") {
-    heroSection.dataset.motionApplied = "true";
-
-    const initMotion = async () => {
-      try {
-        const { animate, inView, stagger } = await import("framer-motion/dom");
-
-        inView(
-          heroSection,
-          () => {
-            heroSection.dataset.motionReady = "true";
-
-            const textTargets = heroSection.querySelectorAll(
-              "[data-hero-motion='text']",
-            );
-            const buttonTargets = heroSection.querySelectorAll(
-              "[data-hero-motion='button']",
-            );
-            const cardTargets = heroSection.querySelectorAll(
-              "[data-hero-motion='card']",
-            );
-
-            animate(
-              textTargets,
-              { opacity: [0, 1], y: [28, 0] },
-              {
-                duration: 0.7,
-                easing: [0.23, 1, 0.32, 1],
-                delay: stagger(0.12),
-                fill: "forwards",
-              },
-            );
-
-            animate(
-              buttonTargets,
-              { opacity: [0, 1], y: [24, 0] },
-              {
-                duration: 0.55,
-                easing: "easeOut",
-                delay: stagger(0.1, { start: 0.25 }),
-                fill: "forwards",
-              },
-            );
-
-            animate(
-              cardTargets,
-              {
-                opacity: [0, 1],
-                scale: [0.9, 1],
-                filter: ["blur(12px)", "blur(0px)"],
-              },
-              {
-                duration: 0.7,
-                easing: "easeOut",
-                delay: stagger(0.12, { start: 0.35 }),
-                fill: "forwards",
-              },
-            );
-          },
-          { amount: 0.4, once: true },
-        );
-      } catch (error) {
-        console.error("framer-motion failed to load", error);
-        heroSection.dataset.motionReady = "true";
-      }
-    };
-
-    initMotion();
-  }
-</script>
-
 <style is:inline>
-  [data-hero-section]:not([data-motion-ready="true"])
-    [data-hero-motion="text"],
-  [data-hero-section]:not([data-motion-ready="true"])
-    [data-hero-motion="button"] {
-    opacity: 0;
-    transform: translateY(32px);
+  .banner-hero {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255, 93, 0, 0.08), transparent 45%),
+      radial-gradient(circle at 80% 0%, rgba(46, 152, 255, 0.08), transparent 55%),
+      linear-gradient(180deg, #160202 0%, #0f0101 45%, #0d0101 70%, #0d0101 100%);
+    color: #fffafa;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    overflow: hidden;
   }
 
-  [data-hero-section]:not([data-motion-ready="true"])
-    [data-hero-motion="card"] {
+  .glass-panel {
+    background: rgba(28, 28, 30, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .reveal-on-scroll {
     opacity: 0;
-    transform: scale(0.92);
-    filter: blur(14px);
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes banner-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  :global(::selection) {
+    background: #ff5d00;
+    color: #fffafa;
   }
 </style>
+
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    const revealElements = document.querySelectorAll(".reveal-on-scroll");
+
+    if (!revealElements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  })();
+</script>

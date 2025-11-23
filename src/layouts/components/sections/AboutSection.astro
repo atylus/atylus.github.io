@@ -1,0 +1,322 @@
+---
+import type { Section } from "@/types";
+import type { z } from "astro/zod";
+import { getEntryCTM } from "@/lib/customContentLoader.astro";
+import overrideObjects from "@/lib/utils/overrideObjects.ts";
+import { markdownify } from "@/lib/utils/textConverter";
+import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
+import { getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
+import ReactIcons from "@/layouts/helpers/ReactIcons.astro";
+
+interface CTA {
+  label?: string;
+  url?: string;
+}
+
+type ExperienceCard = {
+  years?: string;
+  suffix?: string;
+  subtitle?: string;
+  note?: string;
+  icon?: string;
+};
+
+type VisualBlock = {
+  image?: string;
+  label?: string;
+  shape?: string;
+};
+
+type FeatureCard = {
+  title?: string;
+  description?: string;
+  icon?: string;
+};
+
+type AboutSectionContent = Section & {
+  eyebrow?: string;
+  descriptionHighlight?: string;
+  cta?: CTA;
+  experience?: ExperienceCard;
+  mainVisual?: VisualBlock;
+  secondaryVisual?: VisualBlock;
+  featureCard?: FeatureCard;
+};
+
+type Props = {
+  content?: AboutSectionContent;
+};
+
+const fallbackContent: AboutSectionContent = {
+  enable: true,
+  eyebrow: "Who We Are",
+  title:
+    'Through AdOutreach,<br/>Aleric has empowered<br/><span class="text-transparent bg-clip-text bg-linear-to-r from-[#fffafa] to-[#fffafa]/40">entrepreneurs.</span>',
+  description:
+    'They specialize in leveraging <span class="text-[#fffafa] font-medium border-b border-accent/30 pb-1">digital technologies</span> to achieve specific marketing, branding, and business goals with value-driven video content.',
+  cta: {
+    label: "Start the Journey",
+    url: "/about",
+  },
+  experience: {
+    years: "12",
+    suffix: "+",
+    subtitle: "Years of <br/>Experience",
+    note: "Delivering Growth",
+    icon: "FaStar",
+  },
+  mainVisual: {
+    image: "/images/portfolio/3.jpg",
+    label: "Strategic Vision",
+  },
+  secondaryVisual: {
+    image: "/images/portfolio/4.jpg",
+    label: "Creative Process",
+  },
+  featureCard: {
+    title: "Value-Driven Content",
+    description: "Leveraging digital tech to scale your brand's impact globally.",
+    icon: "FaBolt",
+  },
+};
+
+const defaultContent = (
+  await getEntryCTM("sections", "about-section", Astro.currentLocale)
+)?.data as AboutSectionContent;
+
+let baseContent = fallbackContent;
+
+if (defaultContent) {
+  baseContent = overrideObjects({ ...fallbackContent }, defaultContent) as AboutSectionContent;
+}
+
+const actualContent = overrideObjects(
+  { ...baseContent },
+  (Astro.props as Props)?.content,
+) as AboutSectionContent;
+
+const {
+  enable = true,
+  eyebrow,
+  title,
+  description,
+  cta,
+  experience,
+  mainVisual,
+  secondaryVisual,
+  featureCard,
+} = actualContent;
+
+if (!enable) {
+  return null;
+}
+
+const ctaUrl = cta?.url
+  ? getLocaleUrlCTM(cta.url, Astro.currentLocale)
+  : undefined;
+
+const primaryImage = mainVisual?.image || "/images/portfolio/3.jpg";
+const secondaryImage = secondaryVisual?.image || "/images/portfolio/4.jpg";
+---
+
+<section id="about" class="about-section relative overflow-hidden py-24 md:py-40">
+  <div
+    class="absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-[#fffafa]/10 to-transparent"
+    aria-hidden="true"></div>
+  <div
+    class="absolute -left-64 top-1/4 h-[500px] w-[500px] rounded-full bg-accent/5 blur-[120px]"
+    aria-hidden="true"></div>
+
+  <div class="container relative z-10 mx-auto px-6 lg:px-12">
+    <div class="mb-20 flex flex-col items-start justify-between gap-12 lg:mb-32 lg:flex-row">
+      <div class="about-reveal lg:w-5/12">
+        <div class="mb-8 flex items-center gap-4">
+          <span class="h-px w-12 bg-accent"></span>
+          {eyebrow && (
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+              {eyebrow}
+            </span>
+          )}
+        </div>
+        {title && (
+          <h2
+            class="about-heading text-4xl font-bold leading-[1.05] tracking-tight text-[#fffafa] drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)] md:text-5xl lg:text-[3.5rem]"
+            set:html={markdownify(title)}
+          />
+        )}
+      </div>
+      <div class="about-reveal lg:w-6/12" style="animation-delay:0.1s;">
+        {description && (
+          <p
+            class="mb-10 text-xl font-light leading-relaxed text-[#fffafa]/80 md:text-2xl"
+            set:html={markdownify(description)}
+          />
+        )}
+        {cta?.label && ctaUrl && (
+          <a
+            href={ctaUrl}
+            class="group inline-flex items-center gap-4"
+            target={ctaUrl.startsWith("http") ? "_blank" : undefined}
+            rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}>
+            <span class="relative overflow-hidden rounded-full border border-[#fffafa]/10 bg-[#fffafa]/5 px-10 py-4 text-sm font-bold uppercase tracking-[0.2em] text-[#fffafa] transition-all duration-500 ease-out group-hover:bg-[#fffafa] group-hover:text-[#0d0101]">
+              {cta.label}
+            </span>
+            <span class="flex h-14 w-14 items-center justify-center rounded-full border border-[#fffafa]/10 transition-all duration-500 ease-out group-hover:scale-110 group-hover:border-accent group-hover:bg-accent">
+              <ReactIcons icon="FaArrowRight" class="-rotate-45 text-[#fffafa] transition-transform duration-500 group-hover:rotate-0" />
+            </span>
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12">
+      <div class="about-reveal lg:col-span-4" style="animation-delay:0.2s;">
+        <div class="group relative flex h-full flex-col justify-between overflow-hidden rounded-[40px] border border-[#fffafa]/5 bg-[#1c1c1e]/40 p-10 text-[#fffafa] backdrop-blur-xl transition-colors duration-500 hover:border-[#fffafa]/10">
+          <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/20 blur-[80px] transition-all duration-700 group-hover:bg-accent/30" aria-hidden="true"></div>
+          <div class="relative z-10">
+            <div class="flex items-baseline">
+              <span class="text-[120px] font-bold leading-none tracking-tighter text-accent">{experience?.years}</span>
+              <span class="ml-2 text-6xl font-thin text-[#fffafa]/50">{experience?.suffix}</span>
+            </div>
+          </div>
+          <div class="relative z-10">
+            <h3 class="about-card-title mb-3 text-3xl font-semibold text-[#fffefa] drop-shadow-[0_6px_16px_rgba(0,0,0,0.55)]" set:html={markdownify(experience?.subtitle || "")}></h3>
+            <p class="text-sm font-medium uppercase tracking-wide text-[#fffafa]/50">{experience?.note}</p>
+          </div>
+          <div class="absolute bottom-10 right-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#fffafa]/5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            {experience?.icon && <ReactIcons icon={experience.icon} class="text-accent" />}
+          </div>
+        </div>
+      </div>
+
+      <div class="about-reveal min-h-[400px] lg:col-span-8" style="animation-delay:0.3s;">
+        <div class="group relative h-full w-full overflow-hidden rounded-[40px]">
+          <OptimizedImage
+            src={primaryImage}
+            alt={mainVisual?.label || "About visual"}
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-[#0d0101]/70 via-transparent"></div>
+          {mainVisual?.shape && (
+            <OptimizedImage
+              src={mainVisual.shape}
+              alt="Decorative shape"
+              class="absolute bottom-8 right-8 w-24 opacity-80 animate-spin-slow"
+            />
+          )}
+          {mainVisual?.label && (
+            <div class="absolute left-8 top-8 rounded-full border border-[#fffafa]/10 bg-[#0d0101]/30 px-5 py-2 text-sm text-[#fffafa] backdrop-blur-md">
+              {mainVisual.label}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div class="about-reveal min-h-80 lg:col-span-7" style="animation-delay:0.35s;">
+        <div class="group relative h-full w-full overflow-hidden rounded-[40px]">
+          <OptimizedImage
+            src={secondaryImage}
+            alt={secondaryVisual?.label || "Creative process"}
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#fffafa]/20 backdrop-blur-md">
+              <ReactIcons icon="FaPlay" class="text-[#fffafa]" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-reveal min-h-80 lg:col-span-5" style="animation-delay:0.4s;">
+        <div class="group relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[40px] border border-[#fffafa]/5 bg-linear-to-br from-[#1c1c1e] to-[#0d0101] p-10 text-center text-[#fffafa]">
+          <div class="absolute inset-0 opacity-20 transition-opacity duration-700 group-hover:opacity-30" style="background: radial-gradient(circle at top right, rgba(255,93,0,0.8), transparent);"></div>
+          <div class="relative z-10">
+            <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#fffafa]/5 transition-transform duration-500 group-hover:rotate-6">
+              {featureCard?.icon && <ReactIcons icon={featureCard.icon} class="text-3xl text-[#fffafa]" />}
+            </div>
+            {featureCard?.title && (
+              <h3 class="about-card-title mb-4 text-2xl font-bold text-[#fffefa] drop-shadow-[0_6px_16px_rgba(0,0,0,0.55)]">
+                {featureCard.title}
+              </h3>
+            )}
+            {featureCard?.description && (
+              <p class="text-[#fffafa]/60">{featureCard.description}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:inline>
+  .about-section {
+    background: radial-gradient(circle at 20% 20%, rgba(255, 93, 0, 0.08), transparent 45%),
+      radial-gradient(circle at 80% 0%, rgba(120, 43, 12, 0.3), transparent 60%),
+      linear-gradient(180deg, #0d0101 0%, #080101 55%, #030000 100%);
+  }
+
+  .about-section .about-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .about-section .about-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about-section .animate-spin-slow {
+    animation: about-spin-slow 12s linear infinite;
+  }
+
+  .about-heading :global(span) {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+  }
+
+  .about-card-title {
+    letter-spacing: -0.01em;
+  }
+
+  .about-section :global(strong) {
+    color: #fffafa !important;
+    border-bottom: 2px solid #ff5d00 !important;
+    padding-bottom: 2px;
+    font-weight: 600;
+    display: inline;
+  }
+
+  @keyframes about-spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    const targets = document.querySelectorAll("#about .about-reveal");
+
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    targets.forEach((el) => observer.observe(el));
+  })();
+</script>

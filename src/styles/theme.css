@@ -5,20 +5,20 @@
   --leading-inherit: inherit;
 
   /* Colors */
-  --color-primary: #0d0f01;
+  --color-primary: #0d0101;
   --color-secondary: #bcd4ff;
-  --color-accent: #e3ff04;
+  --color-accent: #ff5d00;
   --color-accent-blue: #1601ac;
-  --color-body: #fff;
-  --color-body-dark: #070800;
+  --color-body: #0d0101;
+  --color-body-dark: #030000;
   --color-border-light: #e5e5e5;
   --color-border-dark: #292525;
   --color-theme-dark: #0e1118;
   --color-theme-darker: #131312;
-  --color-theme-light: #f6f5f3;
-  --color-text-default: #2e2e2e;
-  --color-dark: #0a0c00;
-  --color-light: #f6f5f3;
+  --color-theme-light: #fffafa;
+  --color-text-default: #fffafa;
+  --color-dark: #0d0101;
+  --color-light: #fffafa;
 
   /* Screen */
   --breakpoint-*: initial;
@@ -32,24 +32,26 @@
   --text-base-scale: 1.25;
   --text-base-sm: calc(var(--text-base) * 0.9);
 
-  --text-display-1: calc(var(--text-base) * pow(var(--text-base-scale), 8.8)); /* 115px  */
-  --text-display-2: calc(var(--text-base) * pow(var(--text-base-scale), 8)); /* 95px  */
-  --text-display-3: calc(var(--text-base) * pow(var(--text-base-scale), 7.25)); /* 80px  */
-  --text-display-4: calc(var(--text-base) * pow(var(--text-base-scale), 6.5)); /* 65px  */
-  --text-display-5: calc(var(--text-base) * pow(var(--text-base-scale), 5.5)); /* 50px  */
-  --text-display-6: calc(var(--text-base) * pow(var(--text-base-scale), 4.5)); /* 40px  */
+  --text-display-1: 115px;
+  --text-display-2: 95px;
+  --text-display-3: 80px;
+  --text-display-4: 65px;
+  --text-display-5: 50px;
+  --text-display-6: 40px;
 
-  --text-h1: calc(var(--text-base) * pow(var(--text-base-scale), 6));
-  --text-h2: calc(var(--text-base) * pow(var(--text-base-scale), 5));
-  --text-h3: calc(var(--text-base) * pow(var(--text-base-scale), 4));
-  --text-h4: calc(var(--text-base) * pow(var(--text-base-scale), 3));
-  --text-h5: calc(var(--text-base) * pow(var(--text-base-scale), 2));
-  --text-h6: calc(var(--text-base) * pow(var(--text-base-scale), 1));
+  --text-h1: 90px;
+  --text-h2: 56px;
+  --text-h3: 36px;
+  --text-h4: 28px;
+  --text-h5: 22px;
+  --text-h6: 18px;
 
-  --text-h1-sm: calc(var(--text-h1) * 0.7);
-  --text-h2-sm: calc(var(--text-h2) * 0.75);
-  --text-h3-sm: calc(var(--text-h3) * 0.85);
-  --text-h4-sm: calc(var(--text-h4) * 0.9);
-  --text-h5-sm: calc(var(--text-h5) * 0.9);
-  --text-h6-sm: calc(var(--text-h6) * 0.9);
+  --text-h1-sm: 64px;
+  --text-h2-sm: 42px;
+  --text-h3-sm: 30px;
+  --text-h4-sm: 22px;
+  --text-h5-sm: 18px;
+  --text-h6-sm: 16px;
+
+  --gradient-accent: linear-gradient(90deg, #ff5d00 0%, #fffafa 100%);
 }

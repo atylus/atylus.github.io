@@ -1,0 +1,70 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+interface Props {
+  title: string;
+  items: FAQItem[];
+}
+const { title, items } = Astro.props;
+---
+<section class="py-32 bg-dark relative text-light">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-20 reveal">
+            <span class="text-accent font-bold tracking-widest text-sm uppercase mb-4 block">FAQ</span>
+            <h2 class="text-4xl md:text-5xl font-bold">{title}</h2>
+        </div>
+
+        <div class="space-y-4">
+            {items.map((item) => (
+                <div class="group border-b border-light/10 reveal">
+                    <button class="faq-toggle flex justify-between items-center w-full py-6 text-left focus:outline-none">
+                        <span class="text-xl md:text-2xl font-medium group-hover:text-accent transition-colors">{item.question}</span>
+                        <span class="text-accent text-2xl transform transition-transform duration-300 icon-plus">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out text-light/60 text-lg">
+                        <p class="pb-6">{item.answer}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+    (() => {
+        if (typeof window === "undefined") return;
+
+        const bindFaqToggle = () => {
+            document.querySelectorAll(".faq-toggle").forEach((toggle) => {
+                toggle.addEventListener("click", () => {
+                    const content = toggle.nextElementSibling;
+                    const icon = toggle.querySelector(".icon-plus");
+
+                    if (!(content instanceof HTMLElement) || !(icon instanceof HTMLElement)) {
+                        return;
+                    }
+
+                    const isOpen = content.style.maxHeight;
+
+                    if (isOpen) {
+                        content.style.maxHeight = "";
+                        icon.textContent = "+";
+                        toggle.setAttribute("aria-expanded", "false");
+                    } else {
+                        content.style.maxHeight = `${content.scrollHeight}px`;
+                        icon.textContent = "−";
+                        toggle.setAttribute("aria-expanded", "true");
+                    }
+                });
+            });
+        };
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", bindFaqToggle);
+        } else {
+            bindFaqToggle();
+        }
+    })();
+</script>

@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply bg-body font-primary text-text-default leading-body font-normal;
+  @apply bg-body font-primary text-light leading-[1.55] font-normal tracking-[0.005em];
 }
 
 /* Global Section Spacing */
@@ -27,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-secondary text-dark leading-tight font-semibold tracking-wide break-words;
+  @apply font-secondary text-light leading-[1.15] font-bold tracking-[0.01em] break-words;
 
   br {
     @apply max-md:hidden;
@@ -60,7 +60,7 @@ h6 {
 
 b,
 strong {
-  @apply text-dark/80;
+  @apply text-light font-semibold;
 }
 
 code {
@@ -68,10 +68,16 @@ code {
 }
 
 a {
+  color: inherit;
   @apply transition-colors duration-300;
 }
 
+a:hover {
+  color: #ff5d00;
+}
+
 p {
+  @apply text-light font-primary text-base leading-[1.55] tracking-[0.005em];
   br {
     @apply max-md:hidden;
   }

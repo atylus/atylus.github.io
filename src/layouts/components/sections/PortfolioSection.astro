@@ -1,106 +1,310 @@
 ---
 import type { Section } from "@/types";
-import PortfolioCard from "@/components/cards/PortfolioCard.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import overrideObjects from "@/lib/utils/overrideObjects.ts";
-import { useTranslations } from "@/lib/utils/i18nUtils";
 import { getCollectionCTM, getEntryCTM } from "@/lib/customContentLoader.astro";
 import { parseTomlToJson } from "@/lib/utils/tomlUtils";
-import type { CollectionEntry } from "astro:content";
+import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
+import ReactIcons from "@/layouts/helpers/ReactIcons.astro";
+import { getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
 
-// Type for this section data
 export type PortfolioInterface = Section & {
-  options?: CollectionEntry<"portfolio">["data"]["options"];
+  eyebrow?: string;
+  highlight?: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaDescription?: string;
+  ctaUrl?: string;
+  limit?: number | false;
 };
 
 type Props = {
   content?: PortfolioInterface;
 };
 
-// Fetching the default content for the this section
-let defaultContent = (
+const fallbackContent: PortfolioInterface = {
+  enable: true,
+  eyebrow: "Selected Works",
+  title: "Architecting",
+  highlight: "Intelligence.",
+  ctaTitle: "Your Vision <span class=\"text-[#fffafa]/30\">Undefined?</span>",
+  ctaSubtitle: "CONFIDENTIAL PROJECT",
+  ctaDescription:
+    "Existing market tools are built for the average. We architect custom neural engines for the exceptional. If your problem hasn't been solved yet, <span class=\"text-[#fffafa] font-semibold\">we should talk.</span>",
+  ctaUrl: "#contact",
+  limit: 3,
+};
+
+const defaultContent = (
   await getEntryCTM("sections", "portfolio-section", Astro.currentLocale)
 )?.data as PortfolioInterface;
 
-// Enables content customization (e.g., title, description) with a fallback to 'defaultContent' if not provided.
-// The 'content' prop should match the structure of 'defaultContent'.
-// Allows using this section with different content across multiple pages.
-// If 'content' is missing, 'defaultContent' will be used.
-let actualContent = overrideObjects(
-  { ...defaultContent },
-  Astro.props.content,
+let baseContent = fallbackContent;
+
+if (defaultContent) {
+  baseContent = overrideObjects(
+    { ...fallbackContent },
+    defaultContent,
+  ) as PortfolioInterface;
+}
+
+const actualContent = overrideObjects(
+  { ...baseContent },
+  (Astro.props as Props)?.content,
 ) as PortfolioInterface;
 
+const {
+  enable = true,
+  eyebrow,
+  title,
+  highlight,
+  ctaTitle,
+  ctaSubtitle,
+  ctaDescription,
+  ctaUrl,
+  limit = 3,
+} = actualContent;
+
+if (!enable) {
+  return null;
+}
+
 const config = parseTomlToJson();
-const t = await useTranslations(Astro.currentLocale as string);
-
-// Extracting required values from 'content' object
-let { enable = true, title, options } = actualContent as PortfolioInterface;
-
-const { layout, appearance, limit } = options || {};
-
 let projects = await getCollectionCTM(
   config.settings.portfolioFolder as "portfolio",
   Astro.currentLocale,
 );
 
-const isDarkAppearance = appearance === "dark";
-
-// Limiting the number of projects to be displayed
 projects = limit ? projects.slice(0, limit as number) : projects;
 
-if (!enable) {
-  return null;
-}
+const ctaHref = ctaUrl
+  ? ctaUrl.startsWith("#")
+    ? ctaUrl
+    : getLocaleUrlCTM(ctaUrl, Astro.currentLocale)
+  : undefined;
 ---
 
-<section id="projects">
-  <div
-    class:list={[
-      isDarkAppearance && "bg-theme-darker py-20 md:py-32",
-      layout === "slider" && "overflow-hidden",
-    ]}>
-    <div class="container space-y-14">
-      {
-        title && (
-          <h2
-            class:list={[
-              "text-h1-sm md:text-h1 mx-auto max-w-4xl text-center",
-              isDarkAppearance && "text-light",
-            ]}
-            set:html={markdownify(title)}
+<section id="work" class="portfolio-section relative overflow-hidden py-32">
+  <div class="container mx-auto px-6 lg:px-12 mb-24 portfolio-reveal">
+    {eyebrow && (
+      <span class="mb-6 block text-xs font-bold uppercase tracking-[0.2em] text-accent">
+        {eyebrow}
+      </span>
+    )}
+    {(title || highlight) && (
+      <h2 class="portfolio-heading text-5xl font-bold leading-none tracking-tight text-[#fffafa] md:text-7xl">
+        {title && <span set:html={markdownify(title)} />}
+        {highlight && (
+          <br />
+          <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-[#fffafa] to-[#fffafa]/20"
+            set:html={markdownify(highlight)}
           />
-        )
-      }
-      {
-        layout === "masonry" || layout === "grid" ? (
+        )}
+      </h2>
+    )}
+  </div>
+
+  <div class="container mx-auto px-6 lg:px-12 space-y-32">
+    {projects.map((project, index) => {
+      const isReversed = index % 2 === 1;
+      const projectSlug = project.id.split("/").pop()?.replace(/\.mdx?$/, "") || "";
+      const projectUrl = project.data.customSlug
+        ? getLocaleUrlCTM(`/portfolio/${project.data.customSlug}`, Astro.currentLocale)
+        : getLocaleUrlCTM(`/portfolio/${projectSlug}`, Astro.currentLocale);
+
+      const projectImage = project.data.image || project.data.images?.[0] || "";
+
+      return (
+        <article class="portfolio-card group relative">
           <div
             class:list={[
-              "gap-x-20 lg:columns-2",
-              layout === "grid" && "space-y-10",
+              "grid grid-cols-1 lg:grid-cols-12 gap-10 items-center",
+              isReversed && "lg:flex-row-reverse",
             ]}>
-            {projects.map((item, index) => (
-              <PortfolioCard
-                class:list={["space-y-4 overflow-hidden"]}
-                options={options}
-                translations={t}
-                content={item}
-                index={index}
+            <div
+              class:list={[
+                "lg:col-span-7",
+                isReversed ? "order-1 lg:order-2" : "order-1",
+              ]}>
+              <div class="portfolio-visual relative aspect-4/3 overflow-hidden rounded-[40px] transition-all duration-700 group-hover:shadow-[0_0_50px_rgba(255,93,0,0.15)]">
+                {projectImage && (
+                  <OptimizedImage
+                    src={projectImage}
+                    alt={project.data.title}
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                )}
+                <div class="absolute inset-0 bg-linear-to-t from-[#050101]/80 via-transparent to-transparent"></div>
+                {index === 0 && (
+                  <div class="portfolio-float absolute bottom-8 left-8 right-8 rounded-3xl border border-[#fffafa]/10 bg-[#110404]/60 p-6 backdrop-blur-md transform translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <div class="mb-2 flex items-center justify-between">
+                      <span class="text-xs font-mono text-accent">
+                        CAMPAIGN_OPTIMIZER_V2.py
+                      </span>
+                      <span class="text-xs text-green-400">98.4% Accuracy</span>
+                    </div>
+                    <div class="h-2 overflow-hidden rounded-full bg-[#fffafa]/10">
+                      <div class="h-full w-[98%] bg-accent"></div>
+                    </div>
+                  </div>
+                )}
+                {index === 1 && (
+                  <div class="portfolio-icon absolute top-8 right-8 flex h-24 w-24 items-center justify-center rounded-full border border-accent/50 bg-accent/20 backdrop-blur-md animate-pulse-slow">
+                    <ReactIcons icon="FaCube" class="text-3xl text-[#fffafa]" />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div
+              class:list={[
+                "lg:col-span-5",
+                isReversed ? "order-2 lg:order-1" : "order-2",
+              ]}>
+              {project.data.categories && project.data.categories[0] && (
+                <span class="mb-4 block font-mono text-sm text-accent">
+                  {String(index + 1).padStart(2, "0")} /{" "}
+                  {project.data.categories[0].toUpperCase()}
+                </span>
+              )}
+              <h3 class="portfolio-card-title mb-6 text-4xl font-bold text-[#fffefa] drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]">
+                {project.data.title}
+              </h3>
+              {project.data.description && (
+                <p class="mb-8 text-lg leading-relaxed text-[#fffafa]/70">
+                  {project.data.description}
+                </p>
+              )}
+              {project.data.categories && project.data.categories.length > 0 && (
+                <div class="mb-10 flex flex-wrap gap-3">
+                  {project.data.categories.map((tag: string) => (
+                    <span class="rounded-full border border-[#fffafa]/10 px-4 py-1.5 text-xs text-[#fffafa]/70">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <a
+                href={projectUrl}
+                class="group/link inline-flex items-center font-semibold text-[#fffafa]">
+                View Case Study
+                <ReactIcons
+                  icon="FaArrowRight"
+                  class="ml-2 text-accent transition-transform duration-300 group-hover/link:translate-x-1"
+                />
+              </a>
+            </div>
+          </div>
+        </article>
+      );
+    })}
+
+    {ctaHref && (
+      <div class="portfolio-reveal">
+        <a
+          href={ctaHref}
+          class="portfolio-cta group relative block w-full overflow-hidden rounded-[40px] border border-dashed border-[#fffafa]/10 bg-[#0a0101]/20 transition-all duration-500 hover:border-accent/50 hover:bg-[#0a0101]/40">
+          <div class="absolute inset-0 flex items-center justify-center opacity-10 transition-opacity duration-700 group-hover:opacity-20">
+            <ReactIcons icon="FaMicrochip" class="text-[300px] text-[#fffafa]" />
+          </div>
+          <div class="relative z-10 p-12 text-center md:p-24">
+            {ctaSubtitle && (
+              <span class="mb-6 inline-block rounded-full border border-accent/20 bg-accent/10 px-4 py-1 text-xs font-mono text-accent">
+                {ctaSubtitle}
+              </span>
+            )}
+            {ctaTitle && (
+              <h3
+                class="mb-6 text-4xl font-bold text-[#fffafa] transition-all duration-500 group-hover:tracking-wide md:text-6xl"
+                set:html={markdownify(ctaTitle)}
               />
-            ))}
+            )}
+            {ctaDescription && (
+              <p
+                class="mx-auto mb-10 max-w-2xl text-xl text-[#fffafa]/70"
+                set:html={markdownify(ctaDescription)}
+              />
+            )}
+            <span class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#fffafa] text-[#050101] shadow-lg transition-all duration-500 group-hover:bg-accent group-hover:text-[#fffafa]">
+              <ReactIcons
+                icon="FaArrowRight"
+                class="text-2xl -rotate-45 transition-transform duration-500 group-hover:rotate-0"
+              />
+            </span>
           </div>
-        ) : layout === "slider" ? (
-          <div class="py-8 text-center text-sm text-gray-400 italic">
-            Portfolio "Slider" layout is only available in the Pro version.
-            Purchase Folex premium version to unlock this layout.
-          </div>
-        ) : layout === "full-width" ? (
-          <div class="py-8 text-center text-sm text-gray-400 italic">
-            Portfolio "full-width" layout is only available in the Pro version.
-            Purchase Folex premium version to unlock this layout.
-          </div>
-        ) : null
-      }
-    </div>
+        </a>
+      </div>
+    )}
   </div>
 </section>
+
+<style is:inline>
+  .portfolio-section {
+    background: radial-gradient(circle at 30% 10%, rgba(255, 93, 0, 0.08), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(120, 43, 12, 0.25), transparent 60%),
+      linear-gradient(180deg, #0a0201 0%, #040000 60%, #000000 100%);
+  }
+
+  .portfolio-reveal,
+  .portfolio-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .portfolio-reveal.is-visible,
+  .portfolio-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .portfolio-heading {
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+  }
+
+  .portfolio-card-title {
+    letter-spacing: -0.01em;
+  }
+
+  .animate-pulse-slow {
+    animation: portfolio-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes portfolio-pulse {
+    0%,
+    100% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    const reveals = document.querySelectorAll(
+      ".portfolio-section .portfolio-reveal, .portfolio-section .portfolio-card",
+    );
+
+    if (!reveals.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    reveals.forEach((el) => observer.observe(el));
+  })();
+</script>

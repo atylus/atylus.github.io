@@ -1,0 +1,144 @@
+---
+import Base from "@/layouts/Base.astro";
+import { generatePaths, getLocaleUrlCTM, useTranslations } from "@/lib/utils/i18nUtils";
+import Hero from "@/components/business/Hero.astro";
+import TrustedBy from "@/components/business/TrustedBy.astro";
+import Offer from "@/components/business/Offer.astro";
+import Overview from "@/components/business/Overview.astro";
+import Process from "@/components/business/Process.astro";
+import FAQ from "@/components/business/FAQ.astro";
+import CTA from "@/components/business/CTA.astro";
+
+export function getStaticPaths() {
+  return generatePaths();
+}
+
+const { currentLocale } = Astro;
+const i18n = await useTranslations(currentLocale || "en");
+
+const t = {
+  title: "Aleric AI - Business Consulting",
+  heroBadge: "AI DRIVEN CONSULTING",
+  heroTitle: `Smart <br> <span class="text-transparent bg-clip-text bg-linear-to-r from-light to-light/50">Solutions.</span>`,
+  heroDescription:
+    "We craft digital experiences that engage, convert, and grow your business using next-gen AI architecture.",
+  offerTitle: "What We Offer",
+  offerSubtitle: "End-to-end solutions tailored for the future.",
+  overviewTitle: "Redefining <br> Consulting.",
+  overviewP1:
+    "Branding design is the process of creating a unique identity that visually and strategically represents a business.",
+  overviewP2:
+    "It includes logo design, color schemes, typography, and brand messaging to ensure consistency across all platforms.",
+  approachTitle: "Our Approach",
+  processTitle: `Guided by <span class="text-accent">Process</span>, <br> Driven by <span class="text-light">Results</span>.`,
+  processDesc:
+    "We follow a streamlined, intelligent workflow designed to eliminate friction.",
+  faqTitle: "Common Questions",
+  ctaTitle: "Ready to evolve?",
+  ctaButton: "Start Your Project",
+};
+
+const offers = [
+  {
+    title: "Finance Consulting",
+    description: "Expert AI-driven financial modeling and strategic advice for modern organizations.",
+    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2232&auto=format&fit=crop",
+    layout: "md:col-span-2"
+  },
+  {
+    title: "Marketing Intelligence",
+    description: "Data-backed marketing strategies utilizing predictive algorithms and automation.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+    layout: "md:row-span-2"
+  },
+  {
+    title: "Brand Identity",
+    description: "Forging unique digital identities that resonate in a crowded marketplace.",
+    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop",
+    layout: "md:col-span-2"
+  }
+];
+
+const processSteps = [
+  {
+    id: "01",
+    title: "Discovery",
+    description: "We analyze your business needs and identify high-impact AI opportunities."
+  },
+  {
+    id: "02",
+    title: "Strategy",
+    description: "We design a comprehensive roadmap and select the right technologies."
+  },
+  {
+    id: "03",
+    title: "Development",
+    description: "Our experts build, train, and fine-tune your custom AI solutions."
+  },
+  {
+    id: "04",
+    title: "Deployment",
+    description: "We seamlessly integrate the solution and provide ongoing support."
+  }
+];
+
+const faqs = [
+  {
+    question: "How can AI benefit my business?",
+    answer: "AI can automate repetitive tasks, provide data-driven insights, enhance customer experiences, and open new revenue streams."
+  },
+  {
+    question: "Do I need a lot of data to start?",
+    answer: "Not necessarily. We can start with small datasets and use techniques like transfer learning, or help you build a data collection strategy."
+  },
+  {
+    question: "How long does a project take?",
+    answer: "Timelines vary based on complexity. A proof of concept might take 4-6 weeks, while a full-scale enterprise solution could take several months."
+  },
+  {
+    question: "Is my data secure?",
+    answer: "Absolutely. We adhere to strict security protocols and can deploy solutions on-premise or in your private cloud to ensure data sovereignty."
+  }
+];
+
+---
+
+<Base
+  title={t.title}
+  footerSpaceTop={false}
+  hasHeaderDarkBackground={true}
+  headerClassName="header-business"
+>
+  <main class="bg-dark text-light">
+    <Hero
+      badge={t.heroBadge}
+      title={t.heroTitle}
+      description={t.heroDescription}
+    />
+    <TrustedBy />
+    <Offer
+      title={t.offerTitle}
+      subtitle={t.offerSubtitle}
+      offers={offers}
+    />
+    <Overview
+      title={t.overviewTitle}
+      p1={t.overviewP1}
+      p2={t.overviewP2}
+      approachTitle={t.approachTitle}
+      steps={processSteps}
+    />
+    <Process
+      title={t.processTitle}
+      description={t.processDesc}
+    />
+    <FAQ
+      title={t.faqTitle}
+      items={faqs}
+    />
+    <CTA
+      title={t.ctaTitle}
+      buttonText={t.ctaButton}
+    />
+  </main>
+</Base>

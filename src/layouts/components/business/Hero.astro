@@ -1,0 +1,37 @@
+---
+interface Props {
+  badge: string;
+  title: string;
+  description: string;
+}
+const { badge, title, description } = Astro.props;
+---
+<section class="relative h-screen flex items-center justify-center overflow-hidden bg-dark text-light">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center">
+        <span class="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-semibold tracking-wider mb-6 animate-fade-in-up">
+            {badge}
+        </span>
+        <h1 class="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.1s;" set:html={title}>
+        </h1>
+        <p class="text-lg md:text-2xl text-light/60 max-w-2xl mx-auto mb-12 font-light animate-fade-in-up" style="animation-delay: 0.2s;">
+            {description}
+        </p>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+        </div>
+    </div>
+</section>
+
+<style>
+  @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0; /* Start hidden */
+  }
+</style>

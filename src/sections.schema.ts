@@ -127,21 +127,26 @@ export const contactFormSchema = z.object({
   inputs: z.array(inputFieldSchema),
 });
 
+const capabilityCardSchema = z.object({
+  icon: z.string().optional(),
+  badge: z.string().optional(),
+  title: z.string(),
+  frictionTitle: z.string().optional(),
+  frictionDescription: z.string().optional(),
+  solutionTitle: z.string().optional(),
+  solutionDescription: z.string().optional(),
+  delay: z.number().optional(),
+});
+
 export const servicesSectionSchema = z
   .object({
     enable: z.boolean().default(false).optional(),
+    eyebrow: z.string().optional(),
     title: z.string().optional(),
-    sectionDirection: z.enum(["horizontal", "vertical"]).optional(),
-    options: z
-      .object({
-        layout: z.enum(["grid", "accordion"]),
-        appearance: AppearanceEnum,
-        limit: z.union([z.number(), z.literal(false)]),
-        column: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
-        iconPlacement: z.enum(["top", "right"]).optional(),
-      })
-      .partial()
-      .optional(),
+    highlight: z.string().optional(),
+    description: z.string().optional(),
+    spinnerLabel: z.string().optional(),
+    cards: z.array(capabilityCardSchema).optional(),
   })
   .optional();
 
@@ -149,13 +154,14 @@ export const clientsSectionSchema = z
   .object({
     enable: z.boolean().default(false).optional(), // Control section visibility
     title: z.string().optional(),
-    list: z
-      .array(
-        z.object({
-          alt: z.string(),
-          src: z.string(),
-        }),
-      )
+    reservedLabel: z.string().optional(),
+    subtext: z.string().optional(),
+    cta: z
+      .object({
+        label: z.string().optional(),
+        sublabel: z.string().optional(),
+        url: z.string().optional(),
+      })
       .optional(),
     options: z
       .object({
@@ -183,9 +189,41 @@ export const bannerAgencySectionSchema = z
   })
   .optional();
 
+export const portfolioSectionSchema = z
+  .object({
+    enable: z.boolean().default(false).optional(),
+    eyebrow: z.string().optional(),
+    title: z.string().optional(),
+    highlight: z.string().optional(),
+    ctaTitle: z.string().optional(),
+    ctaSubtitle: z.string().optional(),
+    ctaDescription: z.string().optional(),
+    ctaUrl: z.string().optional(),
+    limit: z.union([z.number(), z.literal(false)]).optional(),
+  })
+  .optional();
+
+const testimonialSchema = z.object({
+  name: z.string(),
+  role: z.string(),
+  avatar: z.string().optional(),
+  quote: z.string(),
+});
+
+export const testimonialsSectionSchema = z
+  .object({
+    enable: z.boolean().default(false).optional(),
+    eyebrow: z.string().optional(),
+    title: z.string().optional(),
+    testimonials: z.array(testimonialSchema).optional(),
+  })
+  .optional();
+
 export const sectionsSchema = {
   servicesSection: servicesSectionSchema,
   clientsSection: clientsSectionSchema,
   bannerAgencySection: bannerAgencySectionSchema,
   pricingSection: pricingSectionSchema,
+  portfolioSection: portfolioSectionSchema,
+  testimonialsSection: testimonialsSectionSchema,
 };

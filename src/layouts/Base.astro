@@ -15,6 +15,7 @@ interface Props extends JSONLDProps {
   footerSpaceTop?: boolean;
   headerPosition?: "fixed" | "static" | "sticky";
   hasHeaderDarkBackground?: boolean;
+  headerClassName?: string;
   hasBodyDarkBackground?: boolean;
   hideOffcanvas?: boolean;
   draft?: boolean;
@@ -37,6 +38,7 @@ let {
   headerPosition = "sticky",
   hideOffcanvas = false,
   hasHeaderDarkBackground = false,
+  headerClassName,
   hasBodyDarkBackground = false,
   footerSpaceTop = true,
   footerLayout = "footer-3",
@@ -60,6 +62,7 @@ className = fitToScreen
       position={headerPosition}
       hasDarkBackground={hasHeaderDarkBackground}
       hideOffcanvas={hideOffcanvas}
+      class={headerClassName}
     />
 
     <main class:list={[className]}>

@@ -49,7 +49,7 @@ const {
       class="hs-dropdown relative py-6 [--auto-close:inside] [--gpu-acceleration:false] [--strategy:absolute] lg:[--strategy:static]">
       <div class="flex w-full items-center gap-4 lg:gap-8">
         <div class="shrink-0">
-          {hasDarkBackground ? <Logo src={logoAlternate} /> : <Logo />}
+          <Logo src={logoAlternate || "/images/logo-light.svg"} />
         </div>
 
         {/* Navbar For Header */}

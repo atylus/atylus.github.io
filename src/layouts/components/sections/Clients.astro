@@ -5,7 +5,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 import { getEntryCTM } from "@/lib/customContentLoader.astro";
 import overrideObjects from "@/lib/utils/overrideObjects.ts";
 import type { clientsSectionSchema } from "@/sections.schema";
-import OptimizedImage from "../utilities/OptimizedImage.astro";
+import { getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
 
 export type ClientsSection = Section & z.infer<typeof clientsSectionSchema>;
 
@@ -13,78 +13,255 @@ type Props = {
   content?: ClientsSection;
 };
 
-let defaultContent = (
-  await getEntryCTM("sections", "clients", Astro.currentLocale)
-)?.data as ClientsSection;
+const fallbackContent: ClientsSection = {
+  enable: true,
+  title: "Pioneering Partnerships",
+  reservedLabel: "Reserved",
+  cta: {
+    label: "Your Brand",
+    sublabel: "Be our first success story",
+    url: "#contact",
+  },
+  subtext:
+    "We don't have a crowded logo wall yet.<br/>We have <span class=\"text-[#fffafa] font-medium\">undivided attention</span> for our Founding Partners.",
+};
 
-let actualContent = overrideObjects(
-  { ...defaultContent },
-  Astro.props.content,
+const defaultContent = (
+  await getEntryCTM("sections", "clients", Astro.currentLocale)
+)
+  ?.data as ClientsSection;
+
+let baseContent = fallbackContent;
+
+if (defaultContent) {
+  baseContent = overrideObjects(
+    { ...fallbackContent },
+    defaultContent,
+  ) as ClientsSection;
+}
+
+const actualContent = overrideObjects(
+  { ...baseContent },
+  (Astro.props as Props)?.content,
 ) as ClientsSection;
 
-let {
+const {
   enable = true,
   title,
-  list,
-  options: { columnsPerRow, appearance } = {},
+  reservedLabel = "Reserved",
+  cta,
+  subtext,
 } = actualContent;
-
-const isDarkAppearance = appearance === "dark";
 
 if (!enable) {
   return null;
 }
+
+const ctaHref = cta?.url
+  ? cta.url.startsWith("#")
+    ? cta.url
+    : getLocaleUrlCTM(cta.url, Astro.currentLocale)
+  : undefined;
+
+const ctaTarget = ctaHref && ctaHref.startsWith("http") ? "_blank" : undefined;
+const ctaRel = ctaTarget ? "noopener noreferrer" : undefined;
 ---
 
-<section id="company">
-  <div class="container space-y-8 md:space-y-16">
+<section
+  id="company"
+  class="clients-section relative overflow-hidden border-y border-[#fffafa]/5 py-20">
+  <div class="container mx-auto px-6 text-center">
     {
       title && (
-        <div class="mx-auto lg:max-w-3xl">
-          <h2
-            class:list={[
-              "text-h1-sm md:text-h1 text-center",
-              isDarkAppearance && "text-light",
-            ]}
-            set:html={markdownify(title)}
-          />
-        </div>
+        <p
+          class="clients-reveal mx-auto mb-16 text-xs font-bold uppercase tracking-[0.3em] text-[#fffafa]/30 md:text-sm animate-pulse-slow"
+          set:html={markdownify(title)}
+        />
       )
     }
-    <ul
-      class:list={[
-        "grid grid-cols-2 justify-center gap-0 overflow-hidden outline",
-        isDarkAppearance && "outline-white",
-        columnsPerRow === 6
-          ? "w-full md:grid-cols-3 lg:grid-cols-6"
-          : "mx-auto max-w-4xl lg:grid-cols-4",
-      ]}>
-      {
-        list?.map((item) => (
-          <li
-            class:list={[
-              "group flex h-32 w-full items-center justify-center border",
-              isDarkAppearance && "border-white",
-            ]}>
-            <div class="relative h-8 grow overflow-hidden px-8">
-              <OptimizedImage
-                width={140}
-                height={32}
-                src={item.src}
-                alt={item.alt}
-                class="mx-auto h-8 transition-all duration-300 group-hover:-translate-y-8"
-              />
-              <OptimizedImage
-                width={140}
-                height={32}
-                src={item.src}
-                alt={item.alt}
-                class="mx-auto h-8 transition-all duration-300 group-hover:-translate-y-8"
-              />
-            </div>
-          </li>
-        ))
-      }
-    </ul>
+
+    <div class="clients-reveal flex flex-col items-center justify-center gap-6 md:flex-row md:gap-16">
+      <div class="clients-ghost hidden h-20 w-40 items-center justify-center rounded-2xl border border-dashed border-[#fffafa]/5 text-[10px] font-mono uppercase tracking-[0.3em] text-[#fffafa]/40 opacity-40 grayscale md:flex">
+        <span>{reservedLabel}</span>
+      </div>
+
+      <a
+        href={ctaHref ?? "#"}
+        class="clients-cta group relative flex items-center gap-6 rounded-4xl border border-[#fffafa]/10 bg-linear-to-b from-[#fffafa]/5 to-transparent px-10 py-8 text-left text-[#fffafa] transition-all duration-500 hover:scale-105 hover:border-accent hover:from-accent/10 hover:to-accent/5"
+        aria-label={cta?.label}
+        target={ctaTarget}
+        rel={ctaRel}>
+        <div class="clients-cta__glow"></div>
+        <div class="clients-cta__icon">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 5v14M5 12h14"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div class="flex flex-col items-start">
+          {cta?.label && (
+            <span class="text-2xl font-bold tracking-tight text-[#fffafa] transition-colors duration-300 group-hover:text-accent md:text-3xl">
+              {cta.label}
+            </span>
+          )}
+          <div class="clients-cta__divider"></div>
+          {cta?.sublabel && (
+            <span class="text-xs font-medium uppercase tracking-[0.35em] text-[#fffafa]/50 transition-colors duration-300 group-hover:text-[#fffafa]/80">
+              {cta.sublabel}
+            </span>
+          )}
+        </div>
+      </a>
+
+      <div class="clients-ghost hidden h-20 w-40 items-center justify-center rounded-2xl border border-dashed border-[#fffafa]/5 text-[10px] font-mono uppercase tracking-[0.3em] text-[#fffafa]/40 opacity-40 grayscale md:flex">
+        <span>{reservedLabel}</span>
+      </div>
+    </div>
+
+    {subtext && (
+      <div class="clients-reveal mt-16 max-w-xl mx-auto">
+        <p
+          class="text-sm leading-relaxed text-[#fffafa]/60"
+          set:html={markdownify(subtext)}
+        />
+      </div>
+    )}
   </div>
+
+  <div class="clients-section__blur"></div>
 </section>
+
+<style is:inline>
+  .clients-section {
+    position: relative;
+    background: linear-gradient(180deg, #150604 0%, #080101 55%, #040000 100%);
+  }
+
+  .clients-cta {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .clients-cta__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 250, 250, 0.1);
+    background-color: rgba(255, 250, 250, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 250, 250, 0.6);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .clients-cta:hover .clients-cta__icon {
+    background-color: #ff5d00;
+    border-color: #ff5d00;
+    color: #0d0101;
+  }
+
+  .clients-cta__divider {
+    width: 100%;
+    height: 1px;
+    margin: 0.5rem 0;
+    background-color: rgba(255, 250, 250, 0.1);
+    transition: background-color 0.3s ease;
+  }
+
+  .clients-cta:hover .clients-cta__divider {
+    background-color: rgba(255, 93, 0, 0.4);
+  }
+
+  .clients-cta__glow {
+    position: absolute;
+    inset: auto auto -2.5rem 60%;
+    width: 6rem;
+    height: 6rem;
+    background: rgba(255, 93, 0, 0.2);
+    filter: blur(40px);
+    border-radius: 9999px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .clients-cta:hover .clients-cta__glow {
+    opacity: 1;
+  }
+
+  .clients-section__blur {
+    position: absolute;
+    inset: 20% 0 auto;
+    height: 18rem;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 93, 0, 0.2),
+      transparent 70%
+    );
+    opacity: 0.6;
+    pointer-events: none;
+    transform: translateY(-30%);
+  }
+
+  .clients-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .clients-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .animate-pulse-slow {
+    animation: clients-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes clients-pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    const targets = document.querySelectorAll(
+      ".clients-section .clients-reveal",
+    );
+
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    targets.forEach((el) => observer.observe(el));
+  })();
+</script>
