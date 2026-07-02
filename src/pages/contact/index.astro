@@ -8,6 +8,7 @@ const metadata = getPageMetadata("contact");
   title={String(metadata.title)}
   description={String(metadata.description)}
   canonicalPath="/contact/"
+  showContactSection={false}
 >
   <ContactPageIsland client:load pathname={Astro.url.pathname} />
 </PageDocument>

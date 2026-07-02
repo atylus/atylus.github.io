@@ -8,6 +8,7 @@ interface Props {
   image?: string;
   ogType?: "website" | "article";
   noindex?: boolean;
+  showContactSection?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   image,
   ogType = "website",
   noindex = false,
+  showContactSection = true,
 } = Astro.props;
 ---
 
@@ -27,6 +29,7 @@ const {
   image={image}
   ogType={ogType}
   noindex={noindex}
+  showContactSection={showContactSection}
 >
   <slot />
 </Layout>

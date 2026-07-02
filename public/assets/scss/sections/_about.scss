@@ -297,6 +297,13 @@
     margin-bottom: 70px;
   }
 }
+
+.about-img3-mobile-hidden {
+  @include smd {
+    display: none;
+  }
+}
+
 .about-content3 {
   position: relative;
   z-index: 99;

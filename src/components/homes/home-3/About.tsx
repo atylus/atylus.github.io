@@ -11,7 +11,7 @@ export default function About() {
       <div className="container">
         <div className="row">
           <div className="col-lg-4">
-            <div className="about-img3">
+            <div className="about-img3 about-img3-mobile-hidden">
               <Image
                 alt="AI Agency & Technology HTML Template"
                 src="/assets/images/layers/layer10.png"
