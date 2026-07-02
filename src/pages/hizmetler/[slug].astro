@@ -1,5 +1,6 @@
 ---
-import LegacyPage from "../../components/legacy/LegacyPage.astro";
+import PageDocument from "../../components/app/PageDocument.astro";
+import { ServiceDetailPageIsland } from "../../components/app/PageIslands";
 import { serviceCatalogItems } from "@/data/serviceCatalog";
 
 export function getStaticPaths() {
@@ -12,11 +13,14 @@ export function getStaticPaths() {
 const { service } = Astro.props;
 ---
 
-<LegacyPage
+<PageDocument
   title={service.seoTitle}
   description={service.seoDescription}
   canonicalPath={`/hizmetler/${service.slug}/`}
-  sharedLayout="marketing"
-  routeId="service-detail"
-  service={service}
-/>
+>
+  <ServiceDetailPageIsland
+    client:load
+    pathname={Astro.url.pathname}
+    service={service}
+  />
+</PageDocument>

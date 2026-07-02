@@ -1,18 +1,16 @@
 ---
-import LegacyPage from "../../components/legacy/LegacyPage.astro";
-import { getServiceBySlug } from "@/data/serviceCatalog";
-
-const fallbackService = getServiceBySlug("risk-ve-anomali-analizi");
-
+import PageDocument from '../../components/app/PageDocument.astro';
+import { ServiceSinglePageIsland } from '../../components/app/PageIslands';
+import { getServiceBySlug } from '@/data/serviceCatalog';
+const fallbackService = getServiceBySlug('risk-ve-anomali-analizi');
 if (!fallbackService) {
-  throw new Error("Fallback service catalog item is missing.");
+  throw new Error('Fallback service catalog item is missing.');
 }
 ---
-
-<LegacyPage
+<PageDocument
   title={fallbackService.seoTitle}
   description={fallbackService.seoDescription}
   canonicalPath="/service-single/"
-  sharedLayout="marketing"
-  routeId="service-single"
-/>
+>
+  <ServiceSinglePageIsland client:load pathname={Astro.url.pathname} />
+</PageDocument>

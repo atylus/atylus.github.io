@@ -1,13 +1,13 @@
 ---
-import LegacyPage from "../../components/legacy/LegacyPage.astro";
-import { getDemoMetadata } from "@/data/demo";
-
+import PageDocument from '../../components/app/PageDocument.astro';
+import { FeatureOngoruselVeriAnalitigiPageIsland } from '../../components/app/PageIslands';
+import { getDemoMetadata } from '@/data/demo';
 const metadata = getDemoMetadata(7);
 ---
-
-<LegacyPage
+<PageDocument
   title={String(metadata.title)}
   description={String(metadata.description)}
   canonicalPath="/ongorusel-veri-analitigi/"
-  routeId="ongorusel-veri-analitigi"
-/>
+>
+  <FeatureOngoruselVeriAnalitigiPageIsland client:load pathname={Astro.url.pathname} />
+</PageDocument>

@@ -1,13 +1,13 @@
 ---
-import LegacyPage from "../../components/legacy/LegacyPage.astro";
-import { getDemoMetadata } from "@/data/demo";
-
+import PageDocument from '../../components/app/PageDocument.astro';
+import { FeatureYapayZekaTeknolojileriPageIsland } from '../../components/app/PageIslands';
+import { getDemoMetadata } from '@/data/demo';
 const metadata = getDemoMetadata(14);
 ---
-
-<LegacyPage
+<PageDocument
   title={String(metadata.title)}
   description={String(metadata.description)}
   canonicalPath="/yapay-zeka-teknolojileri/"
-  routeId="yapay-zeka-teknolojileri"
-/>
+>
+  <FeatureYapayZekaTeknolojileriPageIsland client:load pathname={Astro.url.pathname} />
+</PageDocument>

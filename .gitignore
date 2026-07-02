@@ -33,6 +33,7 @@ pnpm-debug.log*
 
 # deployment / platform
 /.vercel/
+/.wrangler/
 
 # TypeScript
 *.tsbuildinfo

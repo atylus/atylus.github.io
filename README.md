@@ -10,7 +10,7 @@ npm run dev
 
 Open [http://localhost:4321](http://localhost:4321) with your browser to see the result.
 
-Astro pages live under `src/pages/`. Legacy React page sources preserved for parity live under `legacy-app/`.
+Astro pages live under `src/pages/`. React page wrappers preserved for parity live under `src/react-pages/`.
 
 Docs content lives under `src/content/docs/docs/`, and collection-based editorial content lives under `src/content/blog/`.
 

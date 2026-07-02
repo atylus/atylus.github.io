@@ -1,14 +1,13 @@
 ---
-import LegacyPage from "../../components/legacy/LegacyPage.astro";
-import { getPageMetadata } from "@/data/pages";
-
+import PageDocument from '../../components/app/PageDocument.astro';
+import { ProjectsPageIsland } from '../../components/app/PageIslands';
+import { getPageMetadata } from '@/data/pages';
 const metadata = getPageMetadata("project2");
 ---
-
-<LegacyPage
+<PageDocument
   title={String(metadata.title)}
   description={String(metadata.description)}
   canonicalPath="/projects/"
-  sharedLayout="marketing"
-  routeId="projects"
-/>
+>
+  <ProjectsPageIsland client:load pathname={Astro.url.pathname} />
+</PageDocument>
