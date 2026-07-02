@@ -436,6 +436,15 @@
     h2 {
       color: var(--color-heading) !important;
     }
+    input,
+    select,
+    textarea {
+      color: var(--color-content-black2) !important;
+
+      &::placeholder {
+        color: #6f7684 !important;
+      }
+    }
   }
   .shop-img2,
   .shop-img {
