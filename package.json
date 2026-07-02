@@ -7,17 +7,9 @@
     "dev": "astro dev",
     "build": "pnpm run lint && astro build",
     "preview": "astro preview",
-    "preview:pages": "wrangler pages dev dist",
-    "deploy": "wrangler pages deploy dist --project-name atylus",
-    "start": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "check": "astro check",
-    "astro:dev": "astro dev",
-    "astro:build": "astro build",
-    "astro:preview": "astro preview",
-    "astro:check": "astro check"
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "gsap": "^3.14.2",
