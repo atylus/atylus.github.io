@@ -1,0 +1,52 @@
+---
+title: Migration Blueprint
+description: Next.js to Astro/Starlight gecisi icin uygulanan yapisal plan.
+lastUpdated: 2026-07-01
+sidebar:
+  order: 1
+---
+
+## Algoritmik Yaklasim
+
+```text
+INPUT:
+  next-app-router-pages
+  shared-scss-assets
+  content-needing-docs-and-blog
+
+OUTPUT:
+  astro-runtime
+  starlight-docs
+  seo-ready-static-routes
+
+ALGORITHM:
+  1. Extract layout shell and global asset graph.
+  2. Isolate interactive concerns into lightweight browser islands.
+  3. Port legacy React pages through a compatibility layer.
+  4. Move documentation into src/content/docs/docs.
+  5. Model editorial content in src/content/blog.
+  6. Add canonical metadata, sitemap and search indexing.
+```
+
+## Complexity
+
+- Layout extraction: `O(L)`
+- Compatibility layer setup: `O(I)`
+- Page migration: `O(P)`
+- Content relocation: `O(C)`
+- Sidebar autogeneration: `O(D)`
+
+Burada:
+
+- `L`: layout parcasi sayisi
+- `I`: Next runtime import cesidi sayisi
+- `P`: tasinan sayfa sayisi
+- `C`: tasinan markdown/MDX entry sayisi
+- `D`: docs klasorundeki dosya sayisi
+
+## Uygulama Kurallari
+
+- Global SCSS zinciri aynen korunur.
+- `next/link` ve `next/image` bagimliliklari uyumluluk katmani uzerinden standart HTML ciktilarina indirgenir.
+- State gerektirmeyen sayfalar static HTML olarak kalir; etkilesim gereken alanlar island olarak hydrate edilir.
+- Search ve docs navigation Starlight tarafinda build-time optimize edilir.

@@ -1,0 +1,51 @@
+---
+import type { MobileMenuItem } from "../data/site";
+import { hasActiveLeaf, isLinkActive } from "../data/site";
+import MobileMenuTree from "./MobileMenuTree.astro";
+
+interface Props {
+  currentPath: string;
+  items: MobileMenuItem[];
+  parentKey?: string;
+}
+
+const { currentPath, items, parentKey = "root" } = Astro.props;
+---
+
+{
+  items.map((item, index) => {
+    const itemKey = `${parentKey}-${index}`;
+    const hasChildren = Boolean(item.children?.length);
+    const isActive = hasChildren
+      ? hasActiveLeaf(currentPath, item.children ?? [])
+      : isLinkActive(currentPath, item.href);
+
+    return (
+      <li
+        class:list={[
+          item.liClassName,
+          {
+            current: isActive,
+          },
+        ]}
+      >
+        <a
+          href={hasChildren ? "#" : item.href}
+          class={isActive ? "active" : undefined}
+          data-submenu-toggle={hasChildren ? itemKey : undefined}
+        >
+          {item.label}
+        </a>
+        {hasChildren && (
+          <ul data-submenu={itemKey}>
+            <MobileMenuTree
+              currentPath={currentPath}
+              items={item.children ?? []}
+              parentKey={itemKey}
+            />
+          </ul>
+        )}
+      </li>
+    );
+  })
+}

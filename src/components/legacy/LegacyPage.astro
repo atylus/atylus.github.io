@@ -1,0 +1,70 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LegacyRouteRenderer from "./LegacyRouteRenderer";
+import type { ServiceCatalogItem } from "@/types/services";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  routeId:
+    | "home"
+    | "blog"
+    | "blog-single"
+    | "bilgisayarli-goru-cozumleri"
+    | "contact"
+    | "faq"
+    | "gallery-grid"
+    | "gallery-masonry"
+    | "hakkimizda"
+    | "hizmetler"
+    | "ongorusel-veri-analitigi"
+    | "ozel-yazilim-cozumleri"
+    | "pricing"
+    | "project-single"
+    | "projects"
+    | "service-detail"
+    | "service-single"
+    | "team"
+    | "team-single"
+    | "yapay-sinir-agi-gelistirme"
+    | "yapay-zeka-danismanligi"
+    | "yapay-zeka-sistem-entegrasyonu"
+    | "yapay-zeka-teknolojileri"
+    | "yazilim-gelistirme-surecleri";
+  image?: string;
+  ogType?: "website" | "article";
+  noindex?: boolean;
+  sharedLayout?: "none" | "marketing";
+  service?: ServiceCatalogItem;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  routeId,
+  image,
+  ogType = "website",
+  noindex = false,
+  sharedLayout = "none",
+  service,
+} = Astro.props;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  image={image}
+  ogType={ogType}
+  noindex={noindex}
+>
+  <LegacyRouteRenderer
+    client:load
+    routeId={routeId}
+    pathname={Astro.url.pathname}
+    sharedLayout={sharedLayout}
+    service={service}
+  />
+</Layout>

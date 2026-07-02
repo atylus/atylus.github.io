@@ -1,0 +1,14 @@
+---
+import LegacyPage from "../../components/legacy/LegacyPage.astro";
+import { getPageMetadata } from "@/data/pages";
+
+const metadata = getPageMetadata("gallery-masonry");
+---
+
+<LegacyPage
+  title={String(metadata.title)}
+  description={String(metadata.description)}
+  canonicalPath="/gallery-masonry/"
+  sharedLayout="marketing"
+  routeId="gallery-masonry"
+/>

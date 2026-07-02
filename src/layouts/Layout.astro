@@ -1,0 +1,146 @@
+---
+import "../../public/assets/scss/style.scss";
+import { siteMetadata } from "../data/site";
+import ContactSection from "../components/ContactSection.astro";
+import GlobalOverlays from "../components/GlobalOverlays.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalPath?: string;
+  noindex?: boolean;
+  ogType?: "website" | "article";
+  showStaticChrome?: boolean;
+  showContactSection?: boolean;
+}
+
+const {
+  title = siteMetadata.title,
+  description = siteMetadata.description,
+  image = siteMetadata.defaultOgImage,
+  canonicalPath = Astro.url.pathname,
+  noindex = false,
+  ogType = "website",
+  showStaticChrome = false,
+  showContactSection = true,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://atylus.com");
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+const ogImage = new URL(image, siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={siteMetadata.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline>
+      (() => {
+        if (typeof localStorage !== "undefined" && localStorage.getItem("themeMode") !== "inactive") {
+          document.documentElement.classList.add("dark-mode");
+          document.body?.classList.add("active-body", "dark-mode");
+        }
+      })();
+    </script>
+  </head>
+  <body class="font-sans antialiased">
+    {
+      showStaticChrome && <SiteHeader pathname={Astro.url.pathname} />
+    }
+    <main><slot /></main>
+    {
+      showStaticChrome && showContactSection && (
+        <section class="main-sec">
+          <ContactSection />
+          <SiteFooter />
+        </section>
+      )
+    }
+    {showStaticChrome && <GlobalOverlays pathname={Astro.url.pathname} />}
+    <button id="themeBtn" type="button" aria-label="Toggle color mode">
+      <i class="far fa-moon" />
+    </button>
+    <script is:inline>
+      (() => {
+        const THEME_STORAGE = "themeMode";
+
+        const syncTheme = (isDark) => {
+          document.documentElement.classList.toggle("dark-mode", isDark);
+          document.body.classList.toggle("active-body", isDark);
+          document.body.classList.toggle("dark-mode", isDark);
+          document
+            .getElementById("themeBtn")
+            ?.classList.toggle("active-btn", isDark);
+        };
+
+        const getStoredTheme = () =>
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem(THEME_STORAGE) !== "inactive";
+
+        const toggleTheme = () => {
+          const nextIsDark = !document.body.classList.contains("dark-mode");
+          syncTheme(nextIsDark);
+          localStorage.setItem(THEME_STORAGE, nextIsDark ? "active" : "inactive");
+          localStorage.setItem("darkMode", nextIsDark ? "enabled" : "disabled");
+        };
+
+        const hidePreloader = () => {
+          const preloader = document.getElementById("preloader");
+          if (!preloader) return;
+
+          preloader.style.opacity = "0";
+          preloader.style.pointerEvents = "none";
+          window.setTimeout(() => {
+            preloader.style.display = "none";
+          }, 250);
+        };
+
+        if (document.readyState === "complete") {
+          syncTheme(getStoredTheme());
+          hidePreloader();
+        } else {
+          document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+              syncTheme(getStoredTheme());
+              window.setTimeout(hidePreloader, 1200);
+            },
+            { once: true },
+          );
+          window.addEventListener("load", hidePreloader, { once: true });
+        }
+
+        document.addEventListener("click", (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+
+          const themeButton = target.closest("#themeBtn");
+          if (!themeButton) return;
+
+          event.preventDefault();
+          toggleTheme();
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+---
+title: Atylus Astro Blueprint
+description: Next.js App Router tabanli mevcut yapinin Astro ve Starlight uzerine tasinmasi icin SEO odakli giris sayfasi.
+template: splash
+lastUpdated: 2026-07-01
+hero:
+  title: Atylus Astro + Starlight
+  tagline: Mevcut tasarim tokenlarini, SCSS omurgasini ve bilgi mimarisini koruyarak daha hafif bir dokumantasyon ve icerik platformuna gecis.
+  actions:
+    - text: Goc Plani
+      link: /docs/reference/migration-blueprint/
+      icon: right-arrow
+    - text: Icerik Modeli
+      link: /docs/reference/content-model/
+      variant: secondary
+sidebar:
+  order: 1
+---
+
+## Neden bu yapi?
+
+Bu kurulum iki ayrik concern'u birbirinden ayirir:
+
+1. **Marketing ve custom sayfalar**
+   `src/layouts/Layout.astro` uzerinden mevcut header, footer ve global SCSS katmanini korur.
+2. **Dokumantasyon ve bilgi merkezi**
+   `Starlight` uzerinden otomatik sidebar, Pagefind arama ve markdown merkezli SEO ciktilari uretir.
+
+## Korunan varliklar
+
+- `public/assets/scss/style.scss` aynen kullaniliyor.
+- Renk tokenlari `45D0BD`, `44B6E9`, `8258C8` ekseninde korunuyor.
+- `Sora` ve `Manrope` font karakteri hem custom layout hem de docs temasi icin surduruluyor.
+- Legacy pazarlama ve icerik sayfalari Astro uzerinden ayni class adlariyla render ediliyor.
+
+## SEO hedefleri
+
+- Canonical URL uretiliyor.
+- Open Graph ve Twitter meta etiketleri dinamik.
+- `@astrojs/sitemap` ile sitemap cikisi uretiliyor.
+- `Starlight` Pagefind indekslemesi hazir.
+- Dokumantasyon icerigi markdown merkezli oldugu icin crawlability yuksek.

@@ -1,0 +1,86 @@
+---
+import { footerLinkGroups } from "../data/site";
+import ThemeLogo from "./ThemeLogo.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer-style1">
+  <div class="footer-top">
+    <div class="container">
+      <div class="footer-content">
+        <h2 class="title">Yapay Zeka Sistemleri ile Tanisin</h2>
+        <a href="/contact/" class="ibt-btn ibt-btn-outline">
+          <span>Bize Ulasin</span>
+          <i class="icon-arrow-top" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="widget-area ibt-section-gapTop">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8 col-lg-6">
+          <div class="about-widget footer-widget">
+            <div class="footer-logo">
+              <ThemeLogo alt="Atylus logo" />
+            </div>
+            <ul class="social-icon">
+              <li>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-facebook-f" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-twitter" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-linkedin-in" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-youtube" />
+                </a>
+              </li>
+            </ul>
+            <h2 class="title">2025'ten bu yana</h2>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <div class="footer-menu">
+            {
+              footerLinkGroups.map((group) => (
+                <div class="footer-links footer-widget">
+                  <h4 class="widget-title">{group.title}</h4>
+                  <ul>
+                    {group.links.map((link) => (
+                      <li>
+                        <a href={link.href}>{link.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-botom">
+    <div class="container">
+      <div class="footer-box">
+        <p>
+          <a href="/">©Atylus</a> {currentYear}. Tum haklari saklidir.
+        </p>
+        <span>
+          Kullanim Kosullari <a href="/">Gizlilik Politikasi</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>

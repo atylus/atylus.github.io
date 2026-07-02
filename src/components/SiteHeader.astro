@@ -1,0 +1,54 @@
+---
+import HeaderNav from "./HeaderNav.astro";
+import ThemeLogo from "./ThemeLogo.astro";
+
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+---
+
+<header class="vs-header3" data-sticky-header>
+  <div class="container2 position-relative">
+    <div class="header-menu-area3">
+      <div class="row gx-20 align-items-center justify-content-between">
+        <div class="col-auto col">
+          <div class="header-logo">
+            <button type="button" class="menu-toggle" data-side-menu-open aria-label="Open side menu">
+              <span />
+            </button>
+            <a href="/">
+              <ThemeLogo alt="Atylus logo" size="compact" />
+            </a>
+          </div>
+        </div>
+        <div class="col-auto">
+          <nav class="main-menu menu-style1">
+            <ul>
+              <HeaderNav pathname={pathname} />
+            </ul>
+          </nav>
+        </div>
+        <div class="col-auto d-none d-xl-block">
+          <div class="btn-box">
+            <button type="button" class="search-btn" data-search-open aria-label="Open search">
+              <i class="fa fa-search" />
+            </button>
+            <a href="/contact/" class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
+              <span>Bize Ulasin</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="mobile-menu-btn d-xl-none"
+        data-mobile-menu-open
+        aria-label="Open mobile menu"
+      >
+        <i class="fa fa-bars" />
+      </button>
+    </div>
+  </div>
+</header>

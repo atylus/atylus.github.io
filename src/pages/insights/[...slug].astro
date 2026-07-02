@@ -1,0 +1,80 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { siteMetadata } from "../../data/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const heroImage = post.data.heroImage ?? siteMetadata.defaultOgImage;
+---
+
+<Layout
+  title={`${post.data.title} | ${siteMetadata.title}`}
+  description={post.data.description}
+  image={heroImage}
+  canonicalPath={`/insights/${post.id}/`}
+  ogType="article"
+  showStaticChrome={true}
+>
+  <section class="page-banner5">
+    <div class="shape" />
+    <div class="shape3" />
+    <div class="staff-text">Article</div>
+    <div class="container">
+      <div class="page-content">
+        <h1 class="title">/ {post.data.title} /</h1>
+      </div>
+    </div>
+    <ul class="breadcrumbs">
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>/</li>
+      <li>
+        <a href="/insights/">Insights</a>
+      </li>
+      <li>/</li>
+      <li>{post.data.title}</li>
+    </ul>
+  </section>
+
+  <section class="blog-sec ibt-section-gap">
+    <div class="container">
+      <article class="blog-card">
+        <div class="blog-content">
+          <span class="sub-title">
+            {post.data.pubDate.toLocaleDateString("tr-TR")} · {post.data.author}
+          </span>
+          <h2 class="title">{post.data.title}</h2>
+          <p>{post.data.description}</p>
+          <div class="blog-post-body">
+            <Content />
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .blog-post-body :global(h2) {
+    margin-top: 2rem;
+  }
+
+  .blog-post-body :global(pre) {
+    overflow-x: auto;
+  }
+</style>

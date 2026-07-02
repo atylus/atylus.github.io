@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { siteMetadata } from "../../data/site";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (left, right) => right.data.pubDate.getTime() - left.data.pubDate.getTime(),
+);
+---
+
+<Layout
+  title={`Insights | ${siteMetadata.title}`}
+  description="Astro, Starlight ve dokumantasyon migrasyon notlari."
+  canonicalPath="/insights/"
+  showStaticChrome={true}
+>
+  <section class="page-banner5">
+    <div class="shape" />
+    <div class="shape3" />
+    <div class="staff-text">Insights</div>
+    <div class="container">
+      <div class="page-content">
+        <h1 class="title">/ Insights /</h1>
+      </div>
+    </div>
+    <ul class="breadcrumbs">
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>/</li>
+      <li>Insights</li>
+    </ul>
+  </section>
+
+  <section class="blog-sec ibt-section-gap">
+    <div class="container">
+      <div class="row g-4">
+        {
+          posts.map((post) => (
+            <article class="col-lg-6">
+              <div class="blog-card">
+                <div class="blog-content">
+                  <span class="sub-title">
+                    {post.data.pubDate.toLocaleDateString("tr-TR")}
+                  </span>
+                  <h3 class="title">
+                    <a href={`/insights/${post.id}/`}>{post.data.title}</a>
+                  </h3>
+                  <p>{post.data.description}</p>
+                  <a href={`/insights/${post.id}/`} class="ser-btn3">
+                    Devamini oku
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

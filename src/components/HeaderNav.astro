@@ -1,0 +1,129 @@
+---
+import {
+  hasActiveLeaf,
+  isLinkActive,
+  resourceGroups,
+  serviceGroups,
+} from "../data/site";
+
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+const homeActive = isLinkActive(pathname, "/");
+const servicesActive = hasActiveLeaf(
+  pathname,
+  serviceGroups.flatMap((group) => group.items),
+);
+const resourcesActive = hasActiveLeaf(
+  pathname,
+  resourceGroups.flatMap((group) => group.items),
+);
+const contactActive = isLinkActive(pathname, "/contact/");
+---
+
+<li class:list={["menu-static-link", { active: homeActive }]}>
+  <a href="/" class={homeActive ? "active" : undefined}>
+    <span class="menu-item">Ana Sayfa</span>
+    <span class="menu-item2">Ana Sayfa</span>
+  </a>
+</li>
+<li class:list={["menu-has-items", { active: servicesActive }]}>
+  <a href="/hizmetler/" class={servicesActive ? "active" : undefined}>
+    <span class="menu-item">Hizmetler</span>
+    <span class="menu-item2">Hizmetler</span>
+  </a>
+  <ul class="mega-sub-menu services-mega-menu">
+    <li class="mega-menu-column">
+      <div class="services-mega-grid">
+        {
+          serviceGroups.map((group) => (
+            <div class="services-mega-group">
+              <span class="services-mega-code">{group.shortCode}</span>
+              <h4 class="services-mega-title">{group.title}</h4>
+              <p class="services-mega-copy">{group.description}</p>
+              <ul>
+                {group.items.map((item) => {
+                  const childActive = isLinkActive(pathname, item.href);
+
+                  return (
+                    <li class={childActive ? "active" : undefined}>
+                      <a href={item.href} class={childActive ? "active" : undefined}>
+                        <span>{item.label}</span>
+                        <small>{item.description}</small>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </li>
+    <li class="mega-menu-column services-mega-aside">
+      <div class="services-mega-card">
+        <span class="services-mega-code">[U]</span>
+        <h4>MCP Server Gelistirme</h4>
+        <p>
+          Yapay zeka modellerini sirket ici verilerinize ve araclariniza guvenle
+          baglayan akislar tasarliyoruz.
+        </p>
+        <a href="/hizmetler/mcp-server-gelistirme/">Detayi Incele</a>
+      </div>
+    </li>
+  </ul>
+</li>
+<li class:list={["menu-has-items", { active: resourcesActive }]}>
+  <a href="/" class={resourcesActive ? "active" : undefined}>
+    <span class="menu-item">Kaynaklar</span>
+    <span class="menu-item2">Kaynaklar</span>
+  </a>
+  <ul class="mega-sub-menu services-mega-menu">
+    <li class="mega-menu-column">
+      <div class="services-mega-grid">
+        {
+          resourceGroups.map((group) => (
+            <div class="services-mega-group">
+              <span class="services-mega-code">{group.shortCode}</span>
+              <h4 class="services-mega-title">{group.title}</h4>
+              <p class="services-mega-copy">{group.description}</p>
+              <ul>
+                {group.items.map((item) => {
+                  const childActive = isLinkActive(pathname, item.href);
+
+                  return (
+                    <li class={childActive ? "active" : undefined}>
+                      <a href={item.href} class={childActive ? "active" : undefined}>
+                        <span>{item.label}</span>
+                        <small>{item.description}</small>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </li>
+    <li class="mega-menu-column services-mega-aside">
+      <div class="services-mega-card">
+        <span class="services-mega-code">[K]</span>
+        <h4>Kaynak Merkezi</h4>
+        <p>
+          Kilavuzlar, icgoruler, araclar ve veri tabanli referanslari tek bir
+          merkezde topluyoruz.
+        </p>
+        <a href="/">Tum Bilgileri Gor</a>
+      </div>
+    </li>
+  </ul>
+</li>
+<li class={contactActive ? "active" : undefined}>
+  <a href="/contact/" class={contactActive ? "active" : undefined}>
+    <span class="menu-item">Iletisim</span>
+    <span class="menu-item2">Iletisim</span>
+  </a>
+</li>

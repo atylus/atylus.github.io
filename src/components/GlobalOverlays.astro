@@ -1,0 +1,118 @@
+---
+import { mobileMenuItems } from "../data/site";
+import MobileMenuTree from "./MobileMenuTree.astro";
+import ThemeLogo from "./ThemeLogo.astro";
+
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+---
+
+<div id="preloader">
+  <div class="loader">
+    <img
+      alt="Loading"
+      src="/assets/images/preloader-dark.png"
+      width="100"
+      height="100"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+  <div class="overlay" id="overlay" data-side-menu-close />
+  <a href="#" class="close-btn" id="closeBtn" data-side-menu-close>
+    <i class="fa fa-close" /> close
+  </a>
+  <div class="menu-content">
+    <a href="/" class="logo">
+      <ThemeLogo alt="Atylus logo" size="compact" />
+    </a>
+    <div class="sidebar-menu">
+      <h4 class="title">contacts</h4>
+      <p>
+        USA, New York - 1060 <br />
+        Str. First Avenue 1
+      </p>
+      <a href="tel:+13685678954" class="nmbr">800 100 975 20 34</a>
+      <a href="tel:8003508431" class="nmbr">+ (123) 1800-234-5678</a>
+      <a href="mailto:atylus@mail.co" class="email">atylus@mail.co</a>
+      <a href="/contact/" class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
+        <span>Bize Ulasin</span>
+      </a>
+    </div>
+    <ul class="social-icon">
+      <li>
+        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f" /></a>
+      </li>
+      <li>
+        <a href="https://www.twitter.com/"><i class="fab fa-twitter" /></a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in" /></a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/"><i class="fab fa-youtube" /></a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="search-popup" data-popup="1" id="searchPopup">
+  <div class="search-popup-content">
+    <form>
+      <button type="submit">
+        <i class="fa fa-search" />
+      </button>
+      <input type="text" placeholder="Type Your Search..." required />
+    </form>
+    <button type="button" class="close-popup" data-search-close />
+  </div>
+</div>
+
+<div class="side-menu2" id="mobileMenuPanel">
+  <div class="menu-btns">
+    <button type="button" class="search-btn" data-search-open aria-label="Open search">
+      <i class="fa fa-search" />
+    </button>
+    <button type="button" id="mobileCloseBtn2" class="close-btn" data-mobile-menu-close />
+  </div>
+  <ul>
+    <MobileMenuTree currentPath={pathname} items={mobileMenuItems} />
+  </ul>
+  <div class="menu-contact">
+    <span>Iletisim</span>
+    <a href="tel:+13685678954" class="nmbr">+1 800 529 10 37</a>
+    <a href="mailto:atylus@mail.co" class="gmail">atylus@mail.co</a>
+  </div>
+  <div class="menu-links">
+    <span>Follow us:</span>
+    <ul class="social-icon">
+      <li>
+        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f" /></a>
+      </li>
+      <li>
+        <a href="https://www.twitter.com/"><i class="fab fa-twitter" /></a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in" /></a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/"><i class="fab fa-youtube" /></a>
+      </li>
+    </ul>
+    <a href="/contact/" class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
+      <span>Bize Ulasin</span>
+    </a>
+  </div>
+</div>
+
+<div class="overlay2" id="mobileMenuOverlay" data-mobile-menu-close />
+
+<button type="button" title="Go to top" id="scrollBtn" aria-label="Scroll to top">
+  <i class="fas fa-angle-up" aria-hidden="true" />
+</button>

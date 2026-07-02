@@ -1,0 +1,42 @@
+---
+title: Content Model
+description: Dokumantasyon ve blog iceriginin Astro collections uzerindeki semasi.
+lastUpdated: 2026-07-01
+sidebar:
+  order: 2
+---
+
+## Koleksiyonlar
+
+### `docs`
+
+- Kaynak: `src/content/docs/docs`
+- Yukleyici: `docsLoader()`
+- Cikti: `/docs/...`
+
+### `blog`
+
+- Kaynak: `src/content/blog`
+- Yukleyici: `glob()`
+- Cikti: `/insights/...`
+
+## Frontmatter Semasi
+
+```ts
+{
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  author?: string;
+  draft?: boolean;
+  heroImage?: string;
+}
+```
+
+## SEO Notlari
+
+- Her entry icin canonical path tekil tutulur.
+- `draft: true` olan blog icerigi build cikisina dahil edilmez.
+- Blog ve docs yollarinin ayrismasi, `/blog` ve `/docs` niyetlerini netlestirir.

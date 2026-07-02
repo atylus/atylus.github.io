@@ -1,0 +1,13 @@
+---
+import LegacyPage from "../../components/legacy/LegacyPage.astro";
+import { getDemoMetadata } from "@/data/demo";
+
+const metadata = getDemoMetadata(6);
+---
+
+<LegacyPage
+  title={String(metadata.title)}
+  description={String(metadata.description)}
+  canonicalPath="/yapay-zeka-danismanligi/"
+  routeId="yapay-zeka-danismanligi"
+/>

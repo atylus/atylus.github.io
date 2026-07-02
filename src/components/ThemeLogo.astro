@@ -1,0 +1,38 @@
+---
+interface Props {
+  alt?: string;
+  className?: string;
+  height?: number;
+  size?: "default" | "compact";
+  width?: number;
+}
+
+const {
+  alt = "Atylus logo",
+  className = "",
+  height = 20,
+  size = "default",
+  width = 110,
+} = Astro.props;
+---
+
+<span class:list={["theme-logo", `theme-logo--${size}`, className]}>
+  <img
+    alt={alt}
+    class="theme-logo-light"
+    src="/assets/images/logo-dark.svg"
+    width={width}
+    height={height}
+    loading="eager"
+    decoding="async"
+  />
+  <img
+    alt={alt}
+    class="theme-logo-dark"
+    src="/assets/images/logo-light.svg"
+    width={width}
+    height={height}
+    loading="eager"
+    decoding="async"
+  />
+</span>
