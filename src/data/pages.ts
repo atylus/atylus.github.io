@@ -91,9 +91,9 @@ const pageMetaMap: Record<PageMetaKey, { title: string; description: string }> =
         "Typography and UI elements reference page for the Atylus AI Agency & Technology Next.js template.",
     },
     contact: {
-      title: `Contact | ${BASE_TITLE}`,
+      title: `Iletisim | ${BASE_TITLE}`,
       description:
-        "Get in touch with Atylus AI Agency & Technology using our contact details and inquiry form.",
+        "Atylus ile iletisime gecin. Kurumsal yapay zeka, MCP ve ozel yazilim ihtiyaclariniz icin bize info@atylus.com adresinden ulasin.",
     },
     service: {
       title: `Services | ${BASE_TITLE}`,
