@@ -1,10 +1,12 @@
 "use client";
 import {
-  ReactNode,
   createElement,
   useLayoutEffect,
   useRef,
   forwardRef,
+  type ReactNode,
+  type CSSProperties,
+  type MutableRefObject,
 } from "react";
 import { useTitleSplitContext } from "@/components/common/TitleSplitProvider";
 
@@ -12,7 +14,7 @@ interface TitleSplitWrapperProps {
   children: ReactNode;
   tag?: string;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 const TitleSplitWrapper = forwardRef<HTMLElement, TitleSplitWrapperProps>(
@@ -29,13 +31,13 @@ const TitleSplitWrapper = forwardRef<HTMLElement, TitleSplitWrapperProps>(
       registerElement(el);
       if (ref) {
         if (typeof ref === "function") ref(el);
-        else (ref as React.MutableRefObject<HTMLElement | null>).current = el;
+        else (ref as MutableRefObject<HTMLElement | null>).current = el;
       }
       return () => {
         unregisterElement(el);
         if (ref) {
           if (typeof ref === "function") ref(null);
-          else (ref as React.MutableRefObject<HTMLElement | null>).current = null;
+          else (ref as MutableRefObject<HTMLElement | null>).current = null;
         }
       };
     }, [ref, registerElement, unregisterElement]);

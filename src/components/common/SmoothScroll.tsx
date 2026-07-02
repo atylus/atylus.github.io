@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 
 import { useLenisRef } from "@/context/LenisContext";

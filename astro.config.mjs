@@ -1,3 +1,4 @@
+// @ts-check
 import path from "node:path";
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
@@ -5,33 +6,36 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 
+const siteUrl = "https://atylus.com";
+const nextCompatAliases = [
+  {
+    find: /^next\/image$/,
+    replacement: path.resolve("./src/compat/next/image.tsx"),
+  },
+  {
+    find: /^next\/link$/,
+    replacement: path.resolve("./src/compat/next/link.tsx"),
+  },
+  {
+    find: /^next\/navigation$/,
+    replacement: path.resolve("./src/compat/next/navigation.tsx"),
+  },
+  {
+    find: /^next\/font\/google$/,
+    replacement: path.resolve("./src/compat/next/font/google.ts"),
+  },
+  {
+    find: /^next$/,
+    replacement: path.resolve("./src/compat/next/index.ts"),
+  },
+];
+
 export default defineConfig({
-  site: "https://atylus.com",
+  site: siteUrl,
   trailingSlash: "ignore",
   vite: {
     resolve: {
-      alias: [
-        {
-          find: /^next\/image$/,
-          replacement: path.resolve("./src/compat/next/image.tsx"),
-        },
-        {
-          find: /^next\/link$/,
-          replacement: path.resolve("./src/compat/next/link.tsx"),
-        },
-        {
-          find: /^next\/navigation$/,
-          replacement: path.resolve("./src/compat/next/navigation.tsx"),
-        },
-        {
-          find: /^next\/font\/google$/,
-          replacement: path.resolve("./src/compat/next/font/google.ts"),
-        },
-        {
-          find: /^next$/,
-          replacement: path.resolve("./src/compat/next/index.ts"),
-        },
-      ],
+      alias: nextCompatAliases,
     },
   },
   integrations: [
@@ -90,6 +94,18 @@ export default defineConfig({
       ],
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => {
+        const url = typeof page === "string" ? page : page.url;
+        if (!url) return true;
+
+        return !url.includes("/404");
+      },
+    }),
   ],
+  markdown: {
+    shikiConfig: {
+      theme: "github-dark",
+    },
+  },
 });

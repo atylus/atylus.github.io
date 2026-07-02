@@ -4,10 +4,10 @@ import {
   createContext,
   useContext,
   useRef,
-  ReactNode,
   useEffect,
   useCallback,
   useState,
+  type ReactNode,
 } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";

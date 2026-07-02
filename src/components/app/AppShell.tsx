@@ -18,7 +18,7 @@ import { LenisProvider } from "@/context/LenisContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { UiProvider } from "@/context/UiContext";
 import { VideoModalProvider } from "@/context/VideoModalContext";
-import { PathnameProvider } from "@/src/compat/next/navigation";
+import { PathnameProvider } from "@/compat/next/navigation";
 
 export type SharedLayoutMode = "none" | "marketing";
 

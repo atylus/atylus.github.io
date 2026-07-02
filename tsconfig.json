@@ -1,31 +1,62 @@
 {
+  "extends": "./node_modules/astro/tsconfigs/strict.json",
+  "include": [
+    ".astro/types.d.ts",
+    "*.d.ts",
+    "src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    ".astro"
+  ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
+    // Modern JavaScript hedefi
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+
+    // Astro + React
     "jsx": "react-jsx",
+
+    // Modül çözümleme
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+
+    // Type checking - Maksimum güvenlik
+    "strict": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+
+    // Emit kuralları
+    "allowJs": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "incremental": true,
+
+    // Interop ve uyumluluk
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    // Path mapping
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
       "next": ["./src/compat/next/index.ts"],
       "next/*": ["./src/compat/next/*"]
     }
-  },
-  "include": [
-    ".astro/types.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.astro",
-    "**/*.mts"
-  ],
-  "exclude": ["node_modules"]
+  }
 }

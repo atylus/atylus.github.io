@@ -23,6 +23,8 @@ export default function SubTitleWrapper({
       registerSubTitle(outer, inner);
       return () => unregisterSubTitle(outer);
     }
+
+    return undefined;
   }, [registerSubTitle, unregisterSubTitle]);
 
   const finalClassName = ["sub-title", className].filter(Boolean).join(" ");

@@ -1,11 +1,16 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { siteMetadata } from "../../data/site";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-  (left, right) => right.data.pubDate.getTime() - left.data.pubDate.getTime(),
-);
+const blogEntries = await getCollection("blog");
+const posts = blogEntries
+  .filter((post: CollectionEntry<"blog">) => !post.data.draft)
+  .sort(
+    (left: CollectionEntry<"blog">, right: CollectionEntry<"blog">) =>
+      right.data.pubDate.getTime() - left.data.pubDate.getTime(),
+  );
+const publishedPosts: CollectionEntry<"blog">[] = posts;
 ---
 
 <Layout
@@ -36,7 +41,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
     <div class="container">
       <div class="row g-4">
         {
-          posts.map((post) => (
+          publishedPosts.map((post) => (
             <article class="col-lg-6">
               <div class="blog-card">
                 <div class="blog-content">

@@ -4,12 +4,14 @@ import Layout from "../../layouts/Layout.astro";
 import { siteMetadata } from "../../data/site";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const posts = await getCollection("blog");
 
-  return posts.map((post) => ({
+  return posts
+    .filter((post: CollectionEntry<"blog">) => !post.data.draft)
+    .map((post: CollectionEntry<"blog">) => ({
     params: { slug: post.id },
     props: { post },
-  }));
+    }));
 }
 
 interface Props {
