@@ -38,7 +38,7 @@
     "allowUnreachableCode": false,
 
     // Emit kuralları
-    "allowJs": true,
+    "allowJs": true, 
     "noEmit": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
