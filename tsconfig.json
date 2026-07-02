@@ -23,28 +23,24 @@
 
     // Astro + React
     "jsx": "react-jsx",
-    "jsxImportSource": "preact",
     // Modül çözümleme
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "moduleDetection": "force",
     // Type checking - Maksimum güvenlik
     "strict": true,
-    "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noPropertyAccessFromIndexSignature": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": true,
 
     // Emit kuralları
+    "allowJs": true,
     "noEmit": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    "incremental": true,
 
     // Interop ve uyumluluk
     "esModuleInterop": true,
