@@ -2,10 +2,15 @@
 import Link from "next/link";
 
 import { useUi } from "@/context/UiContext";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
+import { getLocalizedPagePath } from "@/i18n/routes";
 import ThemeLogo from "../common/ThemeLogo";
 
 export default function Sidemenu() {
   const { closeSideNav, sideNavOpen } = useUi();
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
   return (
     <div className={`side-menu ${sideNavOpen ? "active" : ""}`} id="sideMenu">
       <div
@@ -14,34 +19,28 @@ export default function Sidemenu() {
         onClick={closeSideNav}
       />
       <a href="#" className="close-btn" id="closeBtn" onClick={closeSideNav}>
-        <i className="fa fa-close" /> close
+        <i className="fa fa-close" /> {ui.sidebar.close}
       </a>
       <div className="menu-content">
-        <Link href={`/`} className="logo">
+        <Link href={`/${locale}/`} className="logo">
           <ThemeLogo alt="logo" size="compact" />
         </Link>
         <div className="sidebar-menu">
-          <h4 className="title">contacts</h4>
+          <h4 className="title">{ui.sidebar.contacts}</h4>
           <p>
-            USA, New York - 1060 <br />
-            Str. First Avenue 1
+            {ui.contact.locationLines[0]} <br />
+            {ui.contact.locationLines[1]}
           </p>
-          <a href="tel:+13685678954" title="" className="nmbr">
-            800 100 975 20 34
+          <a href="mailto:info@atylus.com" className="email">
+            info@atylus.com
           </a>
-          <a href="tel:8003508431" title="" className="nmbr">
-            + (123) 1800-234-5678
-          </a>
-          <a href="mailto:atylus@mail.co" className="email">
-            atylus@mail.co
-          </a>
-          <a
-            href="#"
+          <Link
+            href={getLocalizedPagePath(locale, "contact")}
             title=""
             className="ibt-btn ibt-btn-outline-3 ibt-btn-rounded"
           >
-            <span>Bize Ulaşın</span>
-          </a>
+            <span>{ui.nav.contactCta}</span>
+          </Link>
         </div>
         <ul className="social-icon">
           <li>

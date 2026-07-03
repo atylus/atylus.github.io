@@ -1,6 +1,10 @@
 import type { AnchorHTMLAttributes, ForwardedRef } from "react";
 import { forwardRef } from "react";
 
+import { DEFAULT_LOCALE } from "@/i18n/config";
+import { getLocalizedHref } from "@/i18n/routes";
+import { useLocale } from "@/compat/next/navigation";
+
 type HrefValue =
   | string
   | URL
@@ -35,8 +39,15 @@ function Link(
   { href, children, ...props }: LinkProps,
   ref: ForwardedRef<HTMLAnchorElement>,
 ) {
+  const locale = useLocale();
+  const resolvedHref = resolveHref(href);
+
   return (
-    <a ref={ref} href={resolveHref(href)} {...props}>
+    <a
+      ref={ref}
+      href={getLocalizedHref(resolvedHref, locale || DEFAULT_LOCALE)}
+      {...props}
+    >
       {children}
     </a>
   );

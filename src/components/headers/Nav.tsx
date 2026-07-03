@@ -2,22 +2,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { getServiceHref, serviceCatalog } from "@/data/serviceCatalog";
-import { resourceCatalog } from "@/data/resourceCatalog";
-import { mobileMenuItems } from "@/data/mobileMenu";
+import { getServiceHref, getServiceCatalog } from "@/data/serviceCatalog";
+import { getResourceCatalog } from "@/data/resourceCatalog";
+import { getMobileMenuItems } from "@/data/mobileMenu";
+import { getUiCopy } from "@/i18n/content";
+import { useLocale } from "@/compat/next/navigation";
 import { isLinkActive, itemHasActiveDescendant } from "@/utils/menuActive";
 
 export default function Nav() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
 
-  const homeSection = mobileMenuItems.find((item) => item.href === "/");
+  const mobileMenuItems = getMobileMenuItems(locale);
+  const homeSection = mobileMenuItems.find((item) => item.href === `/${locale}/`);
   const servicesSection = mobileMenuItems.find(
-    (item) => item.label === "Hizmetler",
+    (item) => item.label === ui.nav.services,
   );
   const resourcesSection = mobileMenuItems.find(
-    (item) => item.label === "Kaynaklar",
+    (item) => item.label === ui.nav.resources,
   );
-  const contactSection = mobileMenuItems.find((item) => item.href === "/contact");
+  const contactSection = mobileMenuItems.find(
+    (item) => item.label === ui.nav.contact,
+  );
 
   if (
     !homeSection ||
@@ -28,8 +35,8 @@ export default function Nav() {
     return null;
   }
 
-  const serviceGroups = serviceCatalog;
-  const resourceGroups = resourceCatalog;
+  const serviceGroups = getServiceCatalog(locale);
+  const resourceGroups = getResourceCatalog(locale);
 
   const isHomeActive = itemHasActiveDescendant(pathname, homeSection);
   const isServicesActive = itemHasActiveDescendant(pathname, servicesSection);
@@ -70,7 +77,7 @@ export default function Nav() {
                   <p className="services-mega-copy">{group.description}</p>
                   <ul>
                     {group.items.map((child) => {
-                      const href = getServiceHref(child.slug);
+                      const href = getServiceHref(locale, child.key);
                       const isChildActive = isLinkActive(pathname, href);
 
                       return (
@@ -96,12 +103,13 @@ export default function Nav() {
           <li className="mega-menu-column services-mega-aside">
             <div className="services-mega-card">
               <span className="services-mega-code">[U]</span>
-              <h4>MCP Server Geliştirme</h4>
+              <h4>{getServiceCatalog(locale).at(-1)?.items.at(-1)?.title}</h4>
               <p>
-                Yapay zeka modellerini şirket içi verilerinize ve araçlarınıza
-                güvenle bağlayan akışlar tasarlıyoruz.
+                {getServiceCatalog(locale).at(-1)?.items.at(-1)?.description}
               </p>
-              <Link href="/hizmetler/mcp-server-gelistirme">Detayı İncele</Link>
+              <Link href={getServiceHref(locale, "mcp-server-gelistirme")}>
+                {ui.nav.inspectDetail}
+              </Link>
             </div>
           </li>
         </ul>
@@ -153,12 +161,11 @@ export default function Nav() {
           <li className="mega-menu-column services-mega-aside">
             <div className="services-mega-card">
               <span className="services-mega-code">[K]</span>
-              <h4>Kaynak Merkezi</h4>
-              <p>
-                Kılavuzlar, içgörüler, araçlar ve veri tabanlı referansları tek
-                bir merkezde topluyoruz.
-              </p>
-              <Link href="#">Tüm Bilgileri Gör</Link>
+              <h4>{ui.nav.resourceHubTitle}</h4>
+              <p>{ui.nav.resourceHubDescription}</p>
+              <Link href={resourceGroups[0]?.items[0]?.href ?? "#"}>
+                {ui.nav.viewAllResources}
+              </Link>
             </div>
           </li>
         </ul>

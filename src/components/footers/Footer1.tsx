@@ -1,19 +1,31 @@
 import Link from "next/link";
 
-import { footerLinkGroups } from "@/data/footer";
+import { getFooterGroups } from "@/data/footer";
 import ThemeLogo from "@/components/common/ThemeLogo";
+import FooterLocaleSwitcher from "@/components/common/FooterLocaleSwitcher";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
+import { getLocalizedPagePath } from "@/i18n/routes";
 
 export default function Footer1() {
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
+  const footerLinkGroups = getFooterGroups(locale);
+
   return (
     <footer className="footer-style1">
       <div className="footer-top">
         <div className="container">
           <div className="footer-content">
-            <h2 className="title">Yapay Zeka Sistemleri ile Tanışın</h2>
-            <a href="#" title="" className="ibt-btn ibt-btn-outline">
-              <span>Bize Ulaşın</span>
+            <h2 className="title">{ui.footer.title}</h2>
+            <Link
+              href={getLocalizedPagePath(locale, "contact")}
+              title=""
+              className="ibt-btn ibt-btn-outline"
+            >
+              <span>{ui.footer.cta}</span>
               <i className="icon-arrow-top" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -67,7 +79,7 @@ export default function Footer1() {
                     </a>
                   </li>
                 </ul>
-                <h2 className="title">2025'ten bu yana</h2>
+                <h2 className="title">{ui.footer.since}</h2>
               </div>
             </div>
             <div className="col-xl-4 col-lg-6">
@@ -93,6 +105,9 @@ export default function Footer1() {
                   </div>
                 ))}
               </div>
+              <div className="mt-4 d-flex justify-content-lg-end justify-content-start">
+                <FooterLocaleSwitcher ariaLabel={ui.footer.languageAria} />
+              </div>
             </div>
           </div>
         </div>
@@ -101,11 +116,12 @@ export default function Footer1() {
         <div className="container">
           <div className="footer-box">
             <p>
-              <a href="#">©Atylus</a> {new Date().getFullYear()}. Tüm hakları
-              saklıdır.
+              <Link href={`/${locale}/`}>©Atylus</Link> {new Date().getFullYear()}.{" "}
+              {ui.footer.rightsReserved}
             </p>
             <span>
-              Kullanım Koşulları <a href="#">Gizlilik Politikası</a>
+              {ui.footer.terms}{" "}
+              <a href="#">{ui.footer.privacy}</a>
             </span>
           </div>
         </div>

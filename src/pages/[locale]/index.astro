@@ -1,0 +1,34 @@
+---
+import PageDocument from "../../components/app/PageDocument.astro";
+import MarketingPageIsland from "../../components/app/MarketingPageIsland.astro";
+import { SUPPORTED_LOCALES, type SupportedLocale } from "@/i18n/config";
+import { getPageSeo } from "@/i18n/content";
+import {
+  getLocalizedPagePath,
+  getMarketingPageAlternates,
+} from "@/i18n/routes";
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((locale) => ({
+    params: { locale },
+    props: { locale },
+  }));
+}
+
+const { locale } = Astro.props as { locale: SupportedLocale };
+const metadata = getPageSeo(locale, "home");
+---
+
+<PageDocument
+  title={metadata.title}
+  description={metadata.description}
+  canonicalPath={getLocalizedPagePath(locale, "home")}
+  locale={locale}
+  alternates={getMarketingPageAlternates("home")}
+>
+  <MarketingPageIsland
+    pageKey="home"
+    pathname={Astro.url.pathname}
+    locale={locale}
+  />
+</PageDocument>

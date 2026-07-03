@@ -1,0 +1,127 @@
+---
+import PageDocument from "../../components/app/PageDocument.astro";
+import MarketingPageIsland from "../../components/app/MarketingPageIsland.astro";
+import {
+  SUPPORTED_LOCALES,
+  type SupportedLocale,
+} from "@/i18n/config";
+import { getPageSeo } from "@/i18n/content";
+import {
+  SERVICE_SECTION_SEGMENTS,
+  getAllMarketingPagesForLocale,
+  getMarketingPageAlternates,
+  getLocalizedPagePath,
+  joinLocalizedPath,
+} from "@/i18n/routes";
+import {
+  getServiceCatalogItems,
+  getServiceHref,
+  getServiceByKey,
+  type ServiceCatalogItem,
+} from "@/data/serviceCatalog";
+import { ServiceDetailPageIsland } from "@/components/app/PageIslands";
+
+type PageProps =
+  | {
+      locale: SupportedLocale;
+      type: "marketing";
+      pageKey: import("@/i18n/routes").MarketingPageKey;
+    }
+  | {
+      locale: SupportedLocale;
+      type: "service";
+      service: ServiceCatalogItem;
+    };
+
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const page of getAllMarketingPagesForLocale(locale)) {
+      if (page.key === "home") {
+        continue;
+      }
+
+      paths.push({
+        params: {
+          locale,
+          segments: page.path.split("/").filter(Boolean).slice(1).join("/"),
+        },
+        props: {
+          locale,
+          type: "marketing",
+          pageKey: page.key,
+        } satisfies PageProps,
+      });
+    }
+
+    for (const service of getServiceCatalogItems(locale)) {
+      paths.push({
+        params: {
+          locale,
+          segments: [SERVICE_SECTION_SEGMENTS[locale], service.slug].join("/"),
+        },
+        props: {
+          locale,
+          type: "service",
+          service,
+        } satisfies PageProps,
+      });
+    }
+  }
+
+  return paths;
+}
+
+const props = Astro.props as PageProps;
+---
+
+{
+  props.type === "marketing" ? (
+    (() => {
+      const metadata = getPageSeo(props.locale, props.pageKey);
+
+      return (
+        <PageDocument
+          title={metadata.title}
+          description={metadata.description}
+          canonicalPath={getLocalizedPagePath(props.locale, props.pageKey)}
+          locale={props.locale}
+          alternates={getMarketingPageAlternates(props.pageKey)}
+        >
+          <MarketingPageIsland
+            pageKey={props.pageKey}
+            pathname={Astro.url.pathname}
+            locale={props.locale}
+          />
+        </PageDocument>
+      );
+    })()
+  ) : (
+    (() => {
+      const serviceAlternates = Object.fromEntries(
+        SUPPORTED_LOCALES.map((locale) => {
+          const localizedService = getServiceByKey(locale, props.service.key);
+          return [locale, localizedService ? getServiceHref(locale, localizedService.key) : joinLocalizedPath(locale, SERVICE_SECTION_SEGMENTS[locale])];
+        }),
+      );
+
+      return (
+        <PageDocument
+          title={props.service.seoTitle}
+          description={props.service.seoDescription}
+          canonicalPath={getServiceHref(props.locale, props.service.key)}
+          locale={props.locale}
+          alternates={serviceAlternates}
+        >
+          <ServiceDetailPageIsland
+            client:load
+            pathname={Astro.url.pathname}
+            locale={props.locale}
+            service={props.service}
+          />
+        </PageDocument>
+      );
+    })()
+  )
+}

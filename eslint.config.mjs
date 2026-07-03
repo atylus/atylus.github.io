@@ -1,18 +1,19 @@
-import eslintPluginAstro from "eslint-plugin-astro";
+import { defineConfig, globalIgnores } from "eslint/config";
 import reactHooks from "eslint-plugin-react-hooks";
 import unusedImports from "eslint-plugin-unused-imports";
-import tsParser from "@typescript-eslint/parser";
+import tseslint from "typescript-eslint";
 
-export default [
-  ...eslintPluginAstro.configs.recommended,
+const eslintConfig = defineConfig([
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.{js,mjs,jsx,ts,tsx}"],
     languageOptions: {
-      parser: tsParser,
+      parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
         ecmaVersion: "latest",
         sourceType: "module",
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
     plugins: {
@@ -20,32 +21,23 @@ export default [
       "unused-imports": unusedImports,
     },
     rules: {
-      "react-hooks/rules-of-hooks": "error",
+      "no-unused-vars": "off",
       "react-hooks/exhaustive-deps": "warn",
       "unused-imports/no-unused-imports": "error",
-      "no-unused-vars": "off",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
+      ],
     },
   },
-  {
-    rules: {
-      "no-console": ["warn", { allow: ["warn", "error"] }],
-      "no-debugger": "error",
-    },
-  },
-  {
-    ignores: [
-      "dist/**",
-      "node_modules/**",
-      ".astro/**",
-      ".next/**",
-      "public/**",
-      "coverage/**",
-      "build/**",
-      "out/**",
-      "next-env.d.ts",
-      "*.config.js",
-      "*.config.mjs",
-      "*.config.ts",
-    ],
-  },
-];
+  globalIgnores([
+    ".astro/**",
+    ".next/**",
+    "dist/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;

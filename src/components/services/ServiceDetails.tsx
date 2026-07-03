@@ -3,14 +3,18 @@ import Image from "next/image";
 import Faqs from "./Faqs";
 import Pricing from "./Pricing";
 import SubTitleWrapper from "../common/SubTitleWrapper";
-import { getServiceHref, serviceCatalogItems } from "@/data/serviceCatalog";
+import { getServiceHref, getServiceCatalogItems } from "@/data/serviceCatalog";
 import type { ServiceCatalogItem } from "@/types/services";
+import { useLocale } from "@/compat/next/navigation";
 
 type ServiceDetailsProps = {
   service: ServiceCatalogItem;
 };
 
 export default function ServiceDetails({ service }: ServiceDetailsProps) {
+  const locale = useLocale();
+  const serviceCatalogItems = getServiceCatalogItems(locale);
+
   return (
     <section className="service-single-sec ibt-section-gapTop">
       <button className="sidebar-toggle" />
@@ -27,7 +31,7 @@ export default function ServiceDetails({ service }: ServiceDetailsProps) {
                   return (
                     <Link
                       key={relatedService.slug}
-                      href={getServiceHref(relatedService.slug)}
+                      href={getServiceHref(locale, relatedService.key)}
                       title={relatedService.title}
                       className={isActive ? "active" : undefined}
                     >

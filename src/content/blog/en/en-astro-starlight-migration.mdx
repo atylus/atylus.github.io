@@ -1,0 +1,37 @@
+---
+locale: en
+translationKey: astro-starlight-migration
+slug: astro-starlight-migration
+title: Migrating to Astro and Starlight Without Breaking Design or SEO
+description: A summary of the structural and SEO decisions used while moving a SCSS-heavy Next.js project to Astro and Starlight.
+pubDate: 2026-07-01
+updatedDate: 2026-07-01
+tags:
+  - astro
+  - starlight
+  - seo
+  - migration
+author: Atylus
+heroImage: /assets/images/project/project2-1.png
+---
+
+## Problem Statement
+
+Changing frameworks without changing the design usually introduces two risks:
+
+1. The CSS cascade can break.
+2. SEO signals can weaken while rebuilding crawlable information architecture.
+
+## Strategy Applied
+
+- The global SCSS layer was preserved.
+- Existing layout class names were reused.
+- Documentation moved to Starlight.
+- The blog was modeled with Astro content collections for type safety.
+
+## Expected Gains
+
+- Lower client-side JavaScript cost
+- Clearer documentation information architecture
+- Better static HTML output
+- Easier sitemap and search integration

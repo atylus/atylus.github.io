@@ -1,3 +1,13 @@
+import type { SupportedLocale } from "@/i18n/config";
+import { getUiCopy } from "@/i18n/content";
+import {
+  getLocalizedBlogIndexPath,
+  getLocalizedDocsIndexPath,
+  getLocalizedPagePath,
+} from "@/i18n/routes";
+import { getResourceCatalog } from "@/data/resourceCatalog";
+import { getServiceCatalog, getServiceHref } from "@/data/serviceCatalog";
+
 export type NavLeaf = {
   label: string;
   href: string;
@@ -38,172 +48,121 @@ export type ProjectModernItem = {
   imageHeight: number;
 };
 
-export const siteMetadata = {
-  name: "Atylus",
-  title: "Atylus AI Agency & Technology",
-  description:
-    "Atylus; yapay zeka sistemleri, karar destek mekanizmalari, MCP entegrasyonlari ve teknik dokumantasyon altyapisi ureten bir teknoloji markasidir.",
-  defaultOgImage: "/assets/images/logo-dark.svg",
-} as const;
+export function getSiteMetadata(locale: SupportedLocale) {
+  const ui = getUiCopy(locale);
 
-export const serviceGroups: CatalogGroup[] = [
-  {
-    key: "analitik",
-    shortCode: "[A]",
-    title: "Analitik",
-    description: "Veriyi sinyale, sinyali yonetsel karara donusturen analitik katman.",
-    items: [
-      {
-        label: "Risk ve Anomali Analizi",
-        href: "/hizmetler/risk-ve-anomali-analizi/",
-        description: "Anomaliler buyumeden once tespit edin.",
-      },
-      {
-        label: "Davranis ve Segmentasyon",
-        href: "/hizmetler/davranis-ve-segmentasyon/",
-        description: "Niyeti kumelendirip kararlari kisisellestirin.",
-      },
-      {
-        label: "Karar Panolari",
-        href: "/hizmetler/karar-panolari/",
-        description: "Gercek zamanli yonetici netligi saglayin.",
-      },
-    ],
-  },
-  {
-    key: "teknoloji",
-    shortCode: "[T]",
-    title: "Teknoloji",
-    description: "Marka dili ve is hedefleriyle uyumlu uygulama ve modelleme katmani.",
-    items: [
-      {
-        label: "Uretken Yapay Zeka",
-        href: "/hizmetler/uretken-yapay-zeka/",
-        description: "Marka diliyle uyumlu icerikler ve akilli otomasyonlar uretin.",
-      },
-    ],
-  },
-  {
-    key: "operasyonel-fayda",
-    shortCode: "[U]",
-    title: "Operasyonel Fayda",
-    description: "Kurumsal ekipleri dogrudan hizlandiran teslimatlar ve entegrasyonlar.",
-    items: [
-      {
-        label: "Chatbot Gelistirme",
-        href: "/hizmetler/chatbot-gelistirme/",
-        description: "Destek, satis ve ic ekipler icin entegre chatbotlar.",
-      },
-      {
-        label: "MCP Server Gelistirme",
-        href: "/hizmetler/mcp-server-gelistirme/",
-        description:
-          "Yapay zeka modellerini sirket ici verilerinize ve araclarniza guvenle baglayin.",
-      },
-    ],
-  },
-];
+  return {
+    name: "Atylus",
+    title: ui.siteTitle,
+    description: ui.siteDescription,
+    defaultOgImage: "/assets/images/logo-dark.svg",
+  } as const;
+}
 
-export const resourceGroups: CatalogGroup[] = [
-  {
-    key: "learn",
-    shortCode: "[O]",
-    title: "Ogren",
-    description: "Kullanim senaryolari ve urun bilgisi icin egitim odakli icerikler.",
-    items: [
-      {
-        label: "Blog",
-        href: "/blog/",
-        description: "Ipuclari, guncellemeler ve teknik icerikler.",
-      },
-      {
-        label: "Kilavuzlar",
-        href: "/reference/migration-blueprint/",
-        description: "Goc, deployment ve icerik mimarisi kilavuzlari.",
-      },
-      {
-        label: "Dokumantasyon",
-        href: "/",
-        description: "Starlight tabanli merkezi bilgi mimarisi.",
-      },
-    ],
-  },
-  {
-    key: "knowledge",
-    shortCode: "[E]",
-    title: "Bilgi Merkezi",
-    description: "Karar vermeyi hizlandiran teknik ve operasyonel icgoruler.",
-    items: [
-      {
-        label: "Degisiklik Gunlugu",
-        href: "/reference/content-model/",
-        description: "Yapilan mimari kararlari tek yerde izleyin.",
-      },
-    ],
-  },
-];
-
-export const footerLinkGroups: FooterLinkGroup[] = [
-  {
-    title: "Kurumsal",
-    links: [
-      { label: "Hakkimizda", href: "/hakkimizda/" },
-      { label: "Projeler", href: "/projects/" },
-      { label: "Iletisim", href: "/contact/" },
-    ],
-  },
-  {
-    title: "Hizmetler",
-    links: serviceGroups.flatMap((group) =>
-      group.items.map((item) => ({ label: item.label, href: item.href })),
-    ),
-  },
-  {
-    title: "Kaynaklar",
-    links: [
-      { label: "Blog", href: "/blog/" },
-      { label: "Dokumantasyon", href: "/" },
-      { label: "Icerik Modeli", href: "/reference/content-model/" },
-    ],
-  },
-];
-
-export const mobileMenuItems: MobileMenuItem[] = [
-  {
-    label: "Ana Sayfa",
-    href: "/",
-  },
-  {
-    label: "Hizmetler",
-    href: "/hizmetler/",
-    children: serviceGroups.map((group) => ({
-      label: `${group.shortCode} ${group.title}`,
-      href: "#",
-      liClassName: "sub-menu",
-      children: group.items.map((item) => ({
-        label: item.label,
-        href: item.href,
-      })),
+export function getServiceGroups(locale: SupportedLocale): CatalogGroup[] {
+  return getServiceCatalog(locale).map((group) => ({
+    key: group.key,
+    shortCode: group.shortCode,
+    title: group.title,
+    description: group.description,
+    items: group.items.map((item) => ({
+      label: item.title,
+      href: getServiceHref(locale, item.key),
+      description: item.description,
     })),
-  },
-  {
-    label: "Kaynaklar",
-    href: "/",
-    children: resourceGroups.map((group) => ({
-      label: `${group.shortCode} ${group.title}`,
-      href: "#",
-      liClassName: "sub-menu",
-      children: group.items.map((item) => ({
-        label: item.label,
-        href: item.href,
+  }));
+}
+
+export function getResourceGroups(locale: SupportedLocale): CatalogGroup[] {
+  return getResourceCatalog(locale).map((group) => ({
+    key: group.key,
+    shortCode: group.shortCode,
+    title: group.title,
+    description: group.description,
+    items: group.items.map((item) => ({ ...item })),
+  }));
+}
+
+export function getFooterLinkGroups(locale: SupportedLocale): FooterLinkGroup[] {
+  const ui = getUiCopy(locale);
+  const serviceGroups = getServiceGroups(locale);
+  const companyTitle =
+    locale === "tr" ? "Kurumsal" : locale === "de" ? "Unternehmen" : "Company";
+
+  return [
+    {
+      title: companyTitle,
+      links: [
+        { label: ui.pageMeta.about.title.split(" | ")[0], href: getLocalizedPagePath(locale, "about") },
+        { label: ui.pageMeta.projects.title.split(" | ")[0], href: getLocalizedPagePath(locale, "projects") },
+        { label: ui.nav.contact, href: getLocalizedPagePath(locale, "contact") },
+      ],
+    },
+    {
+      title: ui.nav.services,
+      links: serviceGroups.flatMap((group) =>
+        group.items.map((item) => ({ label: item.label, href: item.href })),
+      ),
+    },
+    {
+      title: ui.nav.resources,
+      links: [
+        { label: ui.breadcrumbs.blog, href: getLocalizedBlogIndexPath(locale) },
+        { label: ui.breadcrumbs.docs, href: getLocalizedDocsIndexPath(locale) },
+        { label: "Migration Blueprint", href: `${getLocalizedDocsIndexPath(locale)}reference/migration-blueprint/` },
+      ],
+    },
+  ];
+}
+
+export function getMobileMenuItems(locale: SupportedLocale): MobileMenuItem[] {
+  const ui = getUiCopy(locale);
+  const serviceGroups = getServiceGroups(locale);
+  const resourceGroups = getResourceGroups(locale);
+
+  return [
+    {
+      label: ui.nav.home,
+      href: getLocalizedPagePath(locale, "home"),
+    },
+    {
+      label: ui.nav.services,
+      href: getLocalizedPagePath(locale, "services"),
+      children: serviceGroups.map((group) => ({
+        label: `${group.shortCode} ${group.title}`,
+        href: "#",
+        liClassName: "sub-menu",
+        children: group.items.map((item) => ({
+          label: item.label,
+          href: item.href,
+        })),
       })),
-    })),
-  },
-  {
-    label: "Iletisim",
-    href: "/contact/",
-  },
-];
+    },
+    {
+      label: ui.nav.resources,
+      href: "#",
+      children: resourceGroups.map((group) => ({
+        label: `${group.shortCode} ${group.title}`,
+        href: "#",
+        liClassName: "sub-menu",
+        children: group.items.map((item) => ({
+          label: item.label,
+          href: item.href,
+        })),
+      })),
+    },
+    {
+      label: ui.nav.contact,
+      href: getLocalizedPagePath(locale, "contact"),
+    },
+  ];
+}
+
+export const siteMetadata = getSiteMetadata("tr");
+export const serviceGroups = getServiceGroups("tr");
+export const resourceGroups = getResourceGroups("tr");
+export const footerLinkGroups = getFooterLinkGroups("tr");
+export const mobileMenuItems = getMobileMenuItems("tr");
 
 export const projects: ProjectItem[] = [
   {

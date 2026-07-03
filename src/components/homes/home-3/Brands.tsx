@@ -19,7 +19,7 @@ export default function Brands() {
       <div className="container3">
         <div className="row">
           <div className="col-lg-2">
-            <div className="neural-img3 neural-img3-mobile-hidden">
+            <div className="neural-img3">
               <Image
                 alt="AI Agency & Technology HTML Template"
                 src="/assets/images/layers/layer3.png"

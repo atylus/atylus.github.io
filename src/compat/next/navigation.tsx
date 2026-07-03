@@ -7,21 +7,34 @@ import {
   type ReactNode,
 } from "react";
 
+import {
+  DEFAULT_LOCALE,
+  type SupportedLocale,
+} from "@/i18n/config";
+
 const PathnameContext = createContext("/");
+const LocaleContext = createContext<SupportedLocale>(DEFAULT_LOCALE);
 
 export function PathnameProvider({
   pathname,
+  locale = DEFAULT_LOCALE,
   children,
-}: PropsWithChildren<{ pathname: string }>) {
+}: PropsWithChildren<{ pathname: string; locale?: SupportedLocale }>) {
   return (
-    <PathnameContext.Provider value={pathname}>
-      {children}
-    </PathnameContext.Provider>
+    <LocaleContext.Provider value={locale}>
+      <PathnameContext.Provider value={pathname}>
+        {children}
+      </PathnameContext.Provider>
+    </LocaleContext.Provider>
   );
 }
 
 export function usePathname() {
   return useContext(PathnameContext);
+}
+
+export function useLocale() {
+  return useContext(LocaleContext);
 }
 
 export function useRouter() {

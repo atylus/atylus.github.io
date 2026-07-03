@@ -29,18 +29,24 @@ import type { ServiceCatalogItem } from "@/types/services";
 
 import AppShell, { type SharedLayoutMode } from "./AppShell";
 import ServiceDetailPage from "./ServiceDetailPage";
+import type { SupportedLocale } from "@/i18n/config";
 
 type RoutedPageProps = {
   pathname: string;
+  locale: SupportedLocale;
 };
 
 function createPageIsland(
   PageComponent: ComponentType,
   sharedLayout: SharedLayoutMode = "none",
 ) {
-  return function RoutedPageIsland({ pathname }: RoutedPageProps) {
+  return function RoutedPageIsland({ pathname, locale }: RoutedPageProps) {
     return (
-      <AppShell pathname={pathname} sharedLayout={sharedLayout}>
+      <AppShell
+        pathname={pathname}
+        locale={locale}
+        sharedLayout={sharedLayout}
+      >
         <PageComponent />
       </AppShell>
     );
@@ -117,10 +123,11 @@ type ServiceDetailIslandProps = RoutedPageProps & {
 
 export function ServiceDetailPageIsland({
   pathname,
+  locale,
   service,
 }: ServiceDetailIslandProps) {
   return (
-    <AppShell pathname={pathname} sharedLayout="marketing">
+    <AppShell pathname={pathname} locale={locale} sharedLayout="marketing">
       <ServiceDetailPage service={service} />
     </AppShell>
   );

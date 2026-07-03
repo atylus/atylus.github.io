@@ -6,6 +6,8 @@ import SideMenuToggler from "../common/SideMenuToggler";
 import SearchToggler from "../common/SearchToggler";
 import MobileMenuToggler from "../common/MobileMenuToggler";
 import ThemeLogo from "../common/ThemeLogo";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
 
 export default function Header1({
   className = "vs-header",
@@ -27,6 +29,8 @@ export default function Header1({
   SideMenuTogglerClass?: string;
 }) {
   const [isSticky, setIsSticky] = useState(false);
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setIsSticky(window.scrollY > 100);
@@ -45,7 +49,7 @@ export default function Header1({
             <div className="col-auto col">
               <div className="header-logo">
                 <SideMenuToggler SideMenuTogglerClass={SideMenuTogglerClass} />
-                <Link href={`/`}>
+                <Link href={`/${locale}/`}>
                   <ThemeLogo alt="logo" size="compact" />
                 </Link>
               </div>
@@ -70,12 +74,12 @@ export default function Header1({
                     <i className="fa fa-user"></i>login
                   </Link>
                 )}
-                <Link
-                  href={`/contact`}
+                  <Link
+                  href={`/${locale}/contact`}
                   title=""
                   className="ibt-btn ibt-btn-outline-3 ibt-btn-rounded"
                 >
-                  <span>Bize Ulaşın</span>
+                  <span>{ui.nav.contactCta}</span>
                 </Link>
               </div>
             </div>

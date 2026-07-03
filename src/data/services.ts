@@ -1,14 +1,16 @@
 import type { ServiceCardSec6, ServiceCard10 } from "@/types/services";
+import type { SupportedLocale } from "@/i18n/config";
 import { getServiceBySlug, getServiceHref } from "@/data/serviceCatalog";
 
 type ServiceCardLayout = Omit<ServiceCardSec6, "id" | "title" | "description" | "href">;
 
 function createHomeServiceCard(
   id: string,
+  locale: SupportedLocale,
   slug: string,
   layout: ServiceCardLayout,
 ): ServiceCardSec6 {
-  const service = getServiceBySlug(slug);
+  const service = getServiceBySlug(locale, slug);
 
   if (!service) {
     throw new Error(`Home service card could not resolve service slug: ${slug}`);
@@ -16,7 +18,7 @@ function createHomeServiceCard(
 
   return {
     id,
-    href: getServiceHref(service.slug),
+    href: getServiceHref(locale, service.key),
     title: service.title,
     description: service.description,
     ...layout,
@@ -82,9 +84,13 @@ const homeServiceOrder: Array<{ id: string; slug: string; layout: ServiceCardLay
   },
 ];
 
-export const serviceSec6Cards: ServiceCardSec6[] = homeServiceOrder.map(({ id, slug, layout }) =>
-  createHomeServiceCard(id, slug, layout),
-);
+export function getServiceSec6Cards(locale: SupportedLocale): ServiceCardSec6[] {
+  return homeServiceOrder.map(({ id, slug, layout }) =>
+    createHomeServiceCard(id, locale, slug, layout),
+  );
+}
+
+export const serviceSec6Cards: ServiceCardSec6[] = getServiceSec6Cards("tr");
 
 export const serviceSec10Cards: ServiceCard10[] = [
   {

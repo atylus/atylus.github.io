@@ -203,13 +203,6 @@
     display: none;
   }
 }
-
-.neural-img3-mobile-hidden {
-  @include sm {
-    display: none;
-  }
-}
-
 .neural-playground3.v2 {
   .neural-content {
     max-width: 1260px;

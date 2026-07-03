@@ -1,8 +1,13 @@
 import TitleSplitWrapper from "@/components/common/TitleSplitWrapper";
 import SubTitleWrapper from "@/components/common/SubTitleWrapper";
 import ContactForm from "@/components/contact/ContactForm";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
 
 export default function Contact() {
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
+
   return (
     <div className="contact-sec ibt-section-gap">
       <div className="container">
@@ -10,32 +15,24 @@ export default function Contact() {
           <div className="col-lg-6">
             <div className="contact-content">
               <div className="sec-title white">
-                <SubTitleWrapper>iletisime gecin</SubTitleWrapper>
+                <SubTitleWrapper>{ui.contact.eyebrow}</SubTitleWrapper>
                 <TitleSplitWrapper tag="h2" className="title animated-heading">
-                  Sorularinizi yanitlamak ve size destek olmak icin her zaman
-                  haziriz
+                  {ui.contact.title}
                 </TitleSplitWrapper>
-                <p>
-                  Ihtiyacinizi dinliyor, dogru cozum yolunu birlikte
-                  netlestiriyor ve size en hizli sekilde geri donus sagliyoruz.
-                </p>
+                <p>{ui.contact.description}</p>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   <div className="contact-info">
                     <div className="call-center">
-                      <h4 className="title">Cagri Merkezi</h4>
-                      <a href="tel:8003508431" className="nmbr">
-                        800 100 975 20 34
-                      </a>
-                      <a href="mailto:support@atylus.com" className="nmbr">
-                        + (123) 1800-234-5678
-                      </a>
+                      <h4 className="title">{ui.contact.phone}</h4>
+                      <span className="nmbr">&nbsp;</span>
+                      <span className="nmbr">&nbsp;</span>
                     </div>
                     <div className="call-center mb-0">
-                      <h4 className="title">Email</h4>
-                      <a href="mailto:support@atylus.com" className="gmail">
-                        atylus@mail.co
+                      <h4 className="title">{ui.contact.email}</h4>
+                      <a href="mailto:info@atylus.com" className="gmail">
+                        info@atylus.com
                       </a>
                     </div>
                   </div>
@@ -43,14 +40,14 @@ export default function Contact() {
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   <div className="contact-info">
                     <div className="call-center">
-                      <h4 className="title">Konum</h4>
+                      <h4 className="title">{ui.contact.location}</h4>
                       <p>
-                        ABD, New York - 1060 <br />
-                        First Avenue 1
+                        {ui.contact.locationLines[0]} <br />
+                        {ui.contact.locationLines[1]}
                       </p>
                     </div>
                     <div className="call-center mb-0">
-                      <h4 className="title">Sosyal Aglar</h4>
+                      <h4 className="title">{ui.contact.social}</h4>
                       <ul className="social-icon">
                         <li>
                           <a

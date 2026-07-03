@@ -5,9 +5,12 @@ import { usePathname } from "next/navigation";
 
 import SearchToggler from "../common/SearchToggler";
 import { useUi } from "@/context/UiContext";
-import { mobileMenuItems } from "@/data/mobileMenu";
+import { getMobileMenuItems } from "@/data/mobileMenu";
 import type { MobileMenuItem } from "@/types/menu";
 import { itemHasActiveDescendant } from "@/utils/menuActive";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
+import { getLocalizedPagePath } from "@/i18n/routes";
 
 type OpenItemsState = Set<string>;
 
@@ -83,6 +86,9 @@ export default function MobileMenu() {
   const { mobileMenuOpen, closeMobileMenu } = useUi();
   const [openItems, setOpenItems] = useState<OpenItemsState>(new Set());
   const pathname = usePathname();
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
+  const mobileMenuItems = getMobileMenuItems(locale);
 
   const toggleItem = (key: string) => {
     setOpenItems((prev) => {
@@ -117,16 +123,13 @@ export default function MobileMenu() {
           )}
         </ul>
         <div className="menu-contact">
-          <span>İletişim</span>
-          <a href="tel:+13685678954" className="nmbr" title="">
-            +1 800 529 10 37
-          </a>
-          <a href="mailto:atylus@mail.co" title="" className="gmail">
-            atylus@mail.co
+          <span>{ui.sidebar.contacts}</span>
+          <a href="mailto:info@atylus.com" title="" className="gmail">
+            info@atylus.com
           </a>
         </div>
         <div className="menu-links">
-          <span>Follow us:</span>
+          <span>{ui.sidebar.followUs}</span>
           <ul className="social-icon">
             <li>
               <a href="#" title="">
@@ -150,11 +153,11 @@ export default function MobileMenu() {
             </li>
           </ul>
           <a
-            href="#"
+            href={getLocalizedPagePath(locale, "contact")}
             title=""
             className="ibt-btn ibt-btn-outline-3 ibt-btn-rounded"
           >
-            <span>Bize Ulaşın</span>
+            <span>{ui.nav.contactCta}</span>
           </a>
         </div>
       </div>

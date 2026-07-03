@@ -2,6 +2,9 @@ import Link from "next/link";
 
 import ServiceDetails from "@/components/services/ServiceDetails";
 import type { ServiceCatalogItem } from "@/types/services";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
+import { getLocalizedPagePath } from "@/i18n/routes";
 
 type ServiceDetailPageProps = {
   service: ServiceCatalogItem;
@@ -10,6 +13,9 @@ type ServiceDetailPageProps = {
 export default function ServiceDetailPage({
   service,
 }: ServiceDetailPageProps) {
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
+
   return (
     <>
       <section className="page-banner4">
@@ -23,14 +29,14 @@ export default function ServiceDetailPage({
         </div>
         <ul className="breadcrumbs">
           <li>
-            <Link href="/" title="">
-              Ana Sayfa
+            <Link href={getLocalizedPagePath(locale, "home")} title="">
+              {ui.breadcrumbs.home}
             </Link>
           </li>
           <li>/</li>
           <li>
-            <Link href="/hizmetler/" title="">
-              Hizmetler
+            <Link href={getLocalizedPagePath(locale, "services")} title="">
+              {ui.breadcrumbs.services}
             </Link>
           </li>
           <li>/</li>

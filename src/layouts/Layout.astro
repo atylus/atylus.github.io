@@ -1,6 +1,6 @@
 ---
 import "../../public/assets/scss/style.scss";
-import { siteMetadata } from "../data/site";
+import { getSiteMetadata } from "../data/site";
 import ContactSection from "../components/ContactSection.astro";
 import GlobalOverlays from "../components/GlobalOverlays.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -11,6 +11,8 @@ interface Props {
   description?: string;
   image?: string;
   canonicalPath?: string;
+  locale?: "tr" | "en" | "de";
+  alternates?: Record<string, string>;
   noindex?: boolean;
   ogType?: "website" | "article";
   showStaticChrome?: boolean;
@@ -18,14 +20,19 @@ interface Props {
 }
 
 const {
-  title = siteMetadata.title,
-  description = siteMetadata.description,
-  image = siteMetadata.defaultOgImage,
   canonicalPath = Astro.url.pathname,
+  locale = "tr",
+  alternates = {},
   noindex = false,
   ogType = "website",
   showStaticChrome = false,
   showContactSection = true,
+} = Astro.props;
+const siteMetadata = getSiteMetadata(locale);
+const {
+  title = siteMetadata.title,
+  description = siteMetadata.description,
+  image = siteMetadata.defaultOgImage,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL("https://atylus.com");
@@ -34,7 +41,7 @@ const ogImage = new URL(image, siteUrl).toString();
 ---
 
 <!doctype html>
-<html lang="tr">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,6 +61,11 @@ const ogImage = new URL(image, siteUrl).toString();
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    {
+      Object.entries(alternates).map(([hrefLang, href]) => (
+        <link rel="alternate" hreflang={hrefLang} href={new URL(href, siteUrl).toString()} />
+      ))
+    }
     <script is:inline>
       (() => {
         if (typeof localStorage !== "undefined" && localStorage.getItem("themeMode") !== "inactive") {
@@ -65,14 +77,14 @@ const ogImage = new URL(image, siteUrl).toString();
   </head>
   <body class="font-sans antialiased">
     {
-      showStaticChrome && <SiteHeader pathname={Astro.url.pathname} />
+      showStaticChrome && <SiteHeader pathname={Astro.url.pathname} locale={locale} />
     }
     <main><slot /></main>
     {
       showStaticChrome && showContactSection && (
         <section class="main-sec">
-          <ContactSection />
-          <SiteFooter />
+          <ContactSection locale={locale} />
+          <SiteFooter pathname={Astro.url.pathname} locale={locale} />
         </section>
       )
     }

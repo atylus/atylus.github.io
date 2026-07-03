@@ -1,0 +1,101 @@
+---
+import type { SupportedLocale } from "@/i18n/config";
+import type { MarketingPageKey } from "@/i18n/routes";
+import {
+  ContactPageIsland,
+  FaqPageIsland,
+  FeatureBilgisayarliGoruCozumleriPageIsland,
+  FeatureOngoruselVeriAnalitigiPageIsland,
+  FeatureOzelYazilimCozumleriPageIsland,
+  FeatureYapaySinirAgiGelistirmePageIsland,
+  FeatureYapayZekaDanismanligiPageIsland,
+  FeatureYapayZekaSistemEntegrasyonuPageIsland,
+  FeatureYapayZekaTeknolojileriPageIsland,
+  FeatureYazilimGelistirmeSurecleriPageIsland,
+  GalleryGridPageIsland,
+  GalleryMasonryPageIsland,
+  HakkimizdaPageIsland,
+  HizmetlerPageIsland,
+  HomePageIsland,
+  PricingPageIsland,
+  ProjectsPageIsland,
+  TeamPageIsland,
+  TeamSinglePageIsland,
+} from "./PageIslands";
+
+interface Props {
+  pageKey: MarketingPageKey;
+  pathname: string;
+  locale: SupportedLocale;
+}
+
+const { pageKey, pathname, locale } = Astro.props;
+---
+
+{pageKey === "home" && <HomePageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "about" && <HakkimizdaPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "contact" && <ContactPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "services" && <HizmetlerPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "projects" && <ProjectsPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "faq" && <FaqPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "pricing" && <PricingPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "team" && <TeamPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "teamMember" && <TeamSinglePageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "galleryGrid" && <GalleryGridPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "galleryMasonry" && <GalleryMasonryPageIsland client:load pathname={pathname} locale={locale} />}
+{pageKey === "computerVisionSolutions" && (
+  <FeatureBilgisayarliGoruCozumleriPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "predictiveAnalytics" && (
+  <FeatureOngoruselVeriAnalitigiPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "customSoftwareSolutions" && (
+  <FeatureOzelYazilimCozumleriPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "neuralNetworkDevelopment" && (
+  <FeatureYapaySinirAgiGelistirmePageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "aiConsulting" && (
+  <FeatureYapayZekaDanismanligiPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "aiSystemIntegration" && (
+  <FeatureYapayZekaSistemEntegrasyonuPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "aiTechnologies" && (
+  <FeatureYapayZekaTeknolojileriPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}
+{pageKey === "softwareDevelopmentProcesses" && (
+  <FeatureYazilimGelistirmeSurecleriPageIsland
+    client:load
+    pathname={pathname}
+    locale={locale}
+  />
+)}

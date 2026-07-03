@@ -2,37 +2,42 @@
 import {
   hasActiveLeaf,
   isLinkActive,
-  resourceGroups,
-  serviceGroups,
+  getResourceGroups,
+  getServiceGroups,
 } from "../data/site";
+import { getUiCopy } from "@/i18n/content";
+import type { SupportedLocale } from "@/i18n/config";
+import { getLocalizedPagePath } from "@/i18n/routes";
 
 interface Props {
   pathname: string;
+  locale: SupportedLocale;
 }
 
-const { pathname } = Astro.props;
-const homeActive = isLinkActive(pathname, "/");
-const servicesActive = hasActiveLeaf(
-  pathname,
-  serviceGroups.flatMap((group) => group.items),
-);
-const resourcesActive = hasActiveLeaf(
-  pathname,
-  resourceGroups.flatMap((group) => group.items),
-);
-const contactActive = isLinkActive(pathname, "/contact/");
+const { pathname, locale } = Astro.props;
+const ui = getUiCopy(locale);
+const serviceGroups = getServiceGroups(locale);
+const resourceGroups = getResourceGroups(locale);
+const homeHref = getLocalizedPagePath(locale, "home");
+const servicesHref = getLocalizedPagePath(locale, "services");
+const contactHref = getLocalizedPagePath(locale, "contact");
+const homeActive = isLinkActive(pathname, homeHref);
+const servicesActive = hasActiveLeaf(pathname, serviceGroups.flatMap((group) => group.items));
+const resourcesActive = hasActiveLeaf(pathname, resourceGroups.flatMap((group) => group.items));
+const contactActive = isLinkActive(pathname, contactHref);
+const featuredService = serviceGroups.at(-1)?.items.at(-1);
 ---
 
 <li class:list={["menu-static-link", { active: homeActive }]}>
-  <a href="/" class={homeActive ? "active" : undefined}>
-    <span class="menu-item">Ana Sayfa</span>
-    <span class="menu-item2">Ana Sayfa</span>
+  <a href={homeHref} class={homeActive ? "active" : undefined}>
+    <span class="menu-item">{ui.nav.home}</span>
+    <span class="menu-item2">{ui.nav.home}</span>
   </a>
 </li>
 <li class:list={["menu-has-items", { active: servicesActive }]}>
-  <a href="/hizmetler/" class={servicesActive ? "active" : undefined}>
-    <span class="menu-item">Hizmetler</span>
-    <span class="menu-item2">Hizmetler</span>
+  <a href={servicesHref} class={servicesActive ? "active" : undefined}>
+    <span class="menu-item">{ui.nav.services}</span>
+    <span class="menu-item2">{ui.nav.services}</span>
   </a>
   <ul class="mega-sub-menu services-mega-menu">
     <li class="mega-menu-column">
@@ -65,20 +70,17 @@ const contactActive = isLinkActive(pathname, "/contact/");
     <li class="mega-menu-column services-mega-aside">
       <div class="services-mega-card">
         <span class="services-mega-code">[U]</span>
-        <h4>MCP Server Gelistirme</h4>
-        <p>
-          Yapay zeka modellerini sirket ici verilerinize ve araclariniza guvenle
-          baglayan akislar tasarliyoruz.
-        </p>
-        <a href="/hizmetler/mcp-server-gelistirme/">Detayi Incele</a>
+        <h4>{featuredService?.label}</h4>
+        <p>{featuredService?.description}</p>
+        <a href={featuredService?.href}>{ui.nav.inspectDetail}</a>
       </div>
     </li>
   </ul>
 </li>
 <li class:list={["menu-has-items", { active: resourcesActive }]}>
-  <a href="/" class={resourcesActive ? "active" : undefined}>
-    <span class="menu-item">Kaynaklar</span>
-    <span class="menu-item2">Kaynaklar</span>
+  <a href="#" class={resourcesActive ? "active" : undefined}>
+    <span class="menu-item">{ui.nav.resources}</span>
+    <span class="menu-item2">{ui.nav.resources}</span>
   </a>
   <ul class="mega-sub-menu services-mega-menu">
     <li class="mega-menu-column">
@@ -111,19 +113,16 @@ const contactActive = isLinkActive(pathname, "/contact/");
     <li class="mega-menu-column services-mega-aside">
       <div class="services-mega-card">
         <span class="services-mega-code">[K]</span>
-        <h4>Kaynak Merkezi</h4>
-        <p>
-          Kilavuzlar, icgoruler, araclar ve veri tabanli referanslari tek bir
-          merkezde topluyoruz.
-        </p>
-        <a href="/">Tum Bilgileri Gor</a>
+        <h4>{ui.nav.resourceHubTitle}</h4>
+        <p>{ui.nav.resourceHubDescription}</p>
+        <a href={resourceGroups.at(0)?.items.at(0)?.href}>{ui.nav.viewAllResources}</a>
       </div>
     </li>
   </ul>
 </li>
 <li class={contactActive ? "active" : undefined}>
-  <a href="/contact/" class={contactActive ? "active" : undefined}>
-    <span class="menu-item">Iletisim</span>
-    <span class="menu-item2">Iletisim</span>
+  <a href={contactHref} class={contactActive ? "active" : undefined}>
+    <span class="menu-item">{ui.nav.contact}</span>
+    <span class="menu-item2">{ui.nav.contact}</span>
   </a>
 </li>

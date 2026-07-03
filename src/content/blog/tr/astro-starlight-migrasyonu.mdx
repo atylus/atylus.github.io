@@ -1,0 +1,37 @@
+---
+locale: tr
+translationKey: astro-starlight-migration
+slug: astro-starlight-migrasyonu
+title: Astro ve Starlight ile Tasarimi Korumadan SEO'yu Kaybetmeden Goc Etmek
+description: Mevcut SCSS tabanli bir Next.js projesini Astro ve Starlight uzerine tasirken dikkat edilen mimari ve SEO kararlarini ozetler.
+pubDate: 2026-07-01
+updatedDate: 2026-07-01
+tags:
+  - astro
+  - starlight
+  - seo
+  - migration
+author: Atylus
+heroImage: /assets/images/project/project2-1.png
+---
+
+## Problem Tanimi
+
+Tasarim bozulmadan framework degisikligi yapmak genellikle iki risk dogurur:
+
+1. CSS cascade bozulur.
+2. Crawl edilmesi gereken bilgi mimarisi yeniden yazilirken SEO sinyalleri zayiflar.
+
+## Uygulanan Strateji
+
+- Global SCSS aynen korundu.
+- Layout HTML sinif isimleri yeniden kullanildi.
+- Dokumantasyon Starlight tarafina tasindi.
+- Blog Astro content collection ile tip-guvenli hale getirildi.
+
+## Beklenen Kazanim
+
+- Daha dusuk istemci JavaScript maliyeti
+- Daha net docs bilgi mimarisi
+- Daha iyi statik HTML ciktisi
+- Daha kolay sitemap ve search entegrasyonu

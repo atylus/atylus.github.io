@@ -9,10 +9,16 @@ import Brands from "@/components/homes/home-1/Brands";
 import SubTitleWrapper from "@/components/common/SubTitleWrapper";
 import TitleSplitWrapper from "@/components/common/TitleSplitWrapper";
 import { getPageMetadata } from "@/data/pages";
+import { useLocale } from "@/compat/next/navigation";
+import { getUiCopy } from "@/i18n/content";
+import { getLocalizedPagePath } from "@/i18n/routes";
 
 export const metadata = getPageMetadata("service");
 
 export default function page() {
+  const locale = useLocale();
+  const ui = getUiCopy(locale);
+
   return (
     <>
       <section className="page-banner3">
@@ -21,17 +27,17 @@ export default function page() {
         <div className="staff-text">Neural</div>
         <div className="container">
           <div className="page-content">
-            <h1 className="title">/ Hizmetler /</h1>
+            <h1 className="title">/ {ui.breadcrumbs.services} /</h1>
           </div>
         </div>
         <ul className="breadcrumbs">
           <li>
-            <Link href={`/`} title="">
-              Ana Sayfa
+            <Link href={getLocalizedPagePath(locale, "home")} title="">
+              {ui.breadcrumbs.home}
             </Link>
           </li>
           <li>/</li>
-          <li>Hizmetler</li>
+          <li>{ui.breadcrumbs.services}</li>
         </ul>
       </section>
       <section className="service-sec6 ibt-section-gap">

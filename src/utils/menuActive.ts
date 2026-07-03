@@ -1,11 +1,24 @@
 import type { MobileMenuItem } from "@/types/menu";
 
+function normalize(path?: string) {
+  if (!path) {
+    return "";
+  }
+
+  const withLeadingSlash = path.startsWith("/") ? path : `/${path}`;
+  return withLeadingSlash.replace(/\/+$/, "") || "/";
+}
+
 export function isLinkActive(pathname: string, href?: string) {
   if (!href || href === "#") return false;
-  if (href === "/index") {
-    return pathname === "/" || pathname === "/index";
+  const normalizedPathname = normalize(pathname);
+  const normalizedHref = normalize(href);
+
+  if (normalizedHref === "/index") {
+    return normalizedPathname === "/" || normalizedPathname === "/index";
   }
-  return pathname === href;
+
+  return normalizedPathname === normalizedHref;
 }
 
 export function itemHasActiveDescendant(
@@ -17,4 +30,3 @@ export function itemHasActiveDescendant(
     itemHasActiveDescendant(pathname, child),
   );
 }
-

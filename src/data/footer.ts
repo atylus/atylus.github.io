@@ -1,31 +1,20 @@
 import type { FooterLinkItem, FooterLinkGroup } from "@/types/footer";
-import { getServiceHref, serviceCatalogItems } from "@/data/serviceCatalog";
+import type { SupportedLocale } from "@/i18n/config";
+import { getFooterLinkGroups } from "@/data/site";
 
 /** Company links - used in Footer1, Footer2, Footer4 */
-export const footerCompanyLinks: FooterLinkItem[] = [
-  { label: "Hakkımızda", href: "/hakkimizda" },
-  { label: "Expertise", href: "#" },
-  { label: "Sustainability", href: "#" },
-  { label: "News & Media", href: "#" },
-  { label: "Case Studies", href: "#" },
-  { label: "İletişim", href: "#" },
-];
+export function getFooterCompanyLinks(locale: SupportedLocale): FooterLinkItem[] {
+  return getFooterLinkGroups(locale)[0].links;
+}
 
 /** Services links - used in Footer1, Footer2, Footer3 */
-export const footerServiceLinks: FooterLinkItem[] = serviceCatalogItems.map(
-  (service) => ({
-    label: service.title,
-    href: getServiceHref(service.slug),
-  }),
-);
+export function getFooterServiceLinks(locale: SupportedLocale): FooterLinkItem[] {
+  return getFooterLinkGroups(locale)[1].links;
+}
 
-export const footerResourceLinks: FooterLinkItem[] = [
-  { label: "Blog", href: "/blog" },
-  { label: "Kılavuzlar", href: "#" },
-  { label: "Eğitimler", href: "#" },
-  { label: "Dokümantasyon", href: "#" },
-  { label: "Değişiklik Günlüğü", href: "#" },
-];
+export function getFooterResourceLinks(locale: SupportedLocale): FooterLinkItem[] {
+  return getFooterLinkGroups(locale)[2].links;
+}
 
 /** Services links (alternate) - used in Footer4 */
 export const footerServiceLinksAlt: FooterLinkItem[] = [
@@ -38,11 +27,20 @@ export const footerServiceLinksAlt: FooterLinkItem[] = [
 ];
 
 /** Link groups for Footer1, Footer2 (Company + Services) */
-export const footerLinkGroups: FooterLinkGroup[] = [
-  { title: "Kurumsal", links: footerCompanyLinks },
-  { title: "Hizmetler", links: footerServiceLinks },
-  { title: "Kaynaklar", links: footerResourceLinks },
-];
+export function getFooterGroups(locale: SupportedLocale): FooterLinkGroup[] {
+  return getFooterLinkGroups(locale).map((group) => ({
+    title: group.title,
+    links: group.links.map((link) => ({
+      label: link.label,
+      href: link.href,
+    })),
+  }));
+}
+
+export const footerCompanyLinks = getFooterCompanyLinks("tr");
+export const footerServiceLinks = getFooterServiceLinks("tr");
+export const footerResourceLinks = getFooterResourceLinks("tr");
+export const footerLinkGroups = getFooterGroups("tr");
 
 /** Link groups for Footer4 (Company + Services alt) */
 export const footerLinkGroupsAlt: FooterLinkGroup[] = [

@@ -1,61 +1,40 @@
 {
   "extends": "./node_modules/astro/tsconfigs/strict.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@layouts/*": ["./layouts/*"],
+      "next": ["./compat/next/index.ts"],
+      "next/*": ["./compat/next/*"]
+    }
+  },
   "include": [
     ".astro/types.d.ts",
     "*.d.ts",
     "src/**/*",
-    "functions/**/*"
+    "*.ts",
+    "*.tsx",
+    "*.astro",
+    "*.mts"
   ],
-  "exclude": [
-    "dist",
-    "node_modules",
-    ".astro"
-  ],
-  "compilerOptions": {
-    // Modern JavaScript hedefi
-    "target": "ES2022",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-
-    // Astro + React
-    "jsx": "react-jsx",
-    // Modül çözümleme
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "moduleDetection": "force",
-    // Type checking - Maksimum güvenlik
-    "strict": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowUnusedLabels": false,
-    "allowUnreachableCode": false,
-
-    // Emit kuralları
-    "allowJs": true,
-    "noEmit": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "incremental": true,
-
-    // Interop ve uyumluluk
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-
-    // Path mapping
-    "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "next": ["./src/compat/next/index.ts"],
-      "next/*": ["./src/compat/next/*"]
-    }
-  }
+  "exclude": ["dist", "node_modules", ".astro"]
 }

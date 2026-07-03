@@ -1,12 +1,17 @@
 ---
 import HeaderNav from "./HeaderNav.astro";
 import ThemeLogo from "./ThemeLogo.astro";
+import { getUiCopy } from "@/i18n/content";
+import type { SupportedLocale } from "@/i18n/config";
+import { getLocalizedPagePath } from "@/i18n/routes";
 
 interface Props {
   pathname: string;
+  locale: SupportedLocale;
 }
 
-const { pathname } = Astro.props;
+const { pathname, locale } = Astro.props;
+const ui = getUiCopy(locale);
 ---
 
 <header class="vs-header3" data-sticky-header>
@@ -18,7 +23,7 @@ const { pathname } = Astro.props;
             <button type="button" class="menu-toggle" data-side-menu-open aria-label="Open side menu">
               <span />
             </button>
-            <a href="/">
+            <a href={getLocalizedPagePath(locale, "home")}>
               <ThemeLogo alt="Atylus logo" size="compact" />
             </a>
           </div>
@@ -26,7 +31,7 @@ const { pathname } = Astro.props;
         <div class="col-auto">
           <nav class="main-menu menu-style1">
             <ul>
-              <HeaderNav pathname={pathname} />
+              <HeaderNav pathname={pathname} locale={locale} />
             </ul>
           </nav>
         </div>
@@ -35,8 +40,8 @@ const { pathname } = Astro.props;
             <button type="button" class="search-btn" data-search-open aria-label="Open search">
               <i class="fa fa-search" />
             </button>
-            <a href="/contact/" class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
-              <span>Bize Ulasin</span>
+            <a href={getLocalizedPagePath(locale, "contact")} class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
+              <span>{ui.nav.contactCta}</span>
             </a>
           </div>
         </div>

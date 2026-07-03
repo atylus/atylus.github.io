@@ -303,7 +303,6 @@
     display: none;
   }
 }
-
 .about-content3 {
   position: relative;
   z-index: 99;
@@ -350,6 +349,7 @@
 }
 .style-text3 {
   position: relative;
+  display: inline-block;
   font-weight: 700;
   font-size: clamp(80px, 14vw, 240px);
   line-height: 0.82;
@@ -369,11 +369,14 @@
   }
   @include xs {
     font-size: clamp(64px, 18vw, 112px);
-    line-height: 0.78;
+    line-height: 0.88;
+    padding-bottom: 0.08em;
   }
   @include vxs {
     font-size: clamp(52px, 16vw, 88px);
+    line-height: 0.9;
     margin-bottom: 28px;
+    padding-bottom: 0.1em;
   }
 }
 .counter-box7 {

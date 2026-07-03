@@ -24,7 +24,7 @@ export default function Page() {
           <ul className="breadcrumbs">
             <li>
               <Link href={`/`} title="">
-                Ana Sayfa
+                Home
               </Link>
             </li>
             <li>/</li>
@@ -39,32 +39,34 @@ export default function Page() {
               <div className="col-lg-6">
                 <div className="contact-content2">
                   <div className="sec-title">
-                    <SubTitleWrapper>iletisime gecin</SubTitleWrapper>
+                    <SubTitleWrapper>get in touch</SubTitleWrapper>
                     <TitleSplitWrapper
                       tag="h2"
                       className="title animated-heading"
                     >
-                      Sorularinizi yanitlamak ve ihtiyaclariniza uygun cozum
-                      sunmak icin buradayiz
+                      We are always ready to help you and answer your questions
                     </TitleSplitWrapper>
                     <p>
-                      Kurumsal yapay zeka, MCP, otomasyon ve ozel yazilim
-                      ihtiyaclariniz icin bizimle iletisime gecin. Ekibimiz size
-                      en kisa surede geri donus saglar.
+                      Pacific hake false trevally queen parrotfish black
+                      prickleback mosshead warbonnet sweeper! Greenling sleeper.
                     </p>
                   </div>
                   <div className="row">
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="contact-info">
                         <div className="call-center2">
-                          <h4 className="title">Telefon</h4>
-                          <span className="nmbr">&nbsp;</span>
-                          <span className="nmbr">&nbsp;</span>
+                          <h4 className="title">Call Center</h4>
+                          <a href="tel:8003508431" className="nmbr">
+                            800 100 975 20 34
+                          </a>
+                          <a href="tel:+13685678954" className="nmbr">
+                            +1 (368) 567 89 54
+                          </a>
                         </div>
                         <div className="call-center2 mb-0">
-                          <h4 className="title">E-posta</h4>
-                          <a href="mailto:info@atylus.com" className="gmail">
-                            info@atylus.com
+                          <h4 className="title">Email</h4>
+                          <a href="mailto:support@atylus.com" className="gmail">
+                            atylus@mail.co
                           </a>
                         </div>
                       </div>
@@ -72,14 +74,14 @@ export default function Page() {
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="contact-info">
                         <div className="call-center2">
-                          <h4 className="title">Konum</h4>
+                          <h4 className="title">Our Location</h4>
                           <p>
-                            Kayseri, Turkiye <br />
-                            Merkez
+                            USA, New York - 1060 <br />
+                            Str. First Avenue 1
                           </p>
                         </div>
                         <div className="call-center2 mb-0">
-                          <h4 className="title">Sosyal Aglar</h4>
+                          <h4 className="title">Social network</h4>
                           <ul className="social-icon">
                             <li>
                               <a
@@ -139,10 +141,10 @@ export default function Page() {
         {/* End contact-sec */}
         {/* googel-map */}
         <section className="googel-map">
-          <h2>google map</h2>
+          <h2>googel map</h2>
           <div className="container2">
             <iframe
-              src="https://www.google.com/maps?q=Kayseri,Turkiye&z=12&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019112345678!2d-122.41941568468176!3d37.774929279759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808a1234567%3A0xabcdef1234567890!2sSan+Francisco%2C+CA!5e0!3m2!1sen!2sus!4v1695901234567!5m2!1sen!2sus"
               height={500}
               style={{ border: 0, borderRadius: 25 }}
               allowFullScreen

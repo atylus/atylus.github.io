@@ -1,0 +1,85 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import { getPageSeo, getUiCopy } from "@/i18n/content";
+import { SUPPORTED_LOCALES, type SupportedLocale } from "@/i18n/config";
+import { getLocalizedBlogIndexPath } from "@/i18n/routes";
+import { getLocalizedBlogPostPath } from "@/data/blogCatalog";
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((locale) => ({
+    params: { locale },
+    props: { locale },
+  }));
+}
+
+const { locale } = Astro.props as { locale: SupportedLocale };
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .filter((post: CollectionEntry<"blog">) => !post.data.draft && post.data.locale === locale)
+  .sort(
+    (left: CollectionEntry<"blog">, right: CollectionEntry<"blog">) =>
+      right.data.pubDate.getTime() - left.data.pubDate.getTime(),
+  );
+const seo = getPageSeo(locale, "blog");
+const ui = getUiCopy(locale);
+const alternates = Object.fromEntries(
+  SUPPORTED_LOCALES.map((item) => [item, getLocalizedBlogIndexPath(item)]),
+);
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  canonicalPath={getLocalizedBlogIndexPath(locale)}
+  locale={locale}
+  alternates={alternates}
+  showStaticChrome={true}
+>
+  <section class="page-banner5">
+    <div class="shape" />
+    <div class="shape3" />
+    <div class="staff-text">{ui.breadcrumbs.blog}</div>
+    <div class="container">
+      <div class="page-content">
+        <h1 class="title">/ {ui.breadcrumbs.blog} /</h1>
+      </div>
+    </div>
+    <ul class="breadcrumbs">
+      <li>
+        <a href={`/${locale}/`}>{ui.breadcrumbs.home}</a>
+      </li>
+      <li>/</li>
+      <li>{ui.breadcrumbs.blog}</li>
+    </ul>
+  </section>
+
+  <section class="blog-sec ibt-section-gap">
+    <div class="container">
+      <div class="row g-4">
+        {
+          posts.map((post) => (
+            <article class="col-lg-6">
+              <div class="blog-card">
+                <div class="blog-content">
+                  <span class="sub-title">
+                    {post.data.pubDate.toLocaleDateString(locale === "tr" ? "tr-TR" : locale === "de" ? "de-DE" : "en-US")}
+                  </span>
+                  <h3 class="title">
+                    <a href={getLocalizedBlogPostPath(locale, post.data.translationKey)}>
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  <p>{post.data.description}</p>
+                  <a href={getLocalizedBlogPostPath(locale, post.data.translationKey)} class="ser-btn3">
+                    {locale === "tr" ? "Devamini oku" : locale === "de" ? "Weiterlesen" : "Read more"}
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

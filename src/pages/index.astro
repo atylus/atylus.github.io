@@ -1,13 +1,33 @@
 ---
-import PageDocument from '../components/app/PageDocument.astro';
-import { HomePageIsland } from '../components/app/PageIslands';
-import { getDemoMetadata } from '@/data/demo';
-const metadata = getDemoMetadata(3);
+import { DEFAULT_LOCALE } from "@/i18n/config";
+import { LOCALE_COOKIE_NAME } from "@/i18n/config";
+
+const fallbackTarget = `/${DEFAULT_LOCALE}/`;
 ---
-<PageDocument
-  title={String(metadata.title)}
-  description={String(metadata.description)}
-  canonicalPath="/"
->
-  <HomePageIsland client:load pathname={Astro.url.pathname} />
-</PageDocument>
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${fallbackTarget}`} />
+    <link rel="canonical" href={fallbackTarget} />
+    <script
+      is:inline
+      define:vars={{ fallbackTarget, localeCookieName: LOCALE_COOKIE_NAME }}
+    >
+      (() => {
+        const cookie = document.cookie
+          .split(";")
+          .map((item) => item.trim())
+          .find((item) => item.startsWith(`${localeCookieName}=`));
+        const value = cookie?.split("=")[1];
+        if (value === "tr" || value === "en" || value === "de") {
+          window.location.replace(`/${value}/`);
+          return;
+        }
+        window.location.replace(fallbackTarget);
+      })();
+    </script>
+  </head>
+  <body />
+</html>

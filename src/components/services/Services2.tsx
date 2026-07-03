@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { serviceSec6Cards } from "@/data/services";
+import { getServiceSec6Cards } from "@/data/services";
+import { useLocale } from "@/compat/next/navigation";
 
 export default function Services2() {
+  const locale = useLocale();
+  const serviceSec6Cards = getServiceSec6Cards(locale);
   const [card0, card1, card2, card3, card4] = serviceSec6Cards;
 
   return (

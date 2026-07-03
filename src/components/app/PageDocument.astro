@@ -5,20 +5,22 @@ interface Props {
   title: string;
   description: string;
   canonicalPath: string;
+  locale?: "tr" | "en" | "de";
+  alternates?: Record<string, string>;
   image?: string;
   ogType?: "website" | "article";
   noindex?: boolean;
-  showContactSection?: boolean;
 }
 
 const {
   title,
   description,
   canonicalPath,
+  locale = "tr",
+  alternates,
   image,
   ogType = "website",
   noindex = false,
-  showContactSection = true,
 } = Astro.props;
 ---
 
@@ -26,10 +28,11 @@ const {
   title={title}
   description={description}
   canonicalPath={canonicalPath}
+  locale={locale}
+  alternates={alternates}
   image={image}
   ogType={ogType}
   noindex={noindex}
-  showContactSection={showContactSection}
 >
   <slot />
 </Layout>

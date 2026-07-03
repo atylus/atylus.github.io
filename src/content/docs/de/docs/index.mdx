@@ -1,0 +1,27 @@
+---
+title: Atylus Astro Blueprint
+description: SEO-orientierte Einfuehrungsseite fuer die Migration der bestehenden Next.js App Router Struktur zu Astro und Starlight.
+template: splash
+lastUpdated: 2026-07-01
+hero:
+  title: Atylus Astro + Starlight
+  tagline: Eine leichtere Dokumentations- und Content-Plattform, die bestehende Design-Tokens, das SCSS-Rueckgrat und die Informationsarchitektur beibehaelt.
+  actions:
+    - text: Migration Blueprint
+      link: /de/docs/reference/migration-blueprint/
+      icon: right-arrow
+    - text: Content Model
+      link: /de/docs/reference/content-model/
+      variant: secondary
+sidebar:
+  order: 1
+---
+
+## Warum diese Struktur?
+
+Diese Struktur trennt zwei Bereiche sauber:
+
+1. **Marketing- und individuelle Seiten**
+   Behalten Header, Footer und SCSS-Huelle ueber `src/layouts/Layout.astro`.
+2. **Dokumentation und Wissensoberflaechen**
+   Nutzen `Starlight` fuer automatische Sidebar-Navigation, Pagefind-Suche und markdown-basierte SEO-Ausgabe.

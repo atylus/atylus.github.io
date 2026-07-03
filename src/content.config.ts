@@ -14,6 +14,9 @@ const blog = defineCollection({
     pattern: "**/*.{md,mdx}",
   }),
   schema: z.object({
+    locale: z.enum(["tr", "en", "de"]),
+    translationKey: z.string(),
+    slug: z.string(),
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),

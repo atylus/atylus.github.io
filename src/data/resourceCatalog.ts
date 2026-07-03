@@ -1,3 +1,9 @@
+import type { SupportedLocale } from "@/i18n/config";
+import {
+  getLocalizedBlogIndexPath,
+  getLocalizedDocsIndexPath,
+} from "@/i18n/routes";
+
 export type ResourceItem = {
   label: string;
   description: string;
@@ -12,138 +18,136 @@ export type ResourceCategory = {
   items: ResourceItem[];
 };
 
-export const resourceCatalog: ResourceCategory[] = [
-  {
-    key: "learn",
-    shortCode: "[O]",
-    title: "Öğren",
-    description:
-      "Ürün bilgisi, katalog yönetimi ve kullanım senaryoları için eğitim odaklı içerikler.",
-    items: [
-      {
-        label: "Blog",
-        description: "İpuçları, güncellemeler ve e-ticaret içgörüleri",
-        href: "/blog",
-      },
-      {
-        label: "Kılavuzlar",
-        description: "Katalog ve ürün yönetimi üzerine derinlemesine kılavuzlar",
-        href: "#",
-      },
-      {
-        label: "Eğitimler",
-        description:
-          "WISEPIM'den en iyi şekilde yararlanmak için adım adım kılavuzlar",
-        href: "#",
-      },
-      {
-        label: "Dokümantasyon",
-        description: 'Kılavuzlar ve "nasıl yapılır" referansları',
-        href: "#",
-      },
-      {
-        label: "Değişiklik Günlüğü",
-        description: "Yenilikleri görün",
-        href: "#",
-      },
-      {
-        label: "Veri Üzerine Kurulu",
-        description:
-          "Yapay zekamızı güçlendiren 1.600'den fazla veri kaynağı",
-        href: "#",
-      },
-    ],
-  },
-  {
-    key: "knowledge",
-    shortCode: "[E]",
-    title: "E-Ticaret Bilgisi",
-    description:
-      "Karar vermeyi hızlandıran pazar, müşteri ve içerik üretimi içgörüleri.",
-    items: [
-      {
-        label: "Sektörel İçgörüler",
-        description: "En güncel e-ticaret verileri ve piyasa analizi",
-        href: "#",
-      },
-      {
-        label: "Müşteri Profilleri",
-        description:
-          "Çevrimiçi alışveriş yapanlarınızın ne istediğini anlayın",
-        href: "#",
-      },
-      {
-        label: "E-ticaret Sözlüğü",
-        description:
-          "350'den fazla e-ticaret ve PIM terimi, anlaşılır açıklamalarla",
-        href: "#",
-      },
-      {
-        label: "Prompt Şablonları",
-        description:
-          "Ürün içeriği için kullanıma hazır yapay zeka komut örnekleri",
-        href: "#",
-      },
-      {
-        label: "Çözümleri Karşılaştır",
-        description: "E-ticaret araçlarını yan yana karşılaştırın",
-        href: "#",
-      },
-      {
-        label: "Tüm Bilgiler",
-        description:
-          "Kılavuzlar, içgörüler, araçlar ve daha fazlası tek bir merkezde",
-        href: "#",
-      },
-    ],
-  },
-  {
-    key: "tools",
-    shortCode: "[A]",
-    title: "Araçlar ve Hesaplayıcılar",
-    description:
-      "Veri kalitesi, performans ve katalog operasyonları için pratik yardımcı araçlar.",
-    items: [
-      {
-        label: "Veri Kalitesi Hesaplayıcı",
-        description:
-          "Ürün verilerinizi yapıştırın ve anında kalite puanı alın",
-        href: "#",
-      },
-      {
-        label: "ROI - Yatırım Getirisi Hesaplayıcı",
-        description:
-          "Daha iyi ürün verilerinin size ne kadar kazandıracağını öğrenin",
-        href: "#",
-      },
-      {
-        label: "EAN/GTIN Doğrulayıcı",
-        description:
-          "Barkodları kontrol edin ve kontrol basamaklarını anında hesaplayın",
-        href: "#",
-      },
-      {
-        label: "SKU Oluşturucu",
-        description:
-          "Tüm kataloğunuz için tutarlı stok tutma birimi kodları oluşturun",
-        href: "#",
-      },
-      {
-        label: "Kanal Gereksinimleri",
-        description:
-          "Pazaryerleri arasındaki kategori ve özellik gereksinimlerini karşılaştırın",
-        href: "#",
-      },
-      {
-        label: "Tüm Araçları Görün",
-        description:
-          "Ücretsiz hesaplayıcılar, denetleyiciler ve oluşturucular",
-        href: "#",
-      },
-    ],
-  },
-];
+const resourceCatalogByLocale: Record<SupportedLocale, ResourceCategory[]> = {
+  tr: [
+    {
+      key: "learn",
+      shortCode: "[O]",
+      title: "Ogren",
+      description:
+        "Urun bilgisi, kullanim senaryolari ve migration notlari icin egitim odakli icerikler.",
+      items: [
+        {
+          label: "Blog",
+          description: "Ipuclari, guncellemeler ve teknik icgoruler",
+          href: getLocalizedBlogIndexPath("tr"),
+        },
+        {
+          label: "Dokumantasyon",
+          description: "Kilavuzlar ve nasil yapilir referanslari",
+          href: getLocalizedDocsIndexPath("tr"),
+        },
+      ],
+    },
+    {
+      key: "knowledge",
+      shortCode: "[K]",
+      title: "Bilgi Merkezi",
+      description:
+        "Karar vermeyi hizlandiran teknik ve operasyonel referanslar.",
+      items: [
+        {
+          label: "Migration Blueprint",
+          description: "Next.js'ten Astro + Starlight yapisina gecis plani",
+          href: `${getLocalizedDocsIndexPath("tr")}reference/migration-blueprint/`,
+        },
+        {
+          label: "Icerik Modeli",
+          description: "Blog ve docs icerigi icin tip-guvenli icerik modeli",
+          href: `${getLocalizedDocsIndexPath("tr")}reference/content-model/`,
+        },
+      ],
+    },
+  ],
+  en: [
+    {
+      key: "learn",
+      shortCode: "[L]",
+      title: "Learn",
+      description:
+        "Training-oriented content for product knowledge, usage flows, and migration notes.",
+      items: [
+        {
+          label: "Blog",
+          description: "Guides, updates, and technical insights",
+          href: getLocalizedBlogIndexPath("en"),
+        },
+        {
+          label: "Documentation",
+          description: "Guides and how-to references",
+          href: getLocalizedDocsIndexPath("en"),
+        },
+      ],
+    },
+    {
+      key: "knowledge",
+      shortCode: "[R]",
+      title: "Reference Hub",
+      description:
+        "Technical and operational references that accelerate decisions.",
+      items: [
+        {
+          label: "Migration Blueprint",
+          description: "How the Next.js to Astro + Starlight transition was executed",
+          href: `${getLocalizedDocsIndexPath("en")}reference/migration-blueprint/`,
+        },
+        {
+          label: "Content Model",
+          description: "Type-safe content structure for blog and docs",
+          href: `${getLocalizedDocsIndexPath("en")}reference/content-model/`,
+        },
+      ],
+    },
+  ],
+  de: [
+    {
+      key: "learn",
+      shortCode: "[L]",
+      title: "Lernen",
+      description:
+        "Trainingsorientierte Inhalte zu Produktwissen, Nutzungsablaeufen und Migration.",
+      items: [
+        {
+          label: "Blog",
+          description: "Leitfaeden, Updates und technische Einblicke",
+          href: getLocalizedBlogIndexPath("de"),
+        },
+        {
+          label: "Dokumentation",
+          description: "Leitfaeden und How-to-Referenzen",
+          href: getLocalizedDocsIndexPath("de"),
+        },
+      ],
+    },
+    {
+      key: "knowledge",
+      shortCode: "[R]",
+      title: "Referenzzentrum",
+      description:
+        "Technische und operative Referenzen fuer schnellere Entscheidungen.",
+      items: [
+        {
+          label: "Migration Blueprint",
+          description: "Wie der Wechsel von Next.js zu Astro + Starlight umgesetzt wurde",
+          href: `${getLocalizedDocsIndexPath("de")}reference/migration-blueprint/`,
+        },
+        {
+          label: "Content Model",
+          description: "Typsicheres Inhaltsmodell fuer Blog und Dokumentation",
+          href: `${getLocalizedDocsIndexPath("de")}reference/content-model/`,
+        },
+      ],
+    },
+  ],
+};
 
-export const resourceCatalogItems: ResourceItem[] = resourceCatalog.flatMap(
-  (category) => category.items,
-);
+export function getResourceCatalog(locale: SupportedLocale) {
+  return resourceCatalogByLocale[locale];
+}
+
+export function getResourceCatalogItems(locale: SupportedLocale) {
+  return resourceCatalogByLocale[locale].flatMap((category) => category.items);
+}
+
+export const resourceCatalog = resourceCatalogByLocale.tr;
+export const resourceCatalogItems = getResourceCatalogItems("tr");

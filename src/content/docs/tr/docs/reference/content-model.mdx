@@ -1,0 +1,21 @@
+---
+title: Content Model
+description: Dokumantasyon ve blog iceriginin Astro collections uzerindeki semasi.
+lastUpdated: 2026-07-01
+sidebar:
+  order: 2
+---
+
+## Koleksiyonlar
+
+### `docs`
+
+- Kaynak: `src/content/docs/<locale>/docs`
+- Yukleyici: `docsLoader()`
+- Cikti: `/<locale>/docs/...`
+
+### `blog`
+
+- Kaynak: `src/content/blog/<locale>`
+- Yukleyici: `glob()`
+- Cikti: `/<locale>/blog/...`

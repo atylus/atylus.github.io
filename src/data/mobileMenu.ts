@@ -1,44 +1,9 @@
-import { getServiceHref, serviceCatalog } from "@/data/serviceCatalog";
-import { resourceCatalog } from "@/data/resourceCatalog";
+import type { SupportedLocale } from "@/i18n/config";
+import { getMobileMenuItems as getLocalizedMobileMenuItems } from "@/data/site";
 import type { MobileMenuItem } from "@/types/menu";
 
-const serviceMenuChildren: MobileMenuItem[] = serviceCatalog.map((category) => ({
-  label: `${category.shortCode} ${category.title}`,
-  href: "#",
-  liClassName: "sub-menu",
-  children: category.items.map((item) => ({
-    label: item.title,
-    href: getServiceHref(item.slug),
-  })),
-}));
+export function getMobileMenuItems(locale: SupportedLocale): MobileMenuItem[] {
+  return getLocalizedMobileMenuItems(locale);
+}
 
-const resourceMenuChildren: MobileMenuItem[] = resourceCatalog.map((category) => ({
-  label: `${category.shortCode} ${category.title}`,
-  href: "#",
-  liClassName: "sub-menu",
-  children: category.items.map((item) => ({
-    label: item.label,
-    href: item.href,
-  })),
-}));
-
-export const mobileMenuItems: MobileMenuItem[] = [
-  {
-    label: "Ana Sayfa",
-    href: "/",
-  },
-  {
-    label: "Hizmetler",
-    href: "/hizmetler",
-    children: serviceMenuChildren,
-  },
-  {
-    label: "Kaynaklar",
-    href: "#",
-    children: resourceMenuChildren,
-  },
-  {
-    label: "İletişim",
-    href: "/contact",
-  },
-];
+export const mobileMenuItems: MobileMenuItem[] = getMobileMenuItems("tr");

@@ -19,11 +19,13 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { UiProvider } from "@/context/UiContext";
 import { VideoModalProvider } from "@/context/VideoModalContext";
 import { PathnameProvider } from "@/compat/next/navigation";
+import type { SupportedLocale } from "@/i18n/config";
 
 export type SharedLayoutMode = "none" | "marketing";
 
 type AppShellProps = {
   pathname: string;
+  locale: SupportedLocale;
   sharedLayout?: SharedLayoutMode;
   children: ReactNode;
 };
@@ -43,6 +45,7 @@ function SharedMarketingLayout({ children }: { children: ReactNode }) {
 
 export default function AppShell({
   pathname,
+  locale,
   sharedLayout = "none",
   children,
 }: AppShellProps) {
@@ -54,7 +57,7 @@ export default function AppShell({
     );
 
   return (
-    <PathnameProvider pathname={pathname}>
+    <PathnameProvider pathname={pathname} locale={locale}>
       <LenisProvider>
         <SmoothScroll>
           <UiProvider>

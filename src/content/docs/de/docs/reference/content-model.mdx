@@ -1,0 +1,21 @@
+---
+title: Content Model
+description: Schema fuer Dokumentations- und Blog-Inhalte in Astro Collections.
+lastUpdated: 2026-07-01
+sidebar:
+  order: 2
+---
+
+## Collections
+
+### `docs`
+
+- Quelle: `src/content/docs/<locale>/docs`
+- Loader: `docsLoader()`
+- Ausgabe: `/<locale>/docs/...`
+
+### `blog`
+
+- Quelle: `src/content/blog/<locale>`
+- Loader: `glob()`
+- Ausgabe: `/<locale>/blog/...`

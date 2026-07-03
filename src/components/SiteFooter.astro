@@ -1,17 +1,38 @@
 ---
-import { footerLinkGroups } from "../data/site";
+import { getFooterLinkGroups } from "../data/site";
 import ThemeLogo from "./ThemeLogo.astro";
+import {
+  LOCALE_LABELS,
+  SUPPORTED_LOCALES,
+  type SupportedLocale,
+} from "@/i18n/config";
+import { getUiCopy } from "@/i18n/content";
+import { getLocalizedPagePath } from "@/i18n/routes";
+import { resolveLocaleVariantPath } from "@/i18n/pathname";
 
+interface Props {
+  pathname: string;
+  locale: SupportedLocale;
+}
+
+const { pathname, locale } = Astro.props;
 const currentYear = new Date().getFullYear();
+const footerLinkGroups = getFooterLinkGroups(locale);
+const ui = getUiCopy(locale);
+const localeOptions = SUPPORTED_LOCALES.filter((item) => item !== locale).map((item) => ({
+  code: item.toUpperCase(),
+  label: LOCALE_LABELS[item],
+  href: resolveLocaleVariantPath(pathname, item),
+}));
 ---
 
 <footer class="footer-style1">
   <div class="footer-top">
     <div class="container">
       <div class="footer-content">
-        <h2 class="title">Yapay Zeka Sistemleri ile Tanisin</h2>
-        <a href="/contact/" class="ibt-btn ibt-btn-outline">
-          <span>Bize Ulasin</span>
+        <h2 class="title">{ui.footer.title}</h2>
+        <a href={getLocalizedPagePath(locale, "contact")} class="ibt-btn ibt-btn-outline">
+          <span>{ui.footer.cta}</span>
           <i class="icon-arrow-top" />
         </a>
       </div>
@@ -47,7 +68,7 @@ const currentYear = new Date().getFullYear();
                 </a>
               </li>
             </ul>
-            <h2 class="title">2025'ten bu yana</h2>
+            <h2 class="title">{ui.footer.since}</h2>
           </div>
         </div>
         <div class="col-xl-4 col-lg-6">
@@ -67,20 +88,81 @@ const currentYear = new Date().getFullYear();
               ))
             }
           </div>
+          {
+            localeOptions.length > 0 && (
+              <details class="footer-language-switcher mt-4">
+                <summary aria-label={ui.footer.languageAria}>
+                  <span class="footer-language-switcher__code">{locale.toUpperCase()}</span>
+                  <span class="footer-language-switcher__chevron">v</span>
+                </summary>
+                <ul class="footer-language-switcher__menu">
+                  {localeOptions.map((item) => (
+                    <li>
+                      <a href={item.href}>{item.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )
+          }
         </div>
       </div>
     </div>
   </div>
   <div class="footer-botom">
     <div class="container">
-      <div class="footer-box">
-        <p>
-          <a href="/">©Atylus</a> {currentYear}. Tum haklari saklidir.
+        <div class="footer-box">
+          <p>
+          <a href={getLocalizedPagePath(locale, "home")}>©Atylus</a> {currentYear}. {ui.footer.rightsReserved}
         </p>
         <span>
-          Kullanim Kosullari <a href="/">Gizlilik Politikasi</a>
+          {ui.footer.terms} <a href="#">{ui.footer.privacy}</a>
         </span>
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-language-switcher {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-language-switcher summary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.3rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    color: #fff;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .footer-language-switcher summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .footer-language-switcher__menu {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.5rem);
+    min-width: 9rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-radius: 0.75rem;
+    background: rgba(26, 26, 26, 0.95);
+    overflow: hidden;
+  }
+
+  .footer-language-switcher__menu a {
+    display: block;
+    padding: 0.55rem 0.8rem;
+    color: #fff;
+  }
+</style>
