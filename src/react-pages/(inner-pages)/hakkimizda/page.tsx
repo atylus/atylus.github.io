@@ -2,142 +2,58 @@ import Link from "next/link";
 import Image from "next/image";
 import SubTitleWrapper from "@/components/common/SubTitleWrapper";
 import TitleSplitWrapper from "@/components/common/TitleSplitWrapper";
+import { useLocale } from "@/compat/next/navigation";
 import { getPageMetadata } from "@/data/pages";
+import { getAboutPageMessages } from "./messages";
 
 export const metadata = getPageMetadata("hakkimizda");
 
-const introParagraphs = [
-  "Atylus, Türkiye’de ve İç Anadolu’da kurumsal işletmeler için yapay zeka ajanları (AI Agents), MCP (Model Context Protocol) mimarisi, karar destek sistemleri ve iş akışı otomasyonu geliştiren yeni nesil bir yapay zeka ajansıdır.",
-  "Geleneksel yazılım şirketlerinden farklı olarak Atylus, sadece sistem kurmaz; veriyi karar veren, süreçleri yöneten ve operasyonları optimize eden otonom yapay zeka sistemlerine dönüştürür.",
-  "Atylus’un vizyonu, şirketleri dijitalleştirmek değil; şirketleri otonom karar veren yapay zeka organizasyonlarına dönüştürmektir. Gelecek; yazılım kullanan şirketlerin değil, yapay zeka ile çalışan otonom işletmelerin olacaktır.",
-];
-
-const transformationApproach = [
-  "MCP Server tabanlı AI entegrasyon katmanı",
-  "LLM + Policy Engine (kural motoru) ile güvenli karar alma",
-  "Gerçek zamanlı veri işleyen anomali tespit sistemleri",
-  "Otonom iş akışı orkestrasyonu (Agentic Workflow Automation)",
-];
-
-const transformationOutcomes = [
-  "%30 – %70 arasında operasyonel hız kazanır",
-  "Döngü sürelerini (cycle time) dramatik şekilde azaltır",
-  "Manuel işlem yükünü ortadan kaldırır",
-  "Karar alma süreçlerini saniyelere indirir",
-];
-
-const serviceAreas = [
+const serviceAreaMedia = [
   {
     icon: "/assets/images/service/ser2-1.svg",
     width: 73,
     height: 73,
-    title: "Yapay Zeka Ajan Geliştirme (AI Agents)",
-    items: [
-      "Otonom karar verebilen kurumsal ajanlar",
-      "ERP / CRM / e-ticaret sistemleriyle entegre AI",
-    ],
   },
   {
     icon: "/assets/images/service/ser2-2.svg",
     width: 74,
     height: 73,
-    title: "MCP Server Mimarisi",
-    items: [
-      "LLM’lerin güvenli şekilde kurumsal sistemlere bağlanması",
-      "API yerine standart AI tool layer oluşturma",
-      "Zero-trust entegrasyon yapısı",
-    ],
   },
   {
     icon: "/assets/images/service/ser2-3.svg",
     width: 69,
     height: 71,
-    title: "Karar Destek Sistemleri",
-    items: [
-      "Yönetim panoları (AI Decision Dashboards)",
-      "Gerçek zamanlı KPI ve anomali analizi",
-      "Predictive analytics (tahminleme modelleri)",
-    ],
   },
   {
     icon: "/assets/images/service/ser2-1.svg",
     width: 73,
     height: 73,
-    title: "Risk ve Anomali Tespiti",
-    items: [
-      "Finansal işlem analizi",
-      "Davranışsal segmentasyon",
-      "Fraud ve sistem anomalisi tespiti",
-    ],
   },
   {
     icon: "/assets/images/service/ser2-2.svg",
     width: 74,
     height: 73,
-    title: "İş Akışı Otomasyonu",
-    items: [
-      "Order-to-cash süreçleri",
-      "Tedarik zinciri otomasyonu",
-      "CRM ve müşteri destek otomasyonu",
-    ],
   },
   {
     icon: "/assets/images/service/ser2-3.svg",
     width: 69,
     height: 71,
-    title: "Üretken Yapay Zeka Sistemleri",
-    items: [
-      "Kurumsal chatbot ve AI assistant çözümleri",
-      "İçerik, satış ve operasyon otomasyonu",
-    ],
   },
 ];
-
-const architecturePrinciples = [
-  "Context Layer (Bağlam Katmanı): Verinin anlamlandırılması",
-  "Policy Engine: Güvenli karar mekanizması",
-  "Execution Layer: MCP tabanlı işlem yürütme sistemi",
-];
-
-const whyAtylus = [
-  "Sadece yazılım üretmez → sistem zekası üretir",
-  "Sadece entegrasyon yapmaz → AI-native mimari kurar",
-  "Sadece otomasyon sunmaz → otonom işletme modeli tasarlar",
-];
-
-const sectors = [
-  "üretim",
-  "lojistik",
-  "e-ticaret",
-  "finans",
-  "kurumsal ERP sistemleri",
-];
-
-const searchConcepts = [
-  "Yapay zeka ajansı Türkiye",
-  "AI agent development company",
-  "MCP server development",
-  "kurumsal yapay zeka çözümleri",
-  "enterprise AI automation",
-  "LLM integration enterprise systems",
-  "AI workflow automation",
-  "decision intelligence systems",
-  "anomaly detection AI systems",
-];
-
-const marqueeText =
-  "/ Kurumsal yapay zeka, MCP mimarisi ve otonom sistemlerle yeni nesil dönüşüm.";
 
 export default function HakkimizdaPage() {
+  const locale = useLocale();
+  const messages = getAboutPageMessages(locale);
+
   return (
     <>
       <section className="page-banner11">
         <div className="shape" />
         <div className="shape3" />
-        <div className="staff-text">Atylus</div>
+        <div className="staff-text">{messages.bannerStaffText}</div>
         <div className="container">
           <div className="page-content">
-            <h1 className="title">/ Hakkımızda /</h1>
+            <h1 className="title">{messages.bannerTitle}</h1>
           </div>
         </div>
         <ul className="breadcrumbs">
@@ -145,7 +61,7 @@ export default function HakkimizdaPage() {
             <Link href="/">Ana Sayfa</Link>
           </li>
           <li>/</li>
-          <li>Hakkımızda</li>
+          <li>{messages.breadcrumbCurrent}</li>
         </ul>
       </section>
 
@@ -153,14 +69,14 @@ export default function HakkimizdaPage() {
         <div className="container">
           <div className="title-area">
             <div className="sec-title">
-              <SubTitleWrapper>hakkımızda</SubTitleWrapper>
+              <SubTitleWrapper>{messages.eyebrow}</SubTitleWrapper>
               <TitleSplitWrapper tag="h2" className="title animated-heading">
-                Atylus Hakkında Kurumsal Yapay Zeka, MCP ve Otonom Sistemler
+                {messages.mainTitle}
               </TitleSplitWrapper>
             </div>
             <div className="anim-img2">
               <Image
-                alt="Atylus Hakkımızda sayfa dekoru"
+                alt={messages.decorAlt}
                 src="/assets/images/event/cross1-1.png"
                 width={143}
                 height={49}
@@ -170,17 +86,15 @@ export default function HakkimizdaPage() {
           <div className="row">
             <div className="col-lg-6">
               <div className="about-content9">
-                <h4 className="title">ATYLUS</h4>
+                <h4 className="title">{messages.companyLabel}</h4>
               </div>
             </div>
             <div className="col-lg-6">
               <div className="about-info9">
-                {introParagraphs.map((paragraph, index) => (
+                {messages.introParagraphs.map((paragraph, index) => (
                   <p
                     key={paragraph}
-                    className={
-                      index === introParagraphs.length - 1 ? "mb-0" : undefined
-                    }
+                    className={index === messages.introParagraphs.length - 1 ? "mb-0" : undefined}
                   >
                     {paragraph}
                   </p>
@@ -192,11 +106,11 @@ export default function HakkimizdaPage() {
       </section>
 
       <section className="marquee-sec ibt-section-gapBottom">
-        <h2 style={{ display: "none" }}>Kayan Bilgi Alanı</h2>
+        <h2 style={{ display: "none" }}>{messages.marqueeAriaTitle}</h2>
         <div className="marquee">
           <div className="marquee-inner">
-            <span>{marqueeText}</span>
-            <span>{marqueeText}</span>
+            <span>{messages.marqueeText}</span>
+            <span>{messages.marqueeText}</span>
           </div>
         </div>
       </section>
@@ -215,18 +129,12 @@ export default function HakkimizdaPage() {
                     height={94}
                   />
                   <h4 className="title">
-                    Kurumsal Yapay Zeka Dönüşümünün Yeni Standardı
+                    {messages.transformationTitle}
                   </h4>
-                  <p>
-                    2026 itibarıyla işletmelerin en büyük problemi yalnızca
-                    yazılım değil; <strong>entegrasyon karmaşası, yüksek
-                    operasyonel maliyetler ve veri silolarıdır.</strong>
-                  </p>
-                  <p className="mb-0">
-                    Atylus bu problemi şu mimari yaklaşım ile çözer:
-                  </p>
+                  <p>{messages.transformationLead}</p>
+                  <p className="mb-0">{messages.transformationIntro}</p>
                   <ul className="about-dark-list">
-                    {transformationApproach.map((item) => (
+                    {messages.transformationApproach.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
@@ -236,15 +144,15 @@ export default function HakkimizdaPage() {
             <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
               <div className="ser-card22 v2">
                 <Image
-                  alt="Atylus dönüşüm alanı görseli"
+                  alt={messages.transformationImageAlt}
                   src="/assets/images/event/ser22-2.png"
                   width={1254}
                   height={599}
                 />
                 <div className="inner-content2 about-inner-content2">
-                  <h4 className="profection">Bu yapı sayesinde şirketler</h4>
+                  <h4 className="profection">{messages.outcomesTitle}</h4>
                   <ul className="about-image-list">
-                    {transformationOutcomes.map((item) => (
+                    {messages.transformationOutcomes.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
@@ -255,9 +163,7 @@ export default function HakkimizdaPage() {
                     <span className="counter-text">+</span>
                   </div>
                   <span className="title">
-                    temel
-                    <br />
-                    kazanım
+                    {messages.outcomesLabel}
                   </span>
                 </div>
               </div>
@@ -270,21 +176,21 @@ export default function HakkimizdaPage() {
         <div className="container">
           <div className="title-area">
             <div className="sec-title">
-              <SubTitleWrapper>hizmet alanları</SubTitleWrapper>
+              <SubTitleWrapper>{messages.serviceAreasEyebrow}</SubTitleWrapper>
               <TitleSplitWrapper tag="h2" className="title animated-heading">
-                Atylus Ne Yapar?
+                {messages.serviceAreasTitle}
               </TitleSplitWrapper>
             </div>
           </div>
           <div className="row">
-            {serviceAreas.map((area) => (
+            {messages.serviceAreas.map((area, index) => (
               <div className="col-lg-4 col-md-6" key={area.title}>
                 <div className="ser-block2">
                   <Image
                     alt={area.title}
-                    src={area.icon}
-                    width={area.width}
-                    height={area.height}
+                    src={serviceAreaMedia[index].icon}
+                    width={serviceAreaMedia[index].width}
+                    height={serviceAreaMedia[index].height}
                   />
                   <h4 className="title">{area.title}</h4>
                   <ul className="ser-list">
@@ -305,7 +211,7 @@ export default function HakkimizdaPage() {
             <div className="col-lg-2 col-md-2">
               <div className="neural-img4">
                 <Image
-                  alt="Atylus mimari yaklaşım dekoru"
+                  alt={messages.architectureDecorAlt}
                   src="/assets/images/layers/layer3.png"
                   width={502}
                   height={694}
@@ -315,23 +221,21 @@ export default function HakkimizdaPage() {
             <div className="col-lg-10 col-md-10">
               <div className="neural-content4">
                 <h2 className="gradient-title">
-                  Sadece AI değil, <span>otonom sistem mimarisi</span> yaklaşımı
+                  {messages.architectureTitle}
                 </h2>
                 <p className="about-neural-copy">
-                  Atylus’un temel farkı, yapay zekayı bir araç değil, bir{" "}
-                  <strong>kurumsal işletim katmanı</strong> olarak tasarlamasıdır.
+                  {messages.architectureLead}
                 </p>
                 <ul className="ser-list about-neural-list">
-                  {architecturePrinciples.map((item) => (
+                  {messages.architecturePrinciples.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
                 <p className="about-neural-copy">
-                  Bu yapı sayesinde AI sistemleri sadece cevap üretmez,{" "}
-                  <strong>işlem yapar, optimize eder ve süreç yönetir.</strong>
+                  {messages.architectureClosing}
                 </p>
                 <div className="about-concept-grid-static">
-                  {searchConcepts.map((item) => (
+                  {messages.searchConcepts.map((item) => (
                     <div className="about-concept-slide" key={item}>
                       {item}
                     </div>
@@ -347,9 +251,9 @@ export default function HakkimizdaPage() {
         <div className="container">
           <div className="title-area">
             <div className="sec-title">
-              <SubTitleWrapper>neden atylus</SubTitleWrapper>
+              <SubTitleWrapper>{messages.whyEyebrow}</SubTitleWrapper>
               <TitleSplitWrapper tag="h2" className="title animated-heading">
-                Neden Atylus?
+                {messages.whyTitle}
               </TitleSplitWrapper>
             </div>
           </div>
@@ -362,9 +266,9 @@ export default function HakkimizdaPage() {
                   width={73}
                   height={73}
                 />
-                <h4 className="title">Atylus’un Farkı</h4>
+                <h4 className="title">{messages.differenceCardTitle}</h4>
                 <ul className="ser-list">
-                  {whyAtylus.map((item) => (
+                  {messages.differenceItems.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -373,14 +277,14 @@ export default function HakkimizdaPage() {
             <div className="col-lg-4 col-md-6">
               <div className="ser-block2">
                 <Image
-                  alt="Sektörel odak"
+                  alt={messages.sectorsCardAlt}
                   src="/assets/images/service/ser2-2.svg"
                   width={74}
                   height={73}
                 />
-                <h4 className="title">Odaklandığı Sektörler</h4>
+                <h4 className="title">{messages.sectorsCardTitle}</h4>
                 <ul className="ser-list">
-                  {sectors.map((item) => (
+                  {messages.sectors.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -394,16 +298,11 @@ export default function HakkimizdaPage() {
                   width={69}
                   height={71}
                 />
-                <h4 className="title">Gelecek Vizyonu</h4>
+                <h4 className="title">{messages.futureCardTitle}</h4>
                 <ul className="ser-list">
-                  <li>
-                    Şirketleri otonom karar veren yapay zeka organizasyonlarına
-                    dönüştürmek
-                  </li>
-                  <li>
-                    Yapay zeka ile çalışan otonom işletmeler için mühendislik
-                    katmanını inşa etmek
-                  </li>
+                  {messages.futureItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </div>

@@ -4,7 +4,29 @@ import Image from "next/image";
 import TitleSplitWrapper from "@/components/common/TitleSplitWrapper";
 import SubTitleWrapper from "@/components/common/SubTitleWrapper";
 
-export default function Project() {
+type ProjectItem = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  href: string;
+  buttonLabel: string;
+};
+
+type ProjectProps = {
+  eyebrow: string;
+  title: string;
+  ctaLabel: string;
+  ctaHref: string;
+  items: [ProjectItem, ProjectItem, ProjectItem, ProjectItem] | ProjectItem[];
+};
+
+export default function Project({
+  eyebrow,
+  title,
+  ctaLabel,
+  ctaHref,
+  items,
+}: ProjectProps) {
   return (
     <section className="project-sec2">
       <div className="title-area">
@@ -12,22 +34,20 @@ export default function Project() {
           <div className="row end">
             <div className="col-xl-10 col-lg-9">
               <div className="sec-title white mb-0">
-                <SubTitleWrapper>projeler</SubTitleWrapper>
+                <SubTitleWrapper>{eyebrow}</SubTitleWrapper>
                 <TitleSplitWrapper tag="h2" className="title animated-heading">
-                  Üstün nitelikli çözümler üretmek için ortaya koyduğumuz yoğun 
-                  emeğin sonuçlarını keşfetmeye ve projelerimizin başarılı çıktılarını 
-                  incelemeye davetlisiniz.
+                  {title}
                 </TitleSplitWrapper>
               </div>
             </div>
             <div className="col-xl-2 col-lg-3">
               <div className="sec-btn-box">
                 <Link
-                  href={`/project2`}
+                  href={ctaHref}
                   title=""
                   className="ibt-btn ibt-btn-outline"
                 >
-                  <span>Diğer Projelerimiz</span>
+                  <span>{ctaLabel}</span>
                   <i className="icon-arrow-top" />
                 </Link>
               </div>
@@ -45,14 +65,14 @@ export default function Project() {
               height={320}
             />
             <div className="project-content2">
-              <SubTitleWrapper>Development</SubTitleWrapper>
+              <SubTitleWrapper>{items[0].eyebrow}</SubTitleWrapper>
               <h4 className="title">
-                <Link href={`/project-single`} title="">
-                  DeepVision: Enhancing Image Recognition with Neural Networks
+                <Link href={items[0].href} title="">
+                  {items[0].title}
                 </Link>
               </h4>
-              <Link href={`/project-single`} title="" className="ser-btn3">
-                Explore more
+              <Link href={items[0].href} title="" className="ser-btn3">
+                {items[0].buttonLabel}
               </Link>
             </div>
           </div>
@@ -64,15 +84,14 @@ export default function Project() {
               height={320}
             />
             <div className="project-content2">
-              <SubTitleWrapper>Development</SubTitleWrapper>
+              <SubTitleWrapper>{items[1].eyebrow}</SubTitleWrapper>
               <h4 className="title">
-                <Link href={`/project-single`} title="">
-                  NLPGenius: Natural Language Processing Powered by Neural
-                  Networks
+                <Link href={items[1].href} title="">
+                  {items[1].title}
                 </Link>
               </h4>
-              <Link href={`/project-single`} title="" className="ser-btn3">
-                Explore more
+              <Link href={items[1].href} title="" className="ser-btn3">
+                {items[1].buttonLabel}
               </Link>
             </div>
           </div>
@@ -84,15 +103,14 @@ export default function Project() {
               height={320}
             />
             <div className="project-content2">
-              <SubTitleWrapper>Development</SubTitleWrapper>
+              <SubTitleWrapper>{items[2].eyebrow}</SubTitleWrapper>
               <h4 className="title">
-                <Link href={`/project-single`} title="">
-                  AutoDrive: Autonomous Vehicle Navigation with Advanced Neural
-                  Networks
+                <Link href={items[2].href} title="">
+                  {items[2].title}
                 </Link>
               </h4>
-              <Link href={`/project-single`} title="" className="ser-btn3">
-                Explore more
+              <Link href={items[2].href} title="" className="ser-btn3">
+                {items[2].buttonLabel}
               </Link>
             </div>
           </div>
@@ -104,16 +122,15 @@ export default function Project() {
               height={320}
             />
             <div className="project-content2">
-              <SubTitleWrapper>Development</SubTitleWrapper>
+              <SubTitleWrapper>{items[3].eyebrow}</SubTitleWrapper>
               <h4 className="title">
-                <Link href={`/blog-single`} title="">
-                  CogniCraft: Smart Solutions, Intelligent Innovation for a
-                  Connected Tomorrow
+                <Link href={items[3].href} title="">
+                  {items[3].title}
                 </Link>
               </h4>
-              <a href="#" title="" className="ser-btn3">
-                Explore more
-              </a>
+              <Link href={items[3].href} title="" className="ser-btn3">
+                {items[3].buttonLabel}
+              </Link>
             </div>
           </div>
         </div>

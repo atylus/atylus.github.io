@@ -1,8 +1,12 @@
 ---
 import { DEFAULT_LOCALE } from "@/i18n/config";
 import { LOCALE_COOKIE_NAME } from "@/i18n/config";
+import { LOCALE_LANGUAGE_TAGS, SUPPORTED_LOCALES } from "@/i18n/config";
 
 const fallbackTarget = `/${DEFAULT_LOCALE}/`;
+const localeTargets = Object.fromEntries(
+  SUPPORTED_LOCALES.map((locale) => [locale, `/${locale}/`]),
+);
 ---
 
 <!doctype html>
@@ -13,19 +17,42 @@ const fallbackTarget = `/${DEFAULT_LOCALE}/`;
     <link rel="canonical" href={fallbackTarget} />
     <script
       is:inline
-      define:vars={{ fallbackTarget, localeCookieName: LOCALE_COOKIE_NAME }}
+      define:vars={{
+        fallbackTarget,
+        localeCookieName: LOCALE_COOKIE_NAME,
+        localeTargets,
+        localeLanguageTags: LOCALE_LANGUAGE_TAGS,
+      }}
     >
       (() => {
-        const cookie = document.cookie
-          .split(";")
-          .map((item) => item.trim())
-          .find((item) => item.startsWith(`${localeCookieName}=`));
-        const value = cookie?.split("=")[1];
-        if (value === "tr" || value === "en" || value === "de") {
-          window.location.replace(`/${value}/`);
-          return;
-        }
-        window.location.replace(fallbackTarget);
+        const supportedLocales = Object.keys(localeTargets);
+        const resolveLocaleFromCookie = () => {
+          const cookie = document.cookie
+            .split(";")
+            .map((item) => item.trim())
+            .find((item) => item.startsWith(`${localeCookieName}=`));
+          const value = cookie?.split("=")[1];
+          return supportedLocales.includes(value ?? "") ? value : null;
+        };
+
+        const resolveLocaleFromNavigator = () => {
+          const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length > 0
+            ? navigator.languages
+            : [navigator.language];
+
+          for (const language of browserLanguages) {
+            if (language?.toLowerCase().startsWith("tr")) return "tr";
+            if (language?.toLowerCase().startsWith("en")) return "en";
+            if (language?.toLowerCase().startsWith("de")) return "de";
+          }
+
+          return null;
+        };
+
+        const resolvedLocale =
+          resolveLocaleFromCookie() ?? resolveLocaleFromNavigator() ?? "tr";
+
+        window.location.replace(localeTargets[resolvedLocale] ?? fallbackTarget);
       })();
     </script>
   </head>

@@ -1,0 +1,152 @@
+{
+  "banner": {
+    "titlePrefix": "Atylus",
+    "title": "helps you innovate, transform, and deliver measurable results.",
+    "ctaLabel": "Explore",
+    "ctaHref": "/services"
+  },
+  "heroServices": {
+    "badges": ["AI Solutions", "AI Services"],
+    "title": "Move your business forward with the power of AI.",
+    "description": "Get instant answers and uninterrupted service with enterprise-grade AI systems.",
+    "ctaLabel": "Explore more",
+    "ctaHref": "/services",
+    "counterValue": "24/7",
+    "counterTitle": "Digital Workforce",
+    "secondaryTitle": "Digital Workforce",
+    "secondaryDescription": "Build continuous, fast, and low-error operations with AI agents that work beyond human limits.",
+    "videoLabel": "Watch video"
+  },
+  "brands": {
+    "title": "Our workflows do not just look advanced; they create real outcomes for your business."
+  },
+  "services": {
+    "eyebrow": "services",
+    "title": "Smart capabilities that strengthen your service delivery",
+    "description": "We provide the full service stack needed to support and scale your business.",
+    "ctaLabel": "Explore more",
+    "ctaHref": "/services"
+  },
+  "integration": {
+    "title": "We integrate with the platforms and channels your teams already use."
+  },
+  "marquee": {
+    "items": [
+      "/ Designing tomorrow's technology with neural networks",
+      "/ Neural networks shaping the future of technology"
+    ]
+  },
+  "features": {
+    "eyebrow": "features",
+    "title": "The value propositions and service advantages that set us apart.",
+    "items": [
+      {
+        "id": "f10-1",
+        "title": "AI Technologies",
+        "description": "Highlight the depth of our expertise in building and integrating advanced AI systems."
+      },
+      {
+        "id": "f10-2",
+        "title": "Tailored Solutions",
+        "description": "Shape every solution around your specific business requirements and strategic priorities."
+      },
+      {
+        "id": "f10-3",
+        "title": "Advanced Technology",
+        "description": "Use modern tools and innovative techniques to create a real competitive edge."
+      },
+      {
+        "id": "f10-4",
+        "title": "Modern Delivery Practices",
+        "description": "Show measurable impact through proven case studies and strong delivery references."
+      },
+      {
+        "id": "f10-5",
+        "title": "AI Consulting and Strategy",
+        "description": "Define enterprise AI roadmaps, priorities, and productization strategy together."
+      },
+      {
+        "id": "f10-6",
+        "title": "Computer Vision",
+        "description": "Design scalable visual data solutions tailored to your operational dynamics."
+      },
+      {
+        "id": "f10-7",
+        "title": "Deployment and Integration",
+        "description": "Use disciplined engineering practices for production rollout and seamless integration."
+      },
+      {
+        "id": "f10-8",
+        "title": "Predictive Analytics",
+        "description": "Turn forecasting and predictive insight into measurable business outcomes."
+      }
+    ]
+  },
+  "about": {
+    "styleText": "Atylus",
+    "eyebrow": "about",
+    "title": "We lead in AI solutions and operational innovation",
+    "paragraphs": [
+      "At Atylus, we focus on building innovative solutions that use AI to transform enterprise operations.",
+      "Our team designs tailored strategies and integrations across MCP, decision systems, and workflow automation.",
+      "As a trusted technology partner, we help organizations unlock the full operational value of intelligent systems."
+    ],
+    "ctaLabel": "Explore more",
+    "ctaHref": "/about",
+    "counterLabel": "Creative projects delivered successfully with AI support"
+  },
+  "projects": {
+    "eyebrow": "projects",
+    "title": "Explore the outcomes of the work we invest in to produce high-quality solutions and successful project delivery.",
+    "ctaLabel": "More projects",
+    "ctaHref": "/projects",
+    "items": [
+      {
+        "id": "project-1",
+        "eyebrow": "Development",
+        "title": "DeepVision: image recognition infrastructure powered by neural networks",
+        "href": "/projects",
+        "buttonLabel": "View details"
+      },
+      {
+        "id": "project-2",
+        "eyebrow": "Development",
+        "title": "NLPGenius: a platform that brings language workflows into enterprise operations",
+        "href": "/projects",
+        "buttonLabel": "View details"
+      },
+      {
+        "id": "project-3",
+        "eyebrow": "Development",
+        "title": "AutoDrive: an advanced neural decision and navigation layer",
+        "href": "/projects",
+        "buttonLabel": "View details"
+      },
+      {
+        "id": "project-4",
+        "eyebrow": "Development",
+        "title": "CogniCraft: intelligent innovation surfaces designed for the connected future",
+        "href": "/projects",
+        "buttonLabel": "View details"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "team",
+    "title": "We bring together top talent to design intelligent solutions.",
+    "counterLabel": "Great teammates",
+    "ctaLabel": "Explore more",
+    "ctaHref": "/team",
+    "members": {
+      "dan-smith": { "tag": "Future", "designation": "/ Manager /" },
+      "alan-begham-1": { "tag": "Neural", "designation": "/ CEO /" },
+      "brandon-adams": { "tag": "Digital", "designation": "/ HR /" },
+      "arthur-dowson": { "tag": "Solutions", "designation": "/ AI Programmer /" },
+      "alan-begham-2": { "tag": "Learning", "designation": "/ CEO /" }
+    }
+  },
+  "partners": {
+    "eyebrow": "partners",
+    "title": "Trusted partners that support our growth and delivery journey."
+  }
+}

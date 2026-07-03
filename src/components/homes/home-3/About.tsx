@@ -5,7 +5,25 @@ import Counter from "@/components/common/Counter";
 import TitleSplitWrapper from "@/components/common/TitleSplitWrapper";
 import SubTitleWrapper from "@/components/common/SubTitleWrapper";
 
-export default function About() {
+type AboutProps = {
+  styleText: string;
+  eyebrow: string;
+  title: string;
+  paragraphs: [string, string, string] | string[];
+  ctaLabel: string;
+  ctaHref: string;
+  counterLabel: string;
+};
+
+export default function About({
+  styleText,
+  eyebrow,
+  title,
+  paragraphs,
+  ctaLabel,
+  ctaHref,
+  counterLabel,
+}: AboutProps) {
   return (
     <section className="about-us-sec3">
       <div className="container">
@@ -23,31 +41,21 @@ export default function About() {
           </div>
           <div className="col-lg-8">
             <div className="about-content3">
-              <h2 className="style-text3">Atylus</h2>
+              <h2 className="style-text3">{styleText}</h2>
               <div className="sec-title mb-0">
-                <SubTitleWrapper>hakkımızda</SubTitleWrapper>
+                <SubTitleWrapper>{eyebrow}</SubTitleWrapper>
                 <TitleSplitWrapper tag="h2" className="title animated-heading">
-                  Yapay zeka çözümleri ve inovasyonda öncüyüz
+                  {title}
                 </TitleSplitWrapper>
-                <p>
-                  Atylus olarak, işletmeleri dönüştürmek için yapay zekanın gücünden 
-                  yararlanan yenilikçi çözümler sunmaya odaklanmış öncü bir yapay 
-                  zeka hizmet sağlayıcısıyız.
-                </p>
-                <p className="paragraph">
-                  Uzman ekibimiz en ileri yapay zeka teknolojilerinde uzmanlaşmış olup,
-                  günümüzün veri odaklı dünyasında rakiplerinizin bir adım önünde olmanız 
-                  için size özel stratejiler ve entegrasyonlar sunar. Akıllı teknolojilerin 
-                  geleceğindeki güvenilir iş ortağınız XXLando ile yapay zekanın tüm potansiyelini 
-                  açığa çıkarın.
-                </p>
+                <p>{paragraphs[0]}</p>
+                <p className="paragraph">{paragraphs.slice(1).join(" ")}</p>
                 <div className="about-counter3">
                   <Link
-                    href={`/service`}
+                    href={ctaHref}
                     title=""
                     className="ibt-btn ibt-btn-outline"
                   >
-                    <span>Daha Fazlasını Keşfedin</span>
+                    <span>{ctaLabel}</span>
                     <i className="icon-arrow-top" />
                   </Link>
                   <div className="counter-box7">
@@ -55,7 +63,7 @@ export default function About() {
                     <span className="counter-text">+</span>
                   </div>
                   <span className="title2">
-                    Yapay zeka desteğiyle başarıyla tamamlanan yaratıcı projeler
+                    {counterLabel}
                   </span>
                 </div>
               </div>

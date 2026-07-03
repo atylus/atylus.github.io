@@ -1,15 +1,13 @@
 import Image from "next/image";
 
-export default function Services7() {
+export default function Services7({ title }: { title: string }) {
   return (
     <section className="service-sec7">
       <div className="container2">
         <div className="row align-items-center">
           <div className="col-lg-6">
             <div className="service-content7">
-              <h4 className="title">
-                Bu hizmetlerle çalışıyor ve entegrasyon sağlıyoruz.
-              </h4>
+              <h4 className="title">{title}</h4>
             </div>
           </div>
           <div className="col-lg-6">

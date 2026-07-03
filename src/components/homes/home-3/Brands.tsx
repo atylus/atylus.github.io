@@ -13,7 +13,7 @@ const brands = [
 
 const brandSlides = [...brands, ...brands];
 
-export default function Brands() {
+export default function Brands({ title }: { title: string }) {
   return (
     <section className="neural-playground3 ibt-section-gap">
       <div className="container3">
@@ -31,7 +31,7 @@ export default function Brands() {
           <div className="col-lg-10">
             <div className="neural-content">
               <h2 className="gradient-title">
-                İş akışlarımız sadece <span>"gelişmiş"</span> görünmekle kalmaz; işletmeniz için gerçek sonuçlar yaratır.
+                {title}
               </h2>
               <Swiper
                 className="brand"

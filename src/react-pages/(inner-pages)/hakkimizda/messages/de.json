@@ -1,0 +1,120 @@
+{
+  "bannerStaffText": "Atylus",
+  "bannerTitle": "/ Ueber uns /",
+  "breadcrumbCurrent": "Ueber uns",
+  "eyebrow": "ueber uns",
+  "mainTitle": "Atylus: Unternehmens-KI, MCP und autonome Systeme",
+  "decorAlt": "Atylus Ueber-uns-Seitendekor",
+  "companyLabel": "ATYLUS",
+  "introParagraphs": [
+    "Atylus ist eine KI-Agentur der neuen Generation, die KI-Agenten, MCP-Architektur, Entscheidungssysteme und Workflow-Automatisierung fuer Unternehmensorganisationen entwickelt.",
+    "Im Unterschied zu klassischen Softwarefirmen baut Atylus nicht nur Systeme, sondern verwandelt Daten in autonome KI-Systeme, die entscheiden, steuern und optimieren koennen.",
+    "Unsere Vision ist es nicht nur, Unternehmen zu digitalisieren, sondern sie in autonome Organisationen zu transformieren, die mit KI arbeiten."
+  ],
+  "marqueeAriaTitle": "Laufband Informationsbereich",
+  "marqueeText": "/ Transformation der naechsten Generation mit Unternehmens-KI, MCP-Architektur und autonomen Systemen.",
+  "transformationTitle": "Ein neuer Standard fuer Unternehmens-KI-Transformation",
+  "transformationLead": "Das groesste Problem von Unternehmen im Jahr 2026 ist nicht nur Software, sondern Integrationskomplexitaet, hohe Betriebskosten und Datensilos.",
+  "transformationIntro": "Atylus loest diese Herausforderung mit folgendem Architekturansatz:",
+  "transformationApproach": [
+    "MCP-Server basierte KI-Integrationsschicht",
+    "Sichere Entscheidungsfindung mit LLM + Policy Engine",
+    "Echtzeit-Anomalieerkennungssysteme",
+    "Autonome Workflow-Orchestrierung"
+  ],
+  "transformationImageAlt": "Atylus Transformationsvisual",
+  "outcomesTitle": "Mit dieser Architektur koennen Unternehmen",
+  "transformationOutcomes": [
+    "30 bis 70 Prozent operative Geschwindigkeit gewinnen",
+    "Durchlaufzeiten deutlich reduzieren",
+    "Manuelle Prozesslast eliminieren",
+    "Entscheidungsprozesse auf Sekunden verkuerzen"
+  ],
+  "outcomesLabel": "zentrale gewinne",
+  "serviceAreasEyebrow": "leistungsbereiche",
+  "serviceAreasTitle": "Was entwickelt Atylus?",
+  "serviceAreas": [
+    {
+      "title": "KI-Agenten Entwicklung",
+      "items": [
+        "Unternehmensagenten mit autonomen Entscheidungen",
+        "KI integriert in ERP, CRM und E-Commerce Systeme"
+      ]
+    },
+    {
+      "title": "MCP Server Architektur",
+      "items": [
+        "Sichere Verbindung von LLMs mit Unternehmenssystemen",
+        "Standardisierte KI-Werkzeugschicht statt isolierter APIs",
+        "Zero-Trust Integrationsdesign"
+      ]
+    },
+    {
+      "title": "Entscheidungsunterstuetzungssysteme",
+      "items": [
+        "Management Dashboards",
+        "Echtzeit KPI und Anomalieanalyse",
+        "Praediktive Analysemodelle"
+      ]
+    },
+    {
+      "title": "Risiko- und Anomalieerkennung",
+      "items": [
+        "Analyse finanzieller Transaktionen",
+        "Verhaltenssegmentierung",
+        "Betrugs- und Systemanomalieerkennung"
+      ]
+    },
+    {
+      "title": "Workflow Automatisierung",
+      "items": [
+        "Order-to-cash Prozesse",
+        "Lieferkettenautomatisierung",
+        "CRM- und Supportautomatisierung"
+      ]
+    },
+    {
+      "title": "Generative KI Systeme",
+      "items": [
+        "Enterprise Chatbot- und AI-Assistant-Loesungen",
+        "Automatisierung fuer Content, Vertrieb und Betrieb"
+      ]
+    }
+  ],
+  "architectureDecorAlt": "Atylus Architekturdekoration",
+  "architectureTitle": "Nicht nur KI, sondern ein Ansatz fuer autonome Systemarchitektur",
+  "architectureLead": "Atylus unterscheidet sich dadurch, dass KI nicht als Funktion, sondern als unternehmerische Betriebsschicht gestaltet wird.",
+  "architecturePrinciples": [
+    "Context Layer: Unternehmensdaten verstaendlich machen",
+    "Policy Engine: sicherer Entscheidungsmechanismus",
+    "Execution Layer: MCP-basiertes Ausfuehrungssystem"
+  ],
+  "architectureClosing": "Mit dieser Struktur antworten KI-Systeme nicht nur, sondern handeln, optimieren und steuern Prozesse.",
+  "searchConcepts": [
+    "KI Agentur Tuerkei",
+    "AI agent development company",
+    "MCP server development",
+    "Unternehmens KI Loesungen",
+    "enterprise AI automation",
+    "LLM integration enterprise systems",
+    "AI workflow automation",
+    "decision intelligence systems",
+    "anomaly detection AI systems"
+  ],
+  "whyEyebrow": "warum atylus",
+  "whyTitle": "Warum Atylus?",
+  "differenceCardTitle": "Was Atylus unterscheidet",
+  "differenceItems": [
+    "Wir liefern nicht nur Software, wir bauen Systemintelligenz",
+    "Wir integrieren nicht nur Werkzeuge, wir entwerfen AI-native Architektur",
+    "Wir automatisieren nicht nur Aufgaben, wir modellieren autonome Unternehmensablaeufe"
+  ],
+  "sectorsCardAlt": "Branchenschwerpunkt",
+  "sectorsCardTitle": "Fokusbranchen",
+  "sectors": ["produktion", "logistik", "e-commerce", "finanzen", "unternehmensweite ERP-systeme"],
+  "futureCardTitle": "Zukunftsvision",
+  "futureItems": [
+    "Unternehmen in KI-native autonome Organisationen transformieren",
+    "Die Engineering-Schicht fuer Unternehmen aufbauen, die mit KI arbeiten"
+  ]
+}

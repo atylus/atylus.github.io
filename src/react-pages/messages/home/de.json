@@ -1,0 +1,152 @@
+{
+  "banner": {
+    "titlePrefix": "Atylus",
+    "title": "hilft Ihnen, Innovation, Transformation und messbare Ergebnisse zusammenzubringen.",
+    "ctaLabel": "Entdecken",
+    "ctaHref": "/services"
+  },
+  "heroServices": {
+    "badges": ["KI-Loesungen", "KI-Services"],
+    "title": "Bringen Sie Ihr Unternehmen mit der Kraft von KI voran.",
+    "description": "Erhalten Sie sofortige Antworten und unterbrechungsfreien Service mit unternehmensreifer KI.",
+    "ctaLabel": "Mehr entdecken",
+    "ctaHref": "/services",
+    "counterValue": "24/7",
+    "counterTitle": "Digitale Belegschaft",
+    "secondaryTitle": "Digitale Belegschaft",
+    "secondaryDescription": "Schaffen Sie kontinuierliche, schnelle und fehlerarme Ablaufe mit KI-Agenten, die ueber menschliche Grenzen hinaus arbeiten.",
+    "videoLabel": "Video ansehen"
+  },
+  "brands": {
+    "title": "Unsere Workflows wirken nicht nur fortschrittlich, sie erzeugen echte Ergebnisse fuer Ihr Unternehmen."
+  },
+  "services": {
+    "eyebrow": "leistungen",
+    "title": "Intelligente Faehigkeiten, die Ihre Leistungserbringung staerken",
+    "description": "Wir liefern den kompletten Service-Stack, den Ihr Unternehmen fuer Wachstum und Skalierung benoetigt.",
+    "ctaLabel": "Mehr entdecken",
+    "ctaHref": "/services"
+  },
+  "integration": {
+    "title": "Wir integrieren uns in die Plattformen und Kanaele, die Ihre Teams bereits nutzen."
+  },
+  "marquee": {
+    "items": [
+      "/ Wir gestalten die Technologie von morgen mit neuronalen Netzen",
+      "/ Neuronale Netze, die die Zukunft der Technologie praegen"
+    ]
+  },
+  "features": {
+    "eyebrow": "funktionen",
+    "title": "Die Leistungsversprechen und Servicevorteile, die uns unterscheiden.",
+    "items": [
+      {
+        "id": "f10-1",
+        "title": "KI-Technologien",
+        "description": "Wir machen unsere tiefe Expertise beim Aufbau und bei der Integration moderner KI-Systeme sichtbar."
+      },
+      {
+        "id": "f10-2",
+        "title": "Massgeschneiderte Loesungen",
+        "description": "Jede Loesung wird an Ihre konkreten Anforderungen und strategischen Prioritaeten angepasst."
+      },
+      {
+        "id": "f10-3",
+        "title": "Fortschrittliche Technologie",
+        "description": "Mit modernen Werkzeugen und innovativen Techniken schaffen wir einen echten Wettbewerbsvorteil."
+      },
+      {
+        "id": "f10-4",
+        "title": "Moderne Lieferpraxis",
+        "description": "Wir belegen Wirkung mit Fallstudien, Referenzen und greifbaren Resultaten."
+      },
+      {
+        "id": "f10-5",
+        "title": "KI-Beratung und Strategie",
+        "description": "Gemeinsam definieren wir Unternehmens-KI-Roadmaps, Prioritaeten und Produktisierungsstrategie."
+      },
+      {
+        "id": "f10-6",
+        "title": "Computer Vision",
+        "description": "Wir entwickeln skalierbare Bilddaten-Loesungen, die zu Ihren operativen Anforderungen passen."
+      },
+      {
+        "id": "f10-7",
+        "title": "Rollout und Integration",
+        "description": "Mit disziplinierter Technik bringen wir Systeme produktiv und integrieren sie reibungslos."
+      },
+      {
+        "id": "f10-8",
+        "title": "Praediktive Analytik",
+        "description": "Wir verwandeln Prognosen und Vorhersagen in messbare Geschaeftsergebnisse."
+      }
+    ]
+  },
+  "about": {
+    "styleText": "Atylus",
+    "eyebrow": "ueber uns",
+    "title": "Wir fuehren bei KI-Loesungen und operativer Innovation",
+    "paragraphs": [
+      "Bei Atylus entwickeln wir innovative Loesungen, die mit KI Unternehmensablaufe transformieren.",
+      "Unser Team gestaltet individuelle Strategien und Integrationen fuer MCP, Entscheidungssysteme und Workflow-Automatisierung.",
+      "Als vertrauenswuerdiger Technologiepartner helfen wir Organisationen, den vollen operativen Wert intelligenter Systeme zu erschliessen."
+    ],
+    "ctaLabel": "Mehr entdecken",
+    "ctaHref": "/about",
+    "counterLabel": "Erfolgreich umgesetzte kreative Projekte mit KI-Unterstuetzung"
+  },
+  "projects": {
+    "eyebrow": "projekte",
+    "title": "Entdecken Sie die Ergebnisse der Arbeit, die wir in hochwertige Loesungen und erfolgreiche Projektlieferung investieren.",
+    "ctaLabel": "Weitere Projekte",
+    "ctaHref": "/projects",
+    "items": [
+      {
+        "id": "project-1",
+        "eyebrow": "Entwicklung",
+        "title": "DeepVision: Bildverarbeitungsinfrastruktur auf Basis neuronaler Netze",
+        "href": "/projects",
+        "buttonLabel": "Details ansehen"
+      },
+      {
+        "id": "project-2",
+        "eyebrow": "Entwicklung",
+        "title": "NLPGenius: eine Plattform fuer Sprach-Workflows in Unternehmensprozessen",
+        "href": "/projects",
+        "buttonLabel": "Details ansehen"
+      },
+      {
+        "id": "project-3",
+        "eyebrow": "Entwicklung",
+        "title": "AutoDrive: eine fortgeschrittene Entscheidungs- und Navigationsschicht mit neuronalen Netzen",
+        "href": "/projects",
+        "buttonLabel": "Details ansehen"
+      },
+      {
+        "id": "project-4",
+        "eyebrow": "Entwicklung",
+        "title": "CogniCraft: intelligente Innovationsflaechen fuer die vernetzte Zukunft",
+        "href": "/projects",
+        "buttonLabel": "Details ansehen"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "team",
+    "title": "Wir bringen die besten Talente zusammen, um intelligente Loesungen zu gestalten.",
+    "counterLabel": "Starke Teammitglieder",
+    "ctaLabel": "Mehr entdecken",
+    "ctaHref": "/team",
+    "members": {
+      "dan-smith": { "tag": "Zukunft", "designation": "/ Manager /" },
+      "alan-begham-1": { "tag": "Neural", "designation": "/ CEO /" },
+      "brandon-adams": { "tag": "Digital", "designation": "/ HR /" },
+      "arthur-dowson": { "tag": "Loesungen", "designation": "/ KI-Programmierer /" },
+      "alan-begham-2": { "tag": "Lernen", "designation": "/ CEO /" }
+    }
+  },
+  "partners": {
+    "eyebrow": "partner",
+    "title": "Vertrauenswuerdige Partner, die unsere Wachstums- und Lieferreise begleiten."
+  }
+}

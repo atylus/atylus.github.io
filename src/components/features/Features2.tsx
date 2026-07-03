@@ -2,11 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { featureItems10 } from "@/data/features";
+import type { FeatureItem10 } from "@/types/features";
 
-export default function Features2() {
+export default function Features2({
+  items = featureItems10,
+}: {
+  items?: FeatureItem10[];
+}) {
   return (
     <>
-      {featureItems10.map((item) => (
+      {items.map((item) => (
         <div key={item.id} className="col-lg-3 col-md-6 col-sm-6">
           {item.href ? (
             <Link

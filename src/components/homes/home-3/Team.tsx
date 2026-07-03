@@ -6,7 +6,23 @@ import TitleSplitWrapper from "@/components/common/TitleSplitWrapper";
 import SubTitleWrapper from "@/components/common/SubTitleWrapper";
 import { teamMembers } from "@/data/team";
 
-export default function Team() {
+type TeamProps = {
+  eyebrow: string;
+  title: string;
+  counterLabel: string;
+  ctaLabel: string;
+  ctaHref: string;
+  members: Record<string, { tag: string; designation: string }>;
+};
+
+export default function Team({
+  eyebrow,
+  title,
+  counterLabel,
+  ctaLabel,
+  ctaHref,
+  members,
+}: TeamProps) {
   return (
     <section className="team-section ibt-section-gapTop">
       <div className="container">
@@ -14,23 +30,23 @@ export default function Team() {
           <div className="col-lg-6 col-md-12">
             <div className="team-info">
               <div className="sec-title">
-                <SubTitleWrapper>ekip</SubTitleWrapper>
+                <SubTitleWrapper>{eyebrow}</SubTitleWrapper>
                 <TitleSplitWrapper tag="h2" className="title animated-heading">
-                  Yapay Sinir Ağı uzmanları: Akıllı çözümler için en iyi yetenekleri bir araya getiriyoruz.
+                  {title}
                 </TitleSplitWrapper>
                 <div className="team-counter">
                   <div className="counter-box8">
                     <span className="counter-text">+</span>
                     <Counter max={500} extraClass="percent-counter" />
                   </div>
-                  <span className="title">Harika ekip arkadaşlarımız</span>
+                  <span className="title">{counterLabel}</span>
                 </div>
                 <Link
-                  href="/service"
+                  href={ctaHref}
                   title=""
                   className="ibt-btn ibt-btn-outline"
                 >
-                  <span>Daha fazlasını keşfedin</span>
+                  <span>{ctaLabel}</span>
                   <i className="icon-arrow-top" />
                 </Link>
               </div>
@@ -51,7 +67,7 @@ export default function Team() {
                             width={member.imageWidth}
                             height={member.imageHeight}
                           />
-                          <SubTitleWrapper>{member.tag}</SubTitleWrapper>
+                          <SubTitleWrapper>{members[member.id]?.tag ?? member.tag}</SubTitleWrapper>
                           <div className="team-shap" />
                         </div>
                         <div className="team-content">
@@ -78,7 +94,7 @@ export default function Team() {
                             </Link>
                           </h4>
                           <span className="designation">
-                            {member.designation}
+                            {members[member.id]?.designation ?? member.designation}
                           </span>
                         </div>
                       </div>
@@ -107,7 +123,7 @@ export default function Team() {
                             width={member.imageWidth}
                             height={member.imageHeight}
                           />
-                          <SubTitleWrapper>{member.tag}</SubTitleWrapper>
+                          <SubTitleWrapper>{members[member.id]?.tag ?? member.tag}</SubTitleWrapper>
                           <div className="team-shap" />
                         </div>
                         <div className="team-content">
@@ -134,7 +150,7 @@ export default function Team() {
                             </Link>
                           </h4>
                           <span className="designation">
-                            {member.designation}
+                            {members[member.id]?.designation ?? member.designation}
                           </span>
                         </div>
                       </div>
@@ -157,7 +173,7 @@ export default function Team() {
                             width={member.imageWidth}
                             height={member.imageHeight}
                           />
-                          <SubTitleWrapper>{member.tag}</SubTitleWrapper>
+                          <SubTitleWrapper>{members[member.id]?.tag ?? member.tag}</SubTitleWrapper>
                           <div className="team-shap" />
                         </div>
                         <div className="team-content">
@@ -184,7 +200,7 @@ export default function Team() {
                             </Link>
                           </h4>
                           <span className="designation">
-                            {member.designation}
+                            {members[member.id]?.designation ?? member.designation}
                           </span>
                         </div>
                       </div>

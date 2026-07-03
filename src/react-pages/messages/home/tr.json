@@ -1,0 +1,152 @@
+{
+  "banner": {
+    "titlePrefix": "Atylus",
+    "title": "ile yenilik yapin, donusun ve gercek sonuclar elde edin.",
+    "ctaLabel": "Kesfet",
+    "ctaHref": "/services"
+  },
+  "heroServices": {
+    "badges": ["AI Cozumleri", "AI Hizmetleri"],
+    "title": "Yapay zekanin gucuyle isletmenizi ileriye tasiyin.",
+    "description": "Tum sorulariniza aninda cozum. Yapay zeka gucuyle kesintisiz hizmeti kesfedin.",
+    "ctaLabel": "Daha fazlasini kesfedin",
+    "ctaHref": "/services",
+    "counterValue": "7/24",
+    "counterTitle": "Dijital Is Gucu",
+    "secondaryTitle": "Dijital Is Gucu",
+    "secondaryDescription": "Sinirlari asan yapay zeka ajanlari ile kesintisiz, hizli ve hatasiz operasyon gucu.",
+    "videoLabel": "Videoyu izle"
+  },
+  "brands": {
+    "title": "Is akislarimiz sadece \"gelismis\" gorunmekle kalmaz; isletmeniz icin gercek sonuclar yaratir."
+  },
+  "services": {
+    "eyebrow": "hizmetler",
+    "title": "Hizmetlerinizi guclendiren akilli ozellikler",
+    "description": "Isletmenizi destekleyecek tum hizmetleri sunuyoruz.",
+    "ctaLabel": "Daha fazlasini kesfedin",
+    "ctaHref": "/services"
+  },
+  "integration": {
+    "title": "Bu hizmetlerle calisiyor ve entegrasyon sagliyoruz."
+  },
+  "marquee": {
+    "items": [
+      "/ Yapay sinir aglari ile gelecegin teknolojisini tasarliyoruz",
+      "/ Teknolojinin gelecegine yon veren yapay sinir aglari"
+    ]
+  },
+  "features": {
+    "eyebrow": "ozellikler",
+    "title": "Bizi farkli kilan deger onerilerimiz ve hizmet avantajlarimiz.",
+    "items": [
+      {
+        "id": "f10-1",
+        "title": "Yapay Zeka Teknolojileri",
+        "description": "Ekibimizin yapay sinir aglari gelistirme ve entegrasyon sureclerindeki derin uzmanligini one cikariyoruz."
+      },
+      {
+        "id": "f10-2",
+        "title": "Ihtiyaca Ozel Cozumler",
+        "description": "Cozumlerimizi isletmenizin spesifik gereksinimlerine ve stratejik hedeflerine tam uyumlu hale getiriyoruz."
+      },
+      {
+        "id": "f10-3",
+        "title": "Ileri Teknoloji",
+        "description": "En guncel araclari ve yenilikci teknikleri kullanarak sektorunuzde fark yaratiyoruz."
+      },
+      {
+        "id": "f10-4",
+        "title": "Modern Gelistirme Surecleri",
+        "description": "Hizmetlerimizin yarattigi somut degeri vaka analizleri ve guclu referanslarla gorunur kilıyoruz."
+      },
+      {
+        "id": "f10-5",
+        "title": "Yapay Zeka Danismanligi ve Strateji",
+        "description": "Kurumsal yapay zeka yol haritasi, onceliklendirme ve urunlestirme vizyonunu birlikte kuruyoruz."
+      },
+      {
+        "id": "f10-6",
+        "title": "Bilgisayarli Goru",
+        "description": "Gorsel veri analizi sureclerinde kurumunuza ozel, olceklendirilebilir cozumler tasarliyoruz."
+      },
+      {
+        "id": "f10-7",
+        "title": "Devreye Alma ve Entegrasyon",
+        "description": "Canliya alma ve kesintisiz entegrasyon sureclerinde modern muhendislik pratikleri uyguluyoruz."
+      },
+      {
+        "id": "f10-8",
+        "title": "Ongorusel Analitik",
+        "description": "Tahmine dayali analitikten olculebilir is sonuclari ureten gercek kullanim senaryolari cikartiyoruz."
+      }
+    ]
+  },
+  "about": {
+    "styleText": "Atylus",
+    "eyebrow": "hakkimizda",
+    "title": "Yapay zeka cozumleri ve inovasyonda oncuyuz",
+    "paragraphs": [
+      "Atylus olarak, isletmeleri donusturmek icin yapay zekanin gucunden yararlanan yenilikci cozumler sunmaya odaklanmis oncu bir teknoloji partneriyiz.",
+      "Uzman ekibimiz; MCP, karar destek sistemleri ve kurumsal otomasyon alanlarinda size ozel stratejiler ve entegrasyonlar tasarlar.",
+      "Akilli teknolojilerin geleceginde guvenilir is ortaginiz olarak, yapay zekanin tum potansiyelini operasyonlariniza tasiyoruz."
+    ],
+    "ctaLabel": "Daha fazlasini kesfedin",
+    "ctaHref": "/about",
+    "counterLabel": "Yapay zeka destegiyle basariyla tamamlanan yaratici projeler"
+  },
+  "projects": {
+    "eyebrow": "projeler",
+    "title": "Ustun nitelikli cozumler uretmek icin ortaya koydugumuz emegin sonuclarini ve projelerimizin basarili ciktilarini incelemeye davetlisiniz.",
+    "ctaLabel": "Diger projelerimiz",
+    "ctaHref": "/projects",
+    "items": [
+      {
+        "id": "project-1",
+        "eyebrow": "Gelisim",
+        "title": "DeepVision: Noral Aglarla gelistirilmis goruntu tanima altyapisi",
+        "href": "/projects",
+        "buttonLabel": "Detaylari incele"
+      },
+      {
+        "id": "project-2",
+        "eyebrow": "Gelisim",
+        "title": "NLPGenius: Dogal dil sureclerini kurumsal is akislarina tasiyan platform",
+        "href": "/projects",
+        "buttonLabel": "Detaylari incele"
+      },
+      {
+        "id": "project-3",
+        "eyebrow": "Gelisim",
+        "title": "AutoDrive: Gelismis noral aglarla otonom karar ve yonlendirme katmani",
+        "href": "/projects",
+        "buttonLabel": "Detaylari incele"
+      },
+      {
+        "id": "project-4",
+        "eyebrow": "Gelisim",
+        "title": "CogniCraft: Bagli yarinin akilli cozumleri icin tasarlanan inovasyon yuzeyi",
+        "href": "/projects",
+        "buttonLabel": "Detaylari incele"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "ekip",
+    "title": "Akilli cozumler icin en iyi yetenekleri bir araya getiriyoruz.",
+    "counterLabel": "Harika ekip arkadaslarimiz",
+    "ctaLabel": "Daha fazlasini kesfedin",
+    "ctaHref": "/team",
+    "members": {
+      "dan-smith": { "tag": "Gelecek", "designation": "/ Yonetici /" },
+      "alan-begham-1": { "tag": "Noral", "designation": "/ CEO /" },
+      "brandon-adams": { "tag": "Dijital", "designation": "/ Insan Kaynaklari /" },
+      "arthur-dowson": { "tag": "Cozumler", "designation": "/ AI Programcisi /" },
+      "alan-begham-2": { "tag": "Ogrenme", "designation": "/ CEO /" }
+    }
+  },
+  "partners": {
+    "eyebrow": "partnerler",
+    "title": "Gelisim ve basari yolculugumuzdaki guvenilir is ortaklarimiz."
+  }
+}

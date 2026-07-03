@@ -1,0 +1,17 @@
+{
+  "bannerStaffText": "Iletisim",
+  "bannerTitle": "/ Iletisim /",
+  "breadcrumbCurrent": "Iletisim",
+  "eyebrow": "iletisime gecin",
+  "title": "Sorularinizi yanitlamaya ve size yardimci olmaya her zaman haziriz",
+  "description": "Kurumsal yapay zeka, MCP ve otomasyon ihtiyaclariniz icin bizimle iletisime gecin. Ekibimiz size en kisa surede geri donus saglar.",
+  "phoneTitle": "Telefon",
+  "phoneNumbers": ["800 100 975 20 34", "+90 352 000 00 00"],
+  "emailTitle": "E-posta",
+  "emailAddress": "info@atylus.com",
+  "locationTitle": "Konum",
+  "locationLines": ["Kayseri, Turkiye", "Merkez Ofis"],
+  "socialTitle": "Sosyal aglar",
+  "mapTitle": "harita",
+  "mapEmbedUrl": "https://www.google.com/maps?q=Kayseri%2C%20Turkey&z=12&output=embed"
+}

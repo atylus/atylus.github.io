@@ -1,0 +1,120 @@
+{
+  "bannerStaffText": "Atylus",
+  "bannerTitle": "/ Hakkimizda /",
+  "breadcrumbCurrent": "Hakkimizda",
+  "eyebrow": "hakkimizda",
+  "mainTitle": "Atylus Hakkinda Kurumsal Yapay Zeka, MCP ve Otonom Sistemler",
+  "decorAlt": "Atylus Hakkimizda sayfa dekoru",
+  "companyLabel": "ATYLUS",
+  "introParagraphs": [
+    "Atylus, Turkiye'de ve Ic Anadolu'da kurumsal isletmeler icin yapay zeka ajanlari, MCP mimarisi, karar destek sistemleri ve is akisi otomasyonu gelistiren yeni nesil bir yapay zeka ajansidir.",
+    "Geleneksel yazilim sirketlerinden farkli olarak Atylus, sadece sistem kurmaz; veriyi karar veren, surecleri yoneten ve operasyonlari optimize eden otonom yapay zeka sistemlerine donusturur.",
+    "Atylus'un vizyonu, sirketleri dijitallestirmek degil; sirketleri otonom karar veren yapay zeka organizasyonlarina donusturmektir."
+  ],
+  "marqueeAriaTitle": "Kayan Bilgi Alani",
+  "marqueeText": "/ Kurumsal yapay zeka, MCP mimarisi ve otonom sistemlerle yeni nesil donusum.",
+  "transformationTitle": "Kurumsal Yapay Zeka Donusumunun Yeni Standardi",
+  "transformationLead": "2026 itibariyla isletmelerin en buyuk problemi yalnizca yazilim degil; entegrasyon karmasasi, yuksek operasyonel maliyetler ve veri silolaridir.",
+  "transformationIntro": "Atylus bu problemi su mimari yaklasim ile cozer:",
+  "transformationApproach": [
+    "MCP Server tabanli AI entegrasyon katmani",
+    "LLM + Policy Engine ile guvenli karar alma",
+    "Gercek zamanli veri isleyen anomali tespit sistemleri",
+    "Otonom is akisi orkestrasyonu"
+  ],
+  "transformationImageAlt": "Atylus donusum alani gorseli",
+  "outcomesTitle": "Bu yapi sayesinde sirketler",
+  "transformationOutcomes": [
+    "%30 - %70 arasinda operasyonel hiz kazanir",
+    "Dongu surelerini dramatik bicimde azaltir",
+    "Manuel islem yukunu ortadan kaldirir",
+    "Karar alma sureclerini saniyelere indirir"
+  ],
+  "outcomesLabel": "temel kazanım",
+  "serviceAreasEyebrow": "hizmet alanlari",
+  "serviceAreasTitle": "Atylus Ne Yapar?",
+  "serviceAreas": [
+    {
+      "title": "Yapay Zeka Ajan Gelistirme",
+      "items": [
+        "Otonom karar verebilen kurumsal ajanlar",
+        "ERP, CRM ve e-ticaret sistemleriyle entegre AI"
+      ]
+    },
+    {
+      "title": "MCP Server Mimarisi",
+      "items": [
+        "LLM'lerin guvenli sekilde kurumsal sistemlere baglanmasi",
+        "API yerine standart AI tool layer olusturma",
+        "Zero-trust entegrasyon yapisi"
+      ]
+    },
+    {
+      "title": "Karar Destek Sistemleri",
+      "items": [
+        "Yonetim panolari",
+        "Gercek zamanli KPI ve anomali analizi",
+        "Predictive analytics modelleri"
+      ]
+    },
+    {
+      "title": "Risk ve Anomali Tespiti",
+      "items": [
+        "Finansal islem analizi",
+        "Davranissal segmentasyon",
+        "Fraud ve sistem anomalisi tespiti"
+      ]
+    },
+    {
+      "title": "Is Akisi Otomasyonu",
+      "items": [
+        "Order-to-cash surecleri",
+        "Tedarik zinciri otomasyonu",
+        "CRM ve musteri destek otomasyonu"
+      ]
+    },
+    {
+      "title": "Uretken Yapay Zeka Sistemleri",
+      "items": [
+        "Kurumsal chatbot ve AI assistant cozumleri",
+        "Icerik, satis ve operasyon otomasyonu"
+      ]
+    }
+  ],
+  "architectureDecorAlt": "Atylus mimari yaklasim dekoru",
+  "architectureTitle": "Sadece AI degil, otonom sistem mimarisi yaklasimi",
+  "architectureLead": "Atylus'un temel farki, yapay zekayi bir arac degil, kurumsal isletim katmani olarak tasarlamasidir.",
+  "architecturePrinciples": [
+    "Context Layer: Verinin anlamlandirilmasi",
+    "Policy Engine: Guvenli karar mekanizmasi",
+    "Execution Layer: MCP tabanli islem yurutme sistemi"
+  ],
+  "architectureClosing": "Bu yapi sayesinde AI sistemleri sadece cevap uretmez, islem yapar, optimize eder ve surec yonetir.",
+  "searchConcepts": [
+    "Yapay zeka ajansi Turkiye",
+    "AI agent development company",
+    "MCP server development",
+    "kurumsal yapay zeka cozumleri",
+    "enterprise AI automation",
+    "LLM integration enterprise systems",
+    "AI workflow automation",
+    "decision intelligence systems",
+    "anomaly detection AI systems"
+  ],
+  "whyEyebrow": "neden atylus",
+  "whyTitle": "Neden Atylus?",
+  "differenceCardTitle": "Atylus'un Farki",
+  "differenceItems": [
+    "Sadece yazilim uretmez, sistem zekasi uretir",
+    "Sadece entegrasyon yapmaz, AI-native mimari kurar",
+    "Sadece otomasyon sunmaz, otonom isletme modeli tasarlar"
+  ],
+  "sectorsCardAlt": "Sektorel odak",
+  "sectorsCardTitle": "Odaklandigi Sektorler",
+  "sectors": ["uretim", "lojistik", "e-ticaret", "finans", "kurumsal ERP sistemleri"],
+  "futureCardTitle": "Gelecek Vizyonu",
+  "futureItems": [
+    "Sirketleri otonom karar veren yapay zeka organizasyonlarina donusturmek",
+    "Yapay zeka ile calisan otonom isletmeler icin muhendislik katmanini insa etmek"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "bannerStaffText": "Contact",
+  "bannerTitle": "/ Contact /",
+  "breadcrumbCurrent": "Contact",
+  "eyebrow": "get in touch",
+  "title": "We are always ready to help you and answer your questions",
+  "description": "Reach out to discuss enterprise AI, MCP, and automation initiatives. Our team will get back to you shortly.",
+  "phoneTitle": "Phone",
+  "phoneNumbers": ["800 100 975 20 34", "+90 352 000 00 00"],
+  "emailTitle": "Email",
+  "emailAddress": "info@atylus.com",
+  "locationTitle": "Location",
+  "locationLines": ["Kayseri, Turkiye", "Head Office"],
+  "socialTitle": "Social network",
+  "mapTitle": "map",
+  "mapEmbedUrl": "https://www.google.com/maps?q=Kayseri%2C%20Turkey&z=12&output=embed"
+}

@@ -16,14 +16,19 @@ const partners = [
 
 const partnerSlides = [...partners, ...partners];
 
-export default function Partners() {
+type PartnersProps = {
+  eyebrow: string;
+  title: string;
+};
+
+export default function Partners({ eyebrow, title }: PartnersProps) {
   return (
     <section className="partners-sec ibt-section-gap">
       <div className="container">
         <div className="sec-title">
-          <SubTitleWrapper>partners</SubTitleWrapper>
+          <SubTitleWrapper>{eyebrow}</SubTitleWrapper>
           <TitleSplitWrapper tag="h2" className="title animated-heading">
-            Gelişim ve başarı yolculuğumuzdaki güvenilir iş ortaklarımız.
+            {title}
           </TitleSplitWrapper>
         </div>
         <div className="brand-sec2">

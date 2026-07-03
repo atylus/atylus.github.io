@@ -1,0 +1,120 @@
+{
+  "bannerStaffText": "Atylus",
+  "bannerTitle": "/ About /",
+  "breadcrumbCurrent": "About",
+  "eyebrow": "about",
+  "mainTitle": "About Atylus: Enterprise AI, MCP, and Autonomous Systems",
+  "decorAlt": "Atylus about page decoration",
+  "companyLabel": "ATYLUS",
+  "introParagraphs": [
+    "Atylus is a next-generation AI agency building AI agents, MCP architecture, decision systems, and workflow automation for enterprise organizations.",
+    "Unlike traditional software companies, Atylus does not only build systems; it turns data into autonomous AI systems that can decide, operate, and optimize.",
+    "Our vision is not merely to digitize companies, but to transform them into autonomous organizations that operate with AI."
+  ],
+  "marqueeAriaTitle": "Marquee information area",
+  "marqueeText": "/ Next-generation transformation with enterprise AI, MCP architecture, and autonomous systems.",
+  "transformationTitle": "A New Standard for Enterprise AI Transformation",
+  "transformationLead": "The biggest business problem in 2026 is not only software; it is integration complexity, high operational cost, and data silos.",
+  "transformationIntro": "Atylus solves this challenge through the following architectural approach:",
+  "transformationApproach": [
+    "MCP Server based AI integration layer",
+    "Secure decision-making with LLM + Policy Engine",
+    "Real-time anomaly detection systems",
+    "Autonomous workflow orchestration"
+  ],
+  "transformationImageAlt": "Atylus transformation visual",
+  "outcomesTitle": "With this architecture, companies can",
+  "transformationOutcomes": [
+    "Gain 30% to 70% operational speed",
+    "Reduce cycle time dramatically",
+    "Eliminate manual processing load",
+    "Compress decision-making into seconds"
+  ],
+  "outcomesLabel": "core gains",
+  "serviceAreasEyebrow": "service areas",
+  "serviceAreasTitle": "What Does Atylus Build?",
+  "serviceAreas": [
+    {
+      "title": "AI Agent Development",
+      "items": [
+        "Enterprise agents capable of autonomous decisions",
+        "AI integrated with ERP, CRM, and e-commerce systems"
+      ]
+    },
+    {
+      "title": "MCP Server Architecture",
+      "items": [
+        "Secure connection of LLMs to enterprise systems",
+        "Standard AI tool layer instead of isolated APIs",
+        "Zero-trust integration design"
+      ]
+    },
+    {
+      "title": "Decision Support Systems",
+      "items": [
+        "Executive dashboards",
+        "Real-time KPI and anomaly analysis",
+        "Predictive analytics models"
+      ]
+    },
+    {
+      "title": "Risk and Anomaly Detection",
+      "items": [
+        "Financial transaction analysis",
+        "Behavioral segmentation",
+        "Fraud and system anomaly detection"
+      ]
+    },
+    {
+      "title": "Workflow Automation",
+      "items": [
+        "Order-to-cash processes",
+        "Supply chain automation",
+        "CRM and customer support automation"
+      ]
+    },
+    {
+      "title": "Generative AI Systems",
+      "items": [
+        "Enterprise chatbot and AI assistant solutions",
+        "Content, sales, and operations automation"
+      ]
+    }
+  ],
+  "architectureDecorAlt": "Atylus architecture decoration",
+  "architectureTitle": "Not only AI, but an autonomous systems architecture approach",
+  "architectureLead": "Atylus differs by designing AI not as a feature, but as an enterprise operating layer.",
+  "architecturePrinciples": [
+    "Context Layer: making enterprise data meaningful",
+    "Policy Engine: secure decision mechanism",
+    "Execution Layer: MCP-based execution system"
+  ],
+  "architectureClosing": "With this structure, AI systems do not only answer; they act, optimize, and manage processes.",
+  "searchConcepts": [
+    "AI agency Turkey",
+    "AI agent development company",
+    "MCP server development",
+    "enterprise AI solutions",
+    "enterprise AI automation",
+    "LLM integration enterprise systems",
+    "AI workflow automation",
+    "decision intelligence systems",
+    "anomaly detection AI systems"
+  ],
+  "whyEyebrow": "why atylus",
+  "whyTitle": "Why Atylus?",
+  "differenceCardTitle": "What Makes Atylus Different",
+  "differenceItems": [
+    "We do not only ship software, we build system intelligence",
+    "We do not only integrate tools, we design AI-native architecture",
+    "We do not only automate tasks, we model autonomous business operations"
+  ],
+  "sectorsCardAlt": "Sector focus",
+  "sectorsCardTitle": "Focused Industries",
+  "sectors": ["manufacturing", "logistics", "e-commerce", "finance", "enterprise ERP systems"],
+  "futureCardTitle": "Future Vision",
+  "futureItems": [
+    "Transform companies into AI-native autonomous organizations",
+    "Build the engineering layer for enterprises that operate with AI"
+  ]
+}

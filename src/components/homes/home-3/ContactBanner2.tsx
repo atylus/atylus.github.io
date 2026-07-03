@@ -1,6 +1,18 @@
 import ContactButton from "@/components/common/ContactButton";
 
-export default function ContactBanner2() {
+type ContactBanner2Props = {
+  titlePrefix: string;
+  title: string;
+  ctaLabel: string;
+  ctaHref: string;
+};
+
+export default function ContactBanner2({
+  titlePrefix,
+  title,
+  ctaLabel,
+  ctaHref,
+}: ContactBanner2Props) {
   return (
     <section className="contact-banner2">
       <div className="container4">
@@ -8,18 +20,19 @@ export default function ContactBanner2() {
           <div className="col-lg-9 col-md-9">
             <div className="contact-banner-content2">
               <h2 className="title">
-                <span>Atylus </span>ile yenilik yapın, &amp; dönüşün ve gerçek sonuçlar elde edin.
+                <span>{titlePrefix} </span>
+                {title}
               </h2>
             </div>
           </div>
           <div className="col-lg-3 col-md-3">
             <div className="btn-box3">
               <ContactButton
-                href="/index3"
+                href={ctaHref}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Keşfet
+                {ctaLabel}
               </ContactButton>
             </div>
           </div>

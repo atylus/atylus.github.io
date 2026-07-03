@@ -1,13 +1,12 @@
 import {
-  DEFAULT_LOCALE,
   LOCALE_COOKIE_MAX_AGE,
   LOCALE_COOKIE_NAME,
   SUPPORTED_LOCALES,
 } from "../src/i18n/config";
+import { resolvePreferredLocale } from "../src/i18n/detection";
 import { getLegacyRedirectEntries, getLocalizedHref } from "../src/i18n/routes";
 import {
   getLocaleFromPathname,
-  getPreferredLocaleFromCookie,
   normalizePathname,
 } from "../src/i18n/pathname";
 
@@ -28,11 +27,16 @@ function shouldBypass(pathname: string, method: string) {
 }
 
 function withLocaleCookie(response: Response, locale: string) {
-  response.headers.append(
+  const headers = new Headers(response.headers);
+  headers.append(
     "Set-Cookie",
     `${LOCALE_COOKIE_NAME}=${locale}; Path=/; Max-Age=${LOCALE_COOKIE_MAX_AGE}; SameSite=Lax`,
   );
-  return response;
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 export const onRequest: PagesFunction = async (context) => {
@@ -45,9 +49,10 @@ export const onRequest: PagesFunction = async (context) => {
   }
 
   if (pathname === "/") {
-    const locale = getPreferredLocaleFromCookie(
-      context.request.headers.get("cookie"),
-    );
+    const locale = resolvePreferredLocale({
+      cookieHeader: context.request.headers.get("cookie"),
+      acceptLanguageHeader: context.request.headers.get("accept-language"),
+    });
     return withLocaleCookie(
       Response.redirect(new URL(`/${locale}/`, url), 302),
       locale,
@@ -64,12 +69,16 @@ export const onRequest: PagesFunction = async (context) => {
     return withLocaleCookie(response, currentLocale);
   }
 
+  const preferredLocale = resolvePreferredLocale({
+    cookieHeader: context.request.headers.get("cookie"),
+    acceptLanguageHeader: context.request.headers.get("accept-language"),
+  });
   const redirectTarget =
     staticRedirects.get(pathname.endsWith("/") ? pathname : `${pathname}/`) ??
-    getLocalizedHref(pathname, DEFAULT_LOCALE);
+    getLocalizedHref(pathname, preferredLocale);
 
   return withLocaleCookie(
     Response.redirect(new URL(redirectTarget, url), 301),
-    DEFAULT_LOCALE,
+    preferredLocale,
   );
 };
