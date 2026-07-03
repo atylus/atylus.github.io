@@ -17,7 +17,7 @@ export default defineConfig({
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
     },
-  },
+  }, 
   vite: {
     resolve: {
       alias: [
