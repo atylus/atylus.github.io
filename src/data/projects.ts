@@ -2,12 +2,13 @@ import type { ProjectItem, ProjectModernItem } from "@/types/projects";
 
 export const projects: ProjectItem[] = [
   {
-    id: "deepvision",
+    id: "vendilus",
     cardClassName: "ser-card21 v1",
-    category: "Development",
-    title: "DeepVision: Enhancing Image Recognition with Neural Networks",
+    category: "Retail / E-Commerce",
+    title: "Vendilus: AI-assisted multi-marketplace synchronization layer",
     description:
-      "The inputs are multiplied by their respective weights, summed up.",
+      "A unified MCP bridge that consolidates stock, order, and pricing data across commerce platforms.",
+    href: "/projects/vendilus",
   },
   {
     id: "nlpgenius",
@@ -16,6 +17,7 @@ export const projects: ProjectItem[] = [
     title: "NLPGenius: Natural Language Processing Powered by Neural Networks",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "smarttrader",
@@ -25,6 +27,7 @@ export const projects: ProjectItem[] = [
       "SmartTrader: Predictive Stock Market Analysis using Neural Networks",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "cognivision-main",
@@ -34,6 +37,7 @@ export const projects: ProjectItem[] = [
       "CogniVision: Transformative AI for Intelligent Insight and Decision-Making",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "autodrive",
@@ -43,6 +47,7 @@ export const projects: ProjectItem[] = [
       "AutoDrive: Autonomous Vehicle Navigation with Advanced Neural Networks",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "neuraforge",
@@ -52,6 +57,7 @@ export const projects: ProjectItem[] = [
       "NeuraForge: Crafting Future-Ready AI Solutions for Industry Innovation",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "cognicraft",
@@ -61,6 +67,7 @@ export const projects: ProjectItem[] = [
       "CogniCraft Innovations: Shaping the Future through Cutting-Edge AI Endeavorss",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "cognivision-secondary",
@@ -70,6 +77,7 @@ export const projects: ProjectItem[] = [
       "CogniVision: Transformative AI for Intelligent Insight and Decision-Making",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
   {
     id: "sentientsolutions",
@@ -79,12 +87,13 @@ export const projects: ProjectItem[] = [
       "SentientSolutions: Crafting Smart Solutions in Every AI Project Venture",
     description:
       "The inputs are multiplied by their respective weights, summed up.",
+    href: "/projects",
   },
 ];
 
 export const projectsModern: ProjectModernItem[] = [
   {
-    id: "deepvision",
+    id: "vendilus",
     imageSrc: "/assets/images/project/project2-1.png",
     imageWidth: 1790,
     imageHeight: 320,

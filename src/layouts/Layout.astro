@@ -17,6 +17,7 @@ interface Props {
   ogType?: "website" | "article";
   showStaticChrome?: boolean;
   showContactSection?: boolean;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   ogType = "website",
   showStaticChrome = false,
   showContactSection = true,
+  structuredData,
 } = Astro.props;
 const siteMetadata = getSiteMetadata(locale);
 const {
@@ -67,6 +69,15 @@ const GTM_SERVER_ORIGIN = "https://sgtm.atylus.com";
       Object.entries(alternates).map(([hrefLang, href]) => (
         <link rel="alternate" hreflang={hrefLang} href={new URL(href, siteUrl).toString()} />
       ))
+    }
+    {
+      structuredData && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(structuredData)}
+        />
+      )
     }
     <script is:inline define:vars={{ GTM_CONTAINER_ID, GTM_SERVER_ORIGIN }}>
       ((w, d, s, l, i, origin) => {

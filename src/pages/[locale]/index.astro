@@ -1,6 +1,6 @@
 ---
 import PageDocument from "../../components/app/PageDocument.astro";
-import MarketingPageIsland from "../../components/app/MarketingPageIsland.astro";
+import { HomePageIsland } from "@/components/app/PageIslands";
 import { SUPPORTED_LOCALES, type SupportedLocale } from "@/i18n/config";
 import { getPageSeo } from "@/i18n/content";
 import {
@@ -17,18 +17,36 @@ export function getStaticPaths() {
 
 const { locale } = Astro.props as { locale: SupportedLocale };
 const metadata = getPageSeo(locale, "home");
+const baseUrl = "https://atylus.com";
+const canonicalPath = getLocalizedPagePath(locale, "home");
+const localeTag =
+  locale === "tr" ? "tr-TR" : locale === "de" ? "de-DE" : "en-US";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Atylus",
+    url: baseUrl,
+    logo: `${baseUrl}/assets/images/logo-dark.svg`,
+    sameAs: ["https://www.linkedin.com/", "https://www.youtube.com/"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Atylus",
+    url: new URL(canonicalPath, baseUrl).toString(),
+    inLanguage: localeTag,
+  },
+];
 ---
 
 <PageDocument
   title={metadata.title}
   description={metadata.description}
-  canonicalPath={getLocalizedPagePath(locale, "home")}
+  canonicalPath={canonicalPath}
   locale={locale}
   alternates={getMarketingPageAlternates("home")}
+  structuredData={structuredData}
 >
-  <MarketingPageIsland
-    pageKey="home"
-    pathname={Astro.url.pathname}
-    locale={locale}
-  />
+  <HomePageIsland client:load pathname={Astro.url.pathname} locale={locale} />
 </PageDocument>

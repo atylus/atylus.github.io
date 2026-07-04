@@ -166,10 +166,11 @@ export const mobileMenuItems = getMobileMenuItems("tr");
 
 export const projects: ProjectItem[] = [
   {
-    id: "deepvision",
-    category: "Development",
-    title: "DeepVision: Enhancing Image Recognition with Neural Networks",
-    description: "The inputs are multiplied by their respective weights, summed up.",
+    id: "vendilus",
+    category: "Retail / E-Commerce",
+    title: "Vendilus: AI-assisted multi-marketplace synchronization layer",
+    description:
+      "A unified MCP bridge that consolidates stock, order, and pricing data across commerce platforms.",
   },
   {
     id: "nlpgenius",
@@ -193,7 +194,7 @@ export const projects: ProjectItem[] = [
 
 export const projectsModern: ProjectModernItem[] = [
   {
-    id: "deepvision",
+    id: "vendilus",
     imageSrc: "/assets/images/project/project2-1.png",
     imageWidth: 1790,
     imageHeight: 320,

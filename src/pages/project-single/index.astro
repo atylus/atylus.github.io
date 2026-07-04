@@ -1,13 +1,66 @@
 ---
-import PageDocument from '../../components/app/PageDocument.astro';
-import { ProjectSinglePageIsland } from '../../components/app/PageIslands';
-import { getPageMetadata } from '@/data/pages';
-const metadata = getPageMetadata("project-single");
+import PageDocument from "../../components/app/PageDocument.astro";
+import VendilusProjectPage from "../../components/projects/VendilusProjectPage.astro";
+import { getPageSeo } from "@/i18n/content";
+import { getMarketingPageAlternates } from "@/i18n/routes";
+import { getVendilusProjectContent, getVendilusProjectPath } from "@/data/vendilus";
+
+const locale = "tr";
+const metadata = getPageSeo(locale, "vendilusProject");
+const content = getVendilusProjectContent(locale);
+const canonicalPath = getVendilusProjectPath(locale);
+const canonicalUrl = new URL(canonicalPath, "https://atylus.com").toString();
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: content.breadcrumbs.home,
+        item: "https://atylus.com/tr/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: content.breadcrumbs.projects,
+        item: "https://atylus.com/tr/projeler/",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: content.name,
+        item: canonicalUrl,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: content.name,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: content.intro.summary,
+    url: content.liveUrl,
+    sameAs: [content.liveUrl, canonicalUrl],
+    publisher: {
+      "@type": "Organization",
+      name: "Atylus",
+      url: "https://atylus.com",
+    },
+    inLanguage: "tr-TR",
+  },
+];
 ---
 <PageDocument
-  title={String(metadata.title)}
-  description={String(metadata.description)}
-  canonicalPath="/project-single/"
+  title={metadata.title}
+  description={metadata.description}
+  canonicalPath={canonicalPath}
+  locale={locale}
+  alternates={getMarketingPageAlternates("vendilusProject")}
+  showStaticChrome={true}
+  structuredData={structuredData}
 >
-  <ProjectSinglePageIsland client:load pathname={Astro.url.pathname} />
+  <VendilusProjectPage locale={locale} />
 </PageDocument>

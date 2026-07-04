@@ -1,0 +1,292 @@
+---
+import type { SupportedLocale } from "@/i18n/config";
+import { getLocalizedPagePath } from "@/i18n/routes";
+import { getVendilusProjectContent, getVendilusProjectPath } from "@/data/vendilus";
+
+interface Props {
+  locale: SupportedLocale;
+}
+
+const { locale } = Astro.props as Props;
+const content = getVendilusProjectContent(locale);
+const homePath = getLocalizedPagePath(locale, "home");
+const projectsPath = getLocalizedPagePath(locale, "projects");
+const contactPath = getLocalizedPagePath(locale, "contact");
+const currentProjectPath = getVendilusProjectPath(locale);
+---
+
+<>
+  <section class="page-banner6">
+    <div class="shape" />
+    <div class="shape3" />
+    <div class="staff-text">{content.banner.staffText}</div>
+    <div class="container">
+      <div class="page-content">
+        <h1 class="title">{content.banner.title}</h1>
+      </div>
+    </div>
+    <ul class="breadcrumbs">
+      <li>
+        <a href={homePath}>{content.breadcrumbs.home}</a>
+      </li>
+      <li>/</li>
+      <li>
+        <a href={projectsPath}>{content.breadcrumbs.projects}</a>
+      </li>
+      <li class="items">/</li>
+      <li>{content.name}</li>
+    </ul>
+  </section>
+
+  <section class="project-single ibt-section-gap">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6 col-lg-4">
+          <div class="project-img7">
+            <img
+              alt={`${content.name} dashboard preview`}
+              src="/assets/images/project/project7-1.png"
+              width="181"
+              height="67"
+              loading="eager"
+            />
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-8">
+          <div class="project-content7">
+            <div class="sec-title mb-0">
+              <h2 class="title animated-heading">{content.intro.title}</h2>
+              <p>{content.intro.summary}</p>
+              <p class="paragraph">{content.intro.detail}</p>
+            </div>
+            <ul class="ser-detail-list">
+              {
+                content.intro.bullets.map((bullet) => (
+                  <li>
+                    <i class="fontello icon-button-arrow-down" />
+                    {bullet}
+                  </li>
+                ))
+              }
+            </ul>
+            <div class="project-post-meta">
+              <div class="post-meta-item">
+                <h4 class="title">Domain</h4>
+                <p>vendilus.atylus.com</p>
+              </div>
+              <div class="post-meta-item">
+                <h4 class="title">Project</h4>
+                <p>{content.intro.meta[0]}</p>
+              </div>
+              <div class="post-meta-item m-0">
+                <h4 class="title">Focus</h4>
+                <p>{content.intro.meta[1]}</p>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-3">
+              <a
+                href={content.liveUrl}
+                title={content.intro.primaryCta}
+                class="ibt-btn ibt-btn-outline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>{content.intro.primaryCta}</span>
+                <i class="icon-arrow-top" />
+              </a>
+              <a
+                href={`${currentProjectPath}#vendilus-flow`}
+                title={content.intro.secondaryCta}
+                class="ibt-btn ibt-btn-outline"
+              >
+                <span>{content.intro.secondaryCta}</span>
+                <i class="icon-arrow-top" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-banner4">
+    <h2 class="visually-hidden">{content.showcase.heading}</h2>
+    <div class="parallax-wrap">
+      <img
+        alt={`${content.name} product showcase`}
+        class="parallax-img"
+        src="/assets/images/bg/video4-1.png"
+        width="1876"
+        height="793"
+        loading="lazy"
+      />
+    </div>
+    <div class="video-banner-img4">
+      <img
+        alt={content.showcase.label}
+        src="/assets/images/logo4.svg"
+        width="203"
+        height="37"
+        loading="lazy"
+      />
+    </div>
+    <div class="video-box6">
+      <a href={content.liveUrl} target="_blank" rel="noreferrer">
+        <i class="fa fa-arrow-right" /> {content.showcase.actionLabel}
+      </a>
+    </div>
+  </section>
+
+  <section class="process-sec ibt-section-gap" id="vendilus-flow">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="process-title">
+            <h4 class="title">{content.process.title}</h4>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="process-detail">
+            {
+              content.process.paragraphs.map((paragraph) => (
+                <p class="paragraph">{paragraph}</p>
+              ))
+            }
+            <blockquote>
+              <div class="quote-box">
+                <img
+                  alt={`${content.name} quote`}
+                  src="/assets/images/icon/comas2.svg"
+                  width="52"
+                  height="39"
+                  loading="lazy"
+                />
+                <h4 class="title">{content.process.quote}</h4>
+                <span class="sub-title">{content.process.quoteAuthor}</span>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-sec7">
+    <h2 class="visually-hidden">{content.name} workflow gallery</h2>
+    <div class="container2">
+      <div class="swiper pro7" id="lightgallery">
+        <div class="swiper-wrapper">
+          {
+            content.gallery.items.map((item) => (
+              <div class="swiper-slide">
+                <div class="project-block7 mb-0" data-src={item.imageSrc}>
+                  <img
+                    alt={`${content.name} ${item.label}`}
+                    src={item.imageSrc}
+                    width={String(item.width)}
+                    height={String(item.height)}
+                    loading="lazy"
+                  />
+                  <div class="architecture">
+                    <span>{item.label}</span>
+                  </div>
+                  <div class="custom-cursor">Zoom In</div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fun-fact-sec3 ibt-section-gap">
+    <div class="container">
+      <div class="row align-items-end">
+        <div class="col-xl-3 col-lg-0" />
+        <div class="col-xl-5 col-lg-6">
+          <div class="fun-fact-content3">
+            <h4 class="title">{content.outcomes.title}</h4>
+            <p>{content.outcomes.description}</p>
+            <ul class="ser-detail-list">
+              {
+                content.outcomes.bullets.map((bullet) => (
+                  <li>
+                    <i class="fontello icon-button-arrow-down" />
+                    {bullet}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <div class="fun-fact3">
+            {
+              content.outcomes.metrics.map((metric) => (
+                <div class="fun-fact-counter3">
+                  <div class="counter-box15">
+                    <span class="counter-number percent-counter2">{metric.value}</span>
+                    <span class="counter-text">{metric.suffix}</span>
+                  </div>
+                  <span class="title">{metric.label}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div class="post-navigation ibt-section-gapTop">
+        <div class="post-nav-item">
+          <a href={projectsPath} title={content.navigation.previousLabel} class="post-btn">
+            {content.navigation.previousLabel}
+          </a>
+          <div class="post-nav-content">
+            <a href={projectsPath}>
+              <img
+                alt={content.navigation.previousTitle}
+                src="/assets/images/project/fun1-1.png"
+                width="136"
+                height="106"
+                loading="lazy"
+              />
+            </a>
+            <span class="designation">{content.category}</span>
+            <h4 class="name">
+              <a href={projectsPath}>{content.navigation.previousTitle}</a>
+            </h4>
+          </div>
+        </div>
+        <a href={content.liveUrl} title={content.name} class="toggel2">
+          <img
+            alt={content.name}
+            src="/assets/images/icon/toggel.svg"
+            width="20"
+            height="20"
+            loading="lazy"
+          />
+        </a>
+        <div class="post-nav-item2">
+          <a href={contactPath} title={content.navigation.nextLabel} class="post-btn2">
+            {content.navigation.nextLabel}
+          </a>
+          <div class="post-nav-content2">
+            <span class="designation">{content.name}</span>
+            <h4 class="name">
+              <a href={contactPath}>{content.navigation.nextTitle}</a>
+            </h4>
+            <a href={contactPath}>
+              <img
+                alt={content.navigation.nextTitle}
+                src="/assets/images/project/fun1-2.png"
+                width="136"
+                height="106"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</>

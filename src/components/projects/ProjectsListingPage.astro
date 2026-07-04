@@ -1,0 +1,87 @@
+---
+import type { SupportedLocale } from "@/i18n/config";
+import { getLocalizedPagePath } from "@/i18n/routes";
+import { projects, projectsModern } from "@/data/projects";
+import { getVendilusProjectContent, getVendilusProjectPath } from "@/data/vendilus";
+
+interface Props {
+  locale: SupportedLocale;
+}
+
+const { locale } = Astro.props as Props;
+const vendilus = getVendilusProjectContent(locale);
+const homePath = getLocalizedPagePath(locale, "home");
+const projectsPath = getLocalizedPagePath(locale, "projects");
+
+const exploreLabel =
+  locale === "tr" ? "Detaylari incele" : locale === "de" ? "Details ansehen" : "Explore more";
+---
+
+<section class="page-banner5">
+  <div class="shape" />
+  <div class="shape3" />
+  <div class="staff-text">{vendilus.banner.staffText}</div>
+  <div class="container">
+    <div class="page-content">
+      <h1 class="title">/ {vendilus.breadcrumbs.projects} /</h1>
+    </div>
+  </div>
+  <ul class="breadcrumbs">
+    <li>
+      <a href={homePath}>{vendilus.breadcrumbs.home}</a>
+    </li>
+    <li>/</li>
+    <li>{vendilus.breadcrumbs.projects}</li>
+  </ul>
+</section>
+
+<section class="project-sec7 ibt-section-gap">
+  <div class="container2">
+    <div class="project-info2">
+      {
+        projectsModern.map((item) => {
+          const project = projects.find((entry) => entry.id === item.id);
+
+          if (!project) {
+            return null;
+          }
+
+          const href =
+            project.id === "vendilus"
+              ? getVendilusProjectPath(locale)
+              : project.href ?? projectsPath;
+
+          const title =
+            project.id === "vendilus" ? vendilus.intro.title : project.title;
+
+          const category =
+            project.id === "vendilus" ? vendilus.category : project.category;
+
+          const cta =
+            project.id === "vendilus" ? vendilus.intro.primaryCta : exploreLabel;
+
+          return (
+            <div class="project-block2">
+              <img
+                alt={title}
+                src={item.imageSrc}
+                width={String(item.imageWidth)}
+                height={String(item.imageHeight)}
+                loading="lazy"
+              />
+              <div class="project-content2">
+                <span class="sub-title">{category}</span>
+                <h4 class="title">
+                  <a href={href}>{title}</a>
+                </h4>
+                <a href={href} class="ser-btn3">
+                  {cta}
+                </a>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

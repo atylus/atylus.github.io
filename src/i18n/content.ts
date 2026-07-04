@@ -142,6 +142,11 @@ export const uiCopyByLocale: Record<SupportedLocale, UiCopy> = {
         description:
           "Atylus'un kurumsal yapay zeka ve otomasyon odakli proje ciktilarini inceleyin.",
       },
+      vendilusProject: {
+        title: "Vendilus | Atylus",
+        description:
+          "Vendilus'in coklu pazar yeri senkronizasyonu, MCP mimarisi ve yapay zeka destekli operasyon modelini inceleyin.",
+      },
       faq: {
         title: "SSS | Atylus",
         description:
@@ -305,6 +310,11 @@ export const uiCopyByLocale: Record<SupportedLocale, UiCopy> = {
         description:
           "Review selected enterprise AI and automation delivery surfaces from Atylus.",
       },
+      vendilusProject: {
+        title: "Vendilus | Atylus",
+        description:
+          "Explore Vendilus, its multi-marketplace synchronization model, MCP architecture, and AI-driven operations layer.",
+      },
       faq: {
         title: "FAQ | Atylus",
         description:
@@ -467,6 +477,11 @@ export const uiCopyByLocale: Record<SupportedLocale, UiCopy> = {
         title: "Projekte | Atylus",
         description:
           "Ausgewaehlte Unternehmens-KI- und Automatisierungsprojekte von Atylus.",
+      },
+      vendilusProject: {
+        title: "Vendilus | Atylus",
+        description:
+          "Entdecken Sie Vendilus mit Multi-Marketplace-Synchronisierung, MCP-Architektur und KI-gestuetzter Operationsschicht.",
       },
       faq: {
         title: "FAQ | Atylus",

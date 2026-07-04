@@ -61,9 +61,9 @@ const pageMetaMap: Record<PageMetaKey, { title: string; description: string }> =
         "Browse an alternative view of Atylus AI projects, including AI platforms, apps and experiments.",
     },
     "project-single": {
-      title: `Project Details | ${BASE_TITLE}`,
+      title: `Vendilus Project Details | ${BASE_TITLE}`,
       description:
-        "In-depth case study page for a single Atylus AI project, including overview, process and results.",
+        "In-depth Vendilus showcase page covering marketplace synchronization, MCP architecture, and operational outcomes.",
     },
     "gallery-grid": {
       title: `Gallery Grid | ${BASE_TITLE}`,

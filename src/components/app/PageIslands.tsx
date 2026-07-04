@@ -19,8 +19,6 @@ import GalleryGridPage from "@/react-pages/(inner-pages)/gallery-grid/page";
 import GalleryMasonryPage from "@/react-pages/(inner-pages)/gallery-masonry/page";
 import HakkimizdaPage from "@/react-pages/(inner-pages)/hakkimizda/page";
 import PricingPage from "@/react-pages/(inner-pages)/pricing/page";
-import ProjectSinglePage from "@/react-pages/(inner-pages)/project-single/page";
-import ProjectsPage from "@/react-pages/(inner-pages)/projects/page";
 import TeamPage from "@/react-pages/(inner-pages)/team/page";
 import TeamSinglePage from "@/react-pages/(inner-pages)/team-single/page";
 import HizmetlerPage from "@/react-pages/(services)/hizmetler/page";
@@ -101,11 +99,6 @@ export const HakkimizdaPageIsland = createPageIsland(
   "marketing",
 );
 export const PricingPageIsland = createPageIsland(PricingPage, "marketing");
-export const ProjectSinglePageIsland = createPageIsland(
-  ProjectSinglePage,
-  "marketing",
-);
-export const ProjectsPageIsland = createPageIsland(ProjectsPage, "marketing");
 export const TeamPageIsland = createPageIsland(TeamPage, "marketing");
 export const TeamSinglePageIsland = createPageIsland(
   TeamSinglePage,

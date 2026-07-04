@@ -1,13 +1,36 @@
 ---
-import PageDocument from '../../components/app/PageDocument.astro';
-import { ProjectsPageIsland } from '../../components/app/PageIslands';
-import { getPageMetadata } from '@/data/pages';
-const metadata = getPageMetadata("project2");
+import PageDocument from "../../components/app/PageDocument.astro";
+import ProjectsListingPage from "../../components/projects/ProjectsListingPage.astro";
+import { getPageSeo } from "@/i18n/content";
+import { getMarketingPageAlternates, getLocalizedPagePath } from "@/i18n/routes";
+import { getVendilusProjectPath } from "@/data/vendilus";
+
+const locale = "tr";
+const metadata = getPageSeo(locale, "projects");
+const canonicalPath = getLocalizedPagePath(locale, "projects");
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Atylus Projeler",
+  url: new URL(canonicalPath, "https://atylus.com").toString(),
+  inLanguage: "tr-TR",
+  hasPart: [
+    {
+      "@type": "SoftwareApplication",
+      name: "Vendilus",
+      url: new URL(getVendilusProjectPath(locale), "https://atylus.com").toString(),
+    },
+  ],
+};
 ---
 <PageDocument
-  title={String(metadata.title)}
-  description={String(metadata.description)}
-  canonicalPath="/projects/"
+  title={metadata.title}
+  description={metadata.description}
+  canonicalPath={canonicalPath}
+  locale={locale}
+  alternates={getMarketingPageAlternates("projects")}
+  showStaticChrome={true}
+  structuredData={structuredData}
 >
-  <ProjectsPageIsland client:load pathname={Astro.url.pathname} />
+  <ProjectsListingPage locale={locale} />
 </PageDocument>

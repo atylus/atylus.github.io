@@ -12,6 +12,7 @@ interface Props {
   noindex?: boolean;
   showStaticChrome?: boolean;
   showContactSection?: boolean;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   noindex = false,
   showStaticChrome = false,
   showContactSection = true,
+  structuredData,
 } = Astro.props;
 ---
 
@@ -39,6 +41,7 @@ const {
   noindex={noindex}
   showStaticChrome={showStaticChrome}
   showContactSection={showContactSection}
+  structuredData={structuredData}
 >
   <slot />
 </Layout>

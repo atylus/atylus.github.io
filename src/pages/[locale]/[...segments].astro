@@ -1,6 +1,27 @@
 ---
 import PageDocument from "../../components/app/PageDocument.astro";
-import MarketingPageIsland from "../../components/app/MarketingPageIsland.astro";
+import ProjectsListingPage from "@/components/projects/ProjectsListingPage.astro";
+import VendilusProjectPage from "@/components/projects/VendilusProjectPage.astro";
+import {
+  ContactPageIsland,
+  FaqPageIsland,
+  FeatureBilgisayarliGoruCozumleriPageIsland,
+  FeatureOngoruselVeriAnalitigiPageIsland,
+  FeatureOzelYazilimCozumleriPageIsland,
+  FeatureYapaySinirAgiGelistirmePageIsland,
+  FeatureYapayZekaDanismanligiPageIsland,
+  FeatureYapayZekaSistemEntegrasyonuPageIsland,
+  FeatureYapayZekaTeknolojileriPageIsland,
+  FeatureYazilimGelistirmeSurecleriPageIsland,
+  GalleryGridPageIsland,
+  GalleryMasonryPageIsland,
+  HakkimizdaPageIsland,
+  HizmetlerPageIsland,
+  PricingPageIsland,
+  ServiceDetailPageIsland,
+  TeamPageIsland,
+  TeamSinglePageIsland,
+} from "@/components/app/PageIslands";
 import {
   SUPPORTED_LOCALES,
   type SupportedLocale,
@@ -18,7 +39,6 @@ import {
   getServiceHref,
   getServiceByKey,
 } from "@/data/serviceCatalog";
-import { ServiceDetailPageIsland } from "@/components/app/PageIslands";
 import type { ServiceCatalogItem } from "@/types/services";
 
 type PageProps =
@@ -88,12 +108,51 @@ const props = Astro.props as PageProps;
           canonicalPath={getLocalizedPagePath(props.locale, props.pageKey)}
           locale={props.locale}
           alternates={getMarketingPageAlternates(props.pageKey)}
+          showStaticChrome={props.pageKey === "projects" || props.pageKey === "vendilusProject"}
         >
-          <MarketingPageIsland
-            pageKey={props.pageKey}
-            pathname={Astro.url.pathname}
-            locale={props.locale}
-          />
+          {
+            props.pageKey === "projects" ? (
+              <ProjectsListingPage locale={props.locale} />
+            ) : props.pageKey === "vendilusProject" ? (
+              <VendilusProjectPage locale={props.locale} />
+            ) : props.pageKey === "about" ? (
+              <HakkimizdaPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "contact" ? (
+              <ContactPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "services" ? (
+              <HizmetlerPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "faq" ? (
+              <FaqPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "pricing" ? (
+              <PricingPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "team" ? (
+              <TeamPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "teamMember" ? (
+              <TeamSinglePageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "galleryGrid" ? (
+              <GalleryGridPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "galleryMasonry" ? (
+              <GalleryMasonryPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "computerVisionSolutions" ? (
+              <FeatureBilgisayarliGoruCozumleriPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "predictiveAnalytics" ? (
+              <FeatureOngoruselVeriAnalitigiPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "customSoftwareSolutions" ? (
+              <FeatureOzelYazilimCozumleriPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "neuralNetworkDevelopment" ? (
+              <FeatureYapaySinirAgiGelistirmePageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "aiConsulting" ? (
+              <FeatureYapayZekaDanismanligiPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "aiSystemIntegration" ? (
+              <FeatureYapayZekaSistemEntegrasyonuPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "aiTechnologies" ? (
+              <FeatureYapayZekaTeknolojileriPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : props.pageKey === "softwareDevelopmentProcesses" ? (
+              <FeatureYazilimGelistirmeSurecleriPageIsland client:load pathname={Astro.url.pathname} locale={props.locale} />
+            ) : (
+              null
+            )
+          }
         </PageDocument>
       );
     })()

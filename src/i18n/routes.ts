@@ -12,6 +12,7 @@ export type MarketingPageKey =
   | "contact"
   | "services"
   | "projects"
+  | "vendilusProject"
   | "faq"
   | "pricing"
   | "team"
@@ -52,6 +53,11 @@ const pageRoutes: Record<MarketingPageKey, LocalePathMap> = {
     tr: ["projeler"],
     en: ["projects"],
     de: ["projekte"],
+  },
+  vendilusProject: {
+    tr: ["projeler", "vendilus"],
+    en: ["projects", "vendilus"],
+    de: ["projekte", "vendilus"],
   },
   faq: {
     tr: ["sss"],
@@ -222,7 +228,7 @@ for (const [key, localizedSegments] of Object.entries(pageRoutes) as Array<
 legacyPagePathToKey.set("/hakkimizda/", "about");
 legacyPagePathToKey.set("/about-us/", "about");
 legacyPagePathToKey.set("/projects/", "projects");
-legacyPagePathToKey.set("/project-single/", "projects");
+legacyPagePathToKey.set("/project-single/", "vendilusProject");
 legacyPagePathToKey.set("/faq/", "faq");
 legacyPagePathToKey.set("/pricing/", "pricing");
 legacyPagePathToKey.set("/team/", "team");

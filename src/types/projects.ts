@@ -5,6 +5,7 @@ export type ProjectItem = {
   category: string;
   title: string;
   description: string;
+  href?: string;
 };
 
 /** Project card for modern layout (project2 page) */
