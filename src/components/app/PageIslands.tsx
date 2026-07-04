@@ -33,14 +33,17 @@ import type { SupportedLocale } from "@/i18n/config";
 
 type RoutedPageProps = {
   pathname: string;
-  locale: SupportedLocale;
+  locale?: SupportedLocale;
 };
 
 function createPageIsland(
   PageComponent: ComponentType,
   sharedLayout: SharedLayoutMode = "none",
 ) {
-  return function RoutedPageIsland({ pathname, locale }: RoutedPageProps) {
+  return function RoutedPageIsland({
+    pathname,
+    locale = "tr",
+  }: RoutedPageProps) {
     return (
       <AppShell
         pathname={pathname}
@@ -123,7 +126,7 @@ type ServiceDetailIslandProps = RoutedPageProps & {
 
 export function ServiceDetailPageIsland({
   pathname,
-  locale,
+  locale = "tr",
   service,
 }: ServiceDetailIslandProps) {
   return (

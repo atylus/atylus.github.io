@@ -38,6 +38,8 @@ const {
 const siteUrl = Astro.site ?? new URL("https://atylus.com");
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const ogImage = new URL(image, siteUrl).toString();
+const GTM_CONTAINER_ID = "GTM-MZTM55LW";
+const GTM_SERVER_ORIGIN = "https://sgtm.atylus.com";
 ---
 
 <!doctype html>
@@ -66,6 +68,20 @@ const ogImage = new URL(image, siteUrl).toString();
         <link rel="alternate" hreflang={hrefLang} href={new URL(href, siteUrl).toString()} />
       ))
     }
+    <script is:inline define:vars={{ GTM_CONTAINER_ID, GTM_SERVER_ORIGIN }}>
+      ((w, d, s, l, i, origin) => {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+
+        const firstScript = d.getElementsByTagName(s)[0];
+        const gtmScript = d.createElement(s);
+        const dataLayerQuery = l !== "dataLayer" ? `&l=${l}` : "";
+
+        gtmScript.async = true;
+        gtmScript.src = `${origin}/gtm.js?id=${i}${dataLayerQuery}`;
+        firstScript.parentNode?.insertBefore(gtmScript, firstScript);
+      })(window, document, "script", "dataLayer", GTM_CONTAINER_ID, GTM_SERVER_ORIGIN);
+    </script>
     <script is:inline>
       (() => {
         if (typeof localStorage !== "undefined" && localStorage.getItem("themeMode") !== "inactive") {
@@ -76,6 +92,14 @@ const ogImage = new URL(image, siteUrl).toString();
     </script>
   </head>
   <body class="font-sans antialiased">
+    <noscript>
+      <iframe
+        src={`${GTM_SERVER_ORIGIN}/ns.html?id=${GTM_CONTAINER_ID}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      />
+    </noscript>
     {
       showStaticChrome && <SiteHeader pathname={Astro.url.pathname} locale={locale} />
     }

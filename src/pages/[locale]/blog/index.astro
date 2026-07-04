@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 const { locale } = Astro.props as { locale: SupportedLocale };
 const allPosts = await getCollection("blog");
-const posts = allPosts
+const posts: CollectionEntry<"blog">[] = allPosts
   .filter((post: CollectionEntry<"blog">) => !post.data.draft && post.data.locale === locale)
   .sort(
     (left: CollectionEntry<"blog">, right: CollectionEntry<"blog">) =>

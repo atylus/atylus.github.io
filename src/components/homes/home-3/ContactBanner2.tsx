@@ -27,11 +27,7 @@ export default function ContactBanner2({
           </div>
           <div className="col-lg-3 col-md-3">
             <div className="btn-box3">
-              <ContactButton
-                href={ctaHref}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <ContactButton href={ctaHref}>
                 {ctaLabel}
               </ContactButton>
             </div>
