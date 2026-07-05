@@ -57,7 +57,7 @@ export default function Page() {
                       <ul className="social-links2">
                         <li>
                           <a
-                            href="https://www.youtube.com/"
+                            href="https://www.youtube.com/atylus_offical/"
                             target="_blank"
                             rel="noopener noreferrer"
                             title=""
@@ -67,7 +67,7 @@ export default function Page() {
                         </li>
                         <li>
                           <a
-                            href="http://www.linkedin.com/"
+                            href="https://www.linkedin.com/atylus_offical/"
                             target="_blank"
                             rel="noopener noreferrer"
                             title=""
@@ -77,7 +77,7 @@ export default function Page() {
                         </li>
                         <li>
                           <a
-                            href="http://www.twitter.com/"
+                            href="https://www.twitter.com/atylus_offical/"
                             target="_blank"
                             rel="noopener noreferrer"
                             title=""
@@ -87,7 +87,7 @@ export default function Page() {
                         </li>
                         <li>
                           <a
-                            href="https://www.facebook.com/"
+                            href="https://www.facebook.com/atylus_offical/"
                             target="_blank"
                             rel="noopener noreferrer"
                             title=""

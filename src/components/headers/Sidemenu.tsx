@@ -44,12 +44,12 @@ export default function Sidemenu() {
         </div>
         <ul className="social-icon">
           <li>
-            <a href="www.facebook.com" title="">
+            <a href="https://www.facebook.com/atylus_offical/" title="">
               <i className="fab fa-facebook-f" />
             </a>
           </li>
           <li>
-            <a href="https://x.com/i/flow/login?lang=en" title="">
+            <a href="https://www.x.com/atylus_offical/" title="">
               <i className="fab fa-twitter" />
             </a>
           </li>
@@ -59,7 +59,7 @@ export default function Sidemenu() {
             </a>
           </li>
           <li>
-            <a href="https://www.youtube.com" title="">
+            <a href="https://www.youtube.com/atylus_offical/" title="">
               <i className="fab fa-youtube" />
             </a>
           </li>

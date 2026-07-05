@@ -12,10 +12,10 @@ export const teamMembers: TeamMember[] = [
     cardClassName: "team-card v1 mb-0",
     slot: "feature",
     socials: [
-      { href: "https://www.youtube.com/", iconClass: "fab fa-youtube" },
-      { href: "http://www.linkedin.com/", iconClass: "fab fa-linkedin-in" },
-      { href: "http://www.twitter.com/", iconClass: "fab fa-twitter" },
-      { href: "https://www.facebook.com/", iconClass: "fab fa-facebook-f" },
+      { href: "https://www.youtube.com/atylus_offical/", iconClass: "fab fa-youtube" },
+      { href: "https://www.linkedin.com/atylus_offical/", iconClass: "fab fa-linkedin-in" },
+      { href: "https://www.twitter.com/atylus_offical/", iconClass: "fab fa-twitter" },
+      { href: "https://www.facebook.com/atylus_offical/", iconClass: "fab fa-facebook-f" },
     ],
   },
   {
@@ -29,10 +29,10 @@ export const teamMembers: TeamMember[] = [
     cardClassName: "team-card",
     slot: "col-left-top",
     socials: [
-      { href: "https://www.youtube.com/", iconClass: "fab fa-youtube" },
-      { href: "http://www.linkedin.com/", iconClass: "fab fa-linkedin-in" },
-      { href: "http://www.twitter.com/", iconClass: "fab fa-twitter" },
-      { href: "https://www.facebook.com/", iconClass: "fab fa-facebook-f" },
+      { href: "https://www.youtube.com/atylus_offical/", iconClass: "fab fa-youtube" },
+      { href: "https://www.linkedin.com/atylus_offical/", iconClass: "fab fa-linkedin-in" },
+      { href: "https://www.twitter.com/atylus_offical/", iconClass: "fab fa-twitter" },
+      { href: "https://www.facebook.com/atylus_offical/", iconClass: "fab fa-facebook-f" },
     ],
   },
   {
@@ -46,10 +46,10 @@ export const teamMembers: TeamMember[] = [
     cardClassName: "team-card",
     slot: "col-left-bottom",
     socials: [
-      { href: "https://www.youtube.com/", iconClass: "fab fa-youtube" },
-      { href: "http://www.linkedin.com/", iconClass: "fab fa-linkedin-in" },
-      { href: "http://www.twitter.com/", iconClass: "fab fa-twitter" },
-      { href: "https://www.facebook.com/", iconClass: "fab fa-facebook-f" },
+      { href: "https://www.youtube.com/atylus_offical/", iconClass: "fab fa-youtube" },
+      { href: "https://www.linkedin.com/atylus_offical/", iconClass: "fab fa-linkedin-in" },
+      { href: "https://www.twitter.com/atylus_offical/", iconClass: "fab fa-twitter" },
+      { href: "https://www.facebook.com/atylus_offical/", iconClass: "fab fa-facebook-f" },
     ],
   },
   {
@@ -63,10 +63,10 @@ export const teamMembers: TeamMember[] = [
     cardClassName: "team-card v2",
     slot: "col-right-top",
     socials: [
-      { href: "https://www.youtube.com/", iconClass: "fab fa-youtube" },
-      { href: "http://www.linkedin.com/", iconClass: "fab fa-linkedin-in" },
-      { href: "http://www.twitter.com/", iconClass: "fab fa-twitter" },
-      { href: "https://www.facebook.com/", iconClass: "fab fa-facebook-f" },
+      { href: "https://www.youtube.com/atylus_offical/", iconClass: "fab fa-youtube" },
+      { href: "https://www.linkedin.com/atylus_offical/", iconClass: "fab fa-linkedin-in" },
+      { href: "https://www.twitter.com/atylus_offical/", iconClass: "fab fa-twitter" },
+      { href: "https://www.facebook.com/atylus_offical/", iconClass: "fab fa-facebook-f" },
     ],
   },
   {
@@ -80,10 +80,10 @@ export const teamMembers: TeamMember[] = [
     cardClassName: "team-card v3 mb-0",
     slot: "col-right-bottom",
     socials: [
-      { href: "https://www.youtube.com/", iconClass: "fab fa-youtube" },
-      { href: "http://www.linkedin.com/", iconClass: "fab fa-linkedin-in" },
-      { href: "http://www.twitter.com/", iconClass: "fab fa-twitter" },
-      { href: "https://www.facebook.com/", iconClass: "fab fa-facebook-f" },
+      { href: "https://www.youtube.com/atylus_offical/", iconClass: "fab fa-youtube" },
+      { href: "https://www.linkedin.com/atylus_offical/", iconClass: "fab fa-linkedin-in" },
+      { href: "https://www.twitter.com/atylus_offical/", iconClass: "fab fa-twitter" },
+      { href: "https://www.facebook.com/atylus_offical/", iconClass: "fab fa-facebook-f" },
     ],
   },
   {
@@ -97,10 +97,10 @@ export const teamMembers: TeamMember[] = [
     cardClassName: "team-card",
     slot: "page-ideas",
     socials: [
-      { href: "https://www.youtube.com/", iconClass: "fab fa-youtube" },
-      { href: "http://www.linkedin.com/", iconClass: "fab fa-linkedin-in" },
-      { href: "http://www.twitter.com/", iconClass: "fab fa-twitter" },
-      { href: "https://www.facebook.com/", iconClass: "fab fa-facebook-f" },
+      { href: "https://www.youtube.com/atylus_offical/", iconClass: "fab fa-youtube" },
+      { href: "https://www.linkedin.com/atylus_offical/", iconClass: "fab fa-linkedin-in" },
+      { href: "https://www.twitter.com/atylus_offical/", iconClass: "fab fa-twitter" },
+      { href: "https://www.facebook.com/atylus_offical/", iconClass: "fab fa-facebook-f" },
     ],
   },
 ];
