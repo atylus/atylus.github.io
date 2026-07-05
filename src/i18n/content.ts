@@ -128,9 +128,9 @@ export const uiCopyByLocale: Record<SupportedLocale, UiCopy> = {
           "Atylus'un kurumsal yapay zeka, MCP ve veri odakli urunlestirme yaklasimini kesfedin.",
       },
       contact: {
-        title: "Iletisim | Atylus",
+        title: "Kayseri Kurumsal Yapay Zeka ve Otomasyon Cozumleri | Iletisim | Atylus",
         description:
-          "Atylus ile kurumsal yapay zeka, MCP ve otomasyon projeleriniz icin iletisime gecin.",
+          "Kayseri, Turkiye ve Ic Anadolu bolgesinde kurumsal yapay zeka, MCP server ve otomasyon projeleriniz icin Atylus Merkez Ofisi ile iletisime gecin.",
       },
       services: {
         title: "Hizmetler | Atylus",

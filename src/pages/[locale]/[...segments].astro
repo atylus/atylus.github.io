@@ -101,6 +101,38 @@ const props = Astro.props as PageProps;
     (() => {
       const metadata = getPageSeo(props.locale, props.pageKey);
 
+      let structuredData = undefined;
+      if (props.pageKey === "contact") {
+        structuredData = {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Atylus Kurumsal Yapay Zeka ve Otomasyon Cozumleri",
+          "image": "https://atylus.com/assets/images/logo-dark.svg",
+          "@id": "https://atylus.com",
+          "url": "https://atylus.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Merkez Ofis",
+            "addressLocality": "Kayseri",
+            "addressRegion": "Ic Anadolu",
+            "addressCountry": "TR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 38.7205,
+            "longitude": 35.4826
+          },
+          "areaServed": ["Kayseri", "Ic Anadolu", "Turkiye"],
+          "description": metadata.description,
+          "sameAs": [
+             "https://www.linkedin.com/atylus_offical/",
+             "https://www.twitter.com/atylus_offical/",
+             "https://www.facebook.com/atylus_offical/",
+             "https://www.youtube.com/atylus_offical/"
+          ]
+        };
+      }
+
       return (
         <PageDocument
           title={metadata.title}
@@ -109,6 +141,7 @@ const props = Astro.props as PageProps;
           locale={props.locale}
           alternates={getMarketingPageAlternates(props.pageKey)}
           showStaticChrome={props.pageKey === "projects" || props.pageKey === "vendilusProject"}
+          structuredData={structuredData}
         >
           {
             props.pageKey === "projects" ? (

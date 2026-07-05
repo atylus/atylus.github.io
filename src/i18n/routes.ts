@@ -40,7 +40,7 @@ const pageRoutes: Record<MarketingPageKey, LocalePathMap> = {
     de: ["ueber-uns"],
   },
   contact: {
-    tr: ["contact"],
+    tr: ["iletisim"],
     en: ["contact"],
     de: ["kontakt"],
   },
@@ -227,6 +227,8 @@ for (const [key, localizedSegments] of Object.entries(pageRoutes) as Array<
 
 legacyPagePathToKey.set("/hakkimizda/", "about");
 legacyPagePathToKey.set("/about-us/", "about");
+legacyPagePathToKey.set("/contact/", "contact");
+legacyPagePathToKey.set("/iletisim/", "contact");
 legacyPagePathToKey.set("/projects/", "projects");
 legacyPagePathToKey.set("/project-single/", "vendilusProject");
 legacyPagePathToKey.set("/projects/vendilus/", "vendilusProject");
