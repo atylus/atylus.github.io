@@ -16,7 +16,9 @@
     "astro:dev": "astro dev",
     "astro:build": "astro build",
     "astro:preview": "astro preview",
-    "astro:check": "astro check"
+    "astro:check": "astro check",
+    "postbuild": "node postbuild.mjs",
+    "sitemap": "node postbuild.mjs"
   },
   "dependencies": {
     "gsap": "^3.14.2",
