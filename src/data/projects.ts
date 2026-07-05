@@ -8,7 +8,7 @@ export const projects: ProjectItem[] = [
     title: "Vendilus: AI-assisted multi-marketplace synchronization layer",
     description:
       "A unified MCP bridge that consolidates stock, order, and pricing data across commerce platforms.",
-    href: "/projects/vendilus",
+    href: "/projects/vendilus/",
   },
   {
     id: "nlpgenius",

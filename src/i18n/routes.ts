@@ -229,6 +229,7 @@ legacyPagePathToKey.set("/hakkimizda/", "about");
 legacyPagePathToKey.set("/about-us/", "about");
 legacyPagePathToKey.set("/projects/", "projects");
 legacyPagePathToKey.set("/project-single/", "vendilusProject");
+legacyPagePathToKey.set("/projects/vendilus/", "vendilusProject");
 legacyPagePathToKey.set("/faq/", "faq");
 legacyPagePathToKey.set("/pricing/", "pricing");
 legacyPagePathToKey.set("/team/", "team");
@@ -302,13 +303,32 @@ export function getLocalizedHref(
     pathnameSegments.length > 0 &&
     SUPPORTED_LOCALES.includes(pathnameSegments[0] as SupportedLocale)
   ) {
+    // Path already has a locale prefix — resolve as a canonical localized path
+    // so that cross-locale paths (e.g. /tr/projects/vendilus) are corrected
+    // to their proper locale-specific form (e.g. /tr/projeler/vendilus).
+    const pathLocale = pathnameSegments[0] as SupportedLocale;
+    const pathWithoutLocale = "/" + pathnameSegments.slice(1).join("/") + "/";
+    const pageKey = getMarketingPageKeyByPath(pathWithoutLocale);
+    if (pageKey) {
+      const canonicalPath = getLocalizedPagePath(locale, pageKey);
+      const suffix = `${parsed.search}${parsed.hash}`;
+      return suffix ? `${canonicalPath.replace(/\/$/, "")}${suffix}` : canonicalPath;
+    }
+    // If the path locale matches the target locale, return as-is (normalized)
+    if (pathLocale === locale) {
+      const suffix = `${parsed.search}${parsed.hash}`;
+      const normalizedPathname = normalizePath(
+        parsed.pathname.endsWith("/") ? parsed.pathname : `${parsed.pathname}/`,
+      );
+      return suffix
+        ? `${normalizedPathname.replace(/\/$/, "")}${suffix}`
+        : normalizedPathname;
+    }
+    // Cross-locale path: strip the wrong locale and re-localize
+    const strippedPath = "/" + pathnameSegments.slice(1).join("/");
+    const localizedPathname = getLocalizedPathname(strippedPath, locale);
     const suffix = `${parsed.search}${parsed.hash}`;
-    const normalizedPathname = normalizePath(
-      parsed.pathname.endsWith("/") ? parsed.pathname : `${parsed.pathname}/`,
-    );
-    return suffix
-      ? `${normalizedPathname.replace(/\/$/, "")}${suffix}`
-      : normalizedPathname;
+    return suffix ? `${localizedPathname.replace(/\/$/, "")}${suffix}` : localizedPathname;
   }
 
   const localizedPathname = getLocalizedPathname(parsed.pathname, locale);

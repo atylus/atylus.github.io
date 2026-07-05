@@ -3,14 +3,14 @@
     "titlePrefix": "Atylus",
     "title": "hilft Ihnen, Innovation, Transformation und messbare Ergebnisse zusammenzubringen.",
     "ctaLabel": "Entdecken",
-    "ctaHref": "/services"
+    "ctaHref": "/de/leistungen/"
   },
   "heroServices": {
     "badges": ["KI-Loesungen", "KI-Services"],
     "title": "Bringen Sie Ihr Unternehmen mit der Kraft von KI voran.",
     "description": "Erhalten Sie sofortige Antworten und unterbrechungsfreien Service mit unternehmensreifer KI.",
     "ctaLabel": "Mehr entdecken",
-    "ctaHref": "/services",
+    "ctaHref": "/de/leistungen/",
     "counterValue": "24/7",
     "counterTitle": "Digitale Belegschaft",
     "secondaryTitle": "Digitale Belegschaft",
@@ -25,7 +25,7 @@
     "title": "Intelligente Faehigkeiten, die Ihre Leistungserbringung staerken",
     "description": "Wir liefern den kompletten Service-Stack, den Ihr Unternehmen fuer Wachstum und Skalierung benoetigt.",
     "ctaLabel": "Mehr entdecken",
-    "ctaHref": "/services"
+    "ctaHref": "/de/leistungen/"
   },
   "integration": {
     "title": "Wir integrieren uns in die Plattformen und Kanaele, die Ihre Teams bereits nutzen."
@@ -92,41 +92,41 @@
       "Als vertrauenswuerdiger Technologiepartner helfen wir Organisationen, den vollen operativen Wert intelligenter Systeme zu erschliessen."
     ],
     "ctaLabel": "Mehr entdecken",
-    "ctaHref": "/about",
+    "ctaHref": "/de/ueber-uns/",
     "counterLabel": "Erfolgreich umgesetzte kreative Projekte mit KI-Unterstuetzung"
   },
   "projects": {
     "eyebrow": "projekte",
     "title": "Entdecken Sie die Ergebnisse der Arbeit, die wir in hochwertige Loesungen und erfolgreiche Projektlieferung investieren.",
     "ctaLabel": "Weitere Projekte",
-    "ctaHref": "/projects",
+    "ctaHref": "/de/projekte/",
     "items": [
       {
         "id": "project-1",
         "eyebrow": "Entwicklung",
         "title": "Vendilus: MCP-zentrierte Operationsschicht fuer E-Commerce und Multi-Marketplace-Synchronisierung",
-        "href": "/projects/vendilus",
+        "href": "/de/projekte/vendilus/",
         "buttonLabel": "Details ansehen"
       },
       {
         "id": "project-2",
         "eyebrow": "Entwicklung",
         "title": "NLPGenius: eine Plattform fuer Sprach-Workflows in Unternehmensprozessen",
-        "href": "/projects",
+        "href": "/de/projekte/",
         "buttonLabel": "Details ansehen"
       },
       {
         "id": "project-3",
         "eyebrow": "Entwicklung",
         "title": "AutoDrive: eine fortgeschrittene Entscheidungs- und Navigationsschicht mit neuronalen Netzen",
-        "href": "/projects",
+        "href": "/de/projekte/",
         "buttonLabel": "Details ansehen"
       },
       {
         "id": "project-4",
         "eyebrow": "Entwicklung",
         "title": "CogniCraft: intelligente Innovationsflaechen fuer die vernetzte Zukunft",
-        "href": "/projects",
+        "href": "/de/projekte/",
         "buttonLabel": "Details ansehen"
       }
     ]
@@ -136,7 +136,7 @@
     "title": "Wir bringen die besten Talente zusammen, um intelligente Loesungen zu gestalten.",
     "counterLabel": "Starke Teammitglieder",
     "ctaLabel": "Mehr entdecken",
-    "ctaHref": "/team",
+    "ctaHref": "/de/team/",
     "members": {
       "dan-smith": { "tag": "Zukunft", "designation": "/ Manager /" },
       "alan-begham-1": { "tag": "Neural", "designation": "/ CEO /" },

@@ -3,14 +3,14 @@
     "titlePrefix": "Atylus",
     "title": "helps you innovate, transform, and deliver measurable results.",
     "ctaLabel": "Explore",
-    "ctaHref": "/services"
+    "ctaHref": "/en/services/"
   },
   "heroServices": {
     "badges": ["AI Solutions", "AI Services"],
     "title": "Move your business forward with the power of AI.",
     "description": "Get instant answers and uninterrupted service with enterprise-grade AI systems.",
     "ctaLabel": "Explore more",
-    "ctaHref": "/services",
+    "ctaHref": "/en/services/",
     "counterValue": "24/7",
     "counterTitle": "Digital Workforce",
     "secondaryTitle": "Digital Workforce",
@@ -25,7 +25,7 @@
     "title": "Smart capabilities that strengthen your service delivery",
     "description": "We provide the full service stack needed to support and scale your business.",
     "ctaLabel": "Explore more",
-    "ctaHref": "/services"
+    "ctaHref": "/en/services/"
   },
   "integration": {
     "title": "We integrate with the platforms and channels your teams already use."
@@ -92,41 +92,41 @@
       "As a trusted technology partner, we help organizations unlock the full operational value of intelligent systems."
     ],
     "ctaLabel": "Explore more",
-    "ctaHref": "/about",
+    "ctaHref": "/en/about/",
     "counterLabel": "Creative projects delivered successfully with AI support"
   },
   "projects": {
     "eyebrow": "projects",
     "title": "Explore the outcomes of the work we invest in to produce high-quality solutions and successful project delivery.",
     "ctaLabel": "More projects",
-    "ctaHref": "/projects",
+    "ctaHref": "/en/projects/",
     "items": [
       {
         "id": "project-1",
         "eyebrow": "Development",
         "title": "Vendilus: an MCP-centered operations layer for e-commerce and multi-marketplace synchronization",
-        "href": "/projects/vendilus",
+        "href": "/en/projects/vendilus/",
         "buttonLabel": "View details"
       },
       {
         "id": "project-2",
         "eyebrow": "Development",
         "title": "NLPGenius: a platform that brings language workflows into enterprise operations",
-        "href": "/projects",
+        "href": "/en/projects/",
         "buttonLabel": "View details"
       },
       {
         "id": "project-3",
         "eyebrow": "Development",
         "title": "AutoDrive: an advanced neural decision and navigation layer",
-        "href": "/projects",
+        "href": "/en/projects/",
         "buttonLabel": "View details"
       },
       {
         "id": "project-4",
         "eyebrow": "Development",
         "title": "CogniCraft: intelligent innovation surfaces designed for the connected future",
-        "href": "/projects",
+        "href": "/en/projects/",
         "buttonLabel": "View details"
       }
     ]
@@ -136,7 +136,7 @@
     "title": "We bring together top talent to design intelligent solutions.",
     "counterLabel": "Great teammates",
     "ctaLabel": "Explore more",
-    "ctaHref": "/team",
+    "ctaHref": "/en/team/",
     "members": {
       "dan-smith": { "tag": "Future", "designation": "/ Manager /" },
       "alan-begham-1": { "tag": "Neural", "designation": "/ CEO /" },

@@ -3,14 +3,14 @@
     "titlePrefix": "Atylus",
     "title": "ile yenilik yapin, donusun ve gercek sonuclar elde edin.",
     "ctaLabel": "Kesfet",
-    "ctaHref": "/services"
+    "ctaHref": "/tr/hizmetler/"
   },
   "heroServices": {
     "badges": ["AI Cozumleri", "AI Hizmetleri"],
     "title": "Yapay zekanin gucuyle isletmenizi ileriye tasiyin.",
     "description": "Tum sorulariniza aninda cozum. Yapay zeka gucuyle kesintisiz hizmeti kesfedin.",
     "ctaLabel": "Daha fazlasini kesfedin",
-    "ctaHref": "/services",
+    "ctaHref": "/tr/hizmetler/",
     "counterValue": "7/24",
     "counterTitle": "Dijital Is Gucu",
     "secondaryTitle": "Dijital Is Gucu",
@@ -25,7 +25,7 @@
     "title": "Hizmetlerinizi guclendiren akilli ozellikler",
     "description": "Isletmenizi destekleyecek tum hizmetleri sunuyoruz.",
     "ctaLabel": "Daha fazlasini kesfedin",
-    "ctaHref": "/services"
+    "ctaHref": "/tr/hizmetler/"
   },
   "integration": {
     "title": "Bu hizmetlerle calisiyor ve entegrasyon sagliyoruz."
@@ -92,41 +92,41 @@
       "Akilli teknolojilerin geleceginde guvenilir is ortaginiz olarak, yapay zekanin tum potansiyelini operasyonlariniza tasiyoruz."
     ],
     "ctaLabel": "Daha fazlasini kesfedin",
-    "ctaHref": "/about",
+    "ctaHref": "/tr/hakkimizda/",
     "counterLabel": "Yapay zeka destegiyle basariyla tamamlanan yaratici projeler"
   },
   "projects": {
     "eyebrow": "projeler",
     "title": "Ustun nitelikli cozumler uretmek icin ortaya koydugumuz emegin sonuclarini ve projelerimizin basarili ciktilarini incelemeye davetlisiniz.",
     "ctaLabel": "Diger projelerimiz",
-    "ctaHref": "/projects",
+    "ctaHref": "/tr/projeler/",
     "items": [
       {
         "id": "project-1",
         "eyebrow": "Gelisim",
         "title": "Vendilus: E-ticaret ve coklu pazar yeri senkronizasyonu icin MCP merkezli operasyon katmani",
-        "href": "/projects/vendilus",
+        "href": "/tr/projeler/vendilus/",
         "buttonLabel": "Detaylari incele"
       },
       {
         "id": "project-2",
         "eyebrow": "Gelisim",
         "title": "NLPGenius: Dogal dil sureclerini kurumsal is akislarina tasiyan platform",
-        "href": "/projects",
+        "href": "/tr/projeler/",
         "buttonLabel": "Detaylari incele"
       },
       {
         "id": "project-3",
         "eyebrow": "Gelisim",
         "title": "AutoDrive: Gelismis noral aglarla otonom karar ve yonlendirme katmani",
-        "href": "/projects",
+        "href": "/tr/projeler/",
         "buttonLabel": "Detaylari incele"
       },
       {
         "id": "project-4",
         "eyebrow": "Gelisim",
         "title": "CogniCraft: Bagli yarinin akilli cozumleri icin tasarlanan inovasyon yuzeyi",
-        "href": "/projects",
+        "href": "/tr/projeler/",
         "buttonLabel": "Detaylari incele"
       }
     ]
@@ -136,7 +136,7 @@
     "title": "Akilli cozumler icin en iyi yetenekleri bir araya getiriyoruz.",
     "counterLabel": "Harika ekip arkadaslarimiz",
     "ctaLabel": "Daha fazlasini kesfedin",
-    "ctaHref": "/team",
+    "ctaHref": "/tr/ekip/",
     "members": {
       "dan-smith": { "tag": "Gelecek", "designation": "/ Yonetici /" },
       "alan-begham-1": { "tag": "Noral", "designation": "/ CEO /" },

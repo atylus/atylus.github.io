@@ -4,7 +4,7 @@ import {
   SUPPORTED_LOCALES,
 } from "../src/i18n/config";
 import { resolvePreferredLocale } from "../src/i18n/detection";
-import { getLegacyRedirectEntries, getLocalizedHref } from "../src/i18n/routes";
+import { getLegacyRedirectEntries, getLocalizedHref, getLocalizedPagePath, getMarketingPageKeyByPath } from "../src/i18n/routes";
 import {
   getLocaleFromPathname,
   normalizePathname,
@@ -65,6 +65,21 @@ export const onRequest: PagesFunction = async (context) => {
   );
 
   if (isLocalizedRoute) {
+    // Check if this localized path uses the correct locale-specific segments.
+    // For example, /tr/projects/vendilus should redirect to /tr/projeler/vendilus.
+    const segments = pathname.split("/").filter(Boolean).slice(1); // strip locale
+    const pathWithoutLocale = segments.length > 0 ? "/" + segments.join("/") + "/" : "/";
+    const pageKey = getMarketingPageKeyByPath(pathWithoutLocale);
+    if (pageKey) {
+      const canonicalPath = getLocalizedPagePath(currentLocale, pageKey);
+      const normalizedCurrentPath = pathname.endsWith("/") ? pathname : `${pathname}/`;
+      if (canonicalPath !== normalizedCurrentPath) {
+        return withLocaleCookie(
+          Response.redirect(new URL(canonicalPath, url), 301),
+          currentLocale,
+        );
+      }
+    }
     const response = await context.next();
     return withLocaleCookie(response, currentLocale);
   }
