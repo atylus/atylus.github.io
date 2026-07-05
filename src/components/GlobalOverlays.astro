@@ -2,12 +2,18 @@
 import { mobileMenuItems } from "../data/site";
 import MobileMenuTree from "./MobileMenuTree.astro";
 import ThemeLogo from "./ThemeLogo.astro";
+import { getLocaleFromPathname } from "../i18n/pathname";
+import { getLocalizedPagePath } from "../i18n/routes";
+import { getUiCopy } from "../i18n/content";
 
 interface Props {
   pathname: string;
 }
 
 const { pathname } = Astro.props;
+const locale = getLocaleFromPathname(pathname);
+const contactPath = getLocalizedPagePath(locale, "contact");
+const ui = getUiCopy(locale);
 ---
 
 <div id="preloader">
@@ -41,7 +47,7 @@ const { pathname } = Astro.props;
       <a href="tel:+13685678954" class="nmbr">800 100 975 20 34</a>
       <a href="tel:8003508431" class="nmbr">+ (123) 1800-234-5678</a>
       <a href="mailto:atylus@mail.co" class="email">atylus@mail.co</a>
-      <a href="/contact/" class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
+      <a href={contactPath} class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
         <span>Bize Ulasin</span>
       </a>
     </div>
@@ -85,12 +91,12 @@ const { pathname } = Astro.props;
     <MobileMenuTree currentPath={pathname} items={mobileMenuItems} />
   </ul>
   <div class="menu-contact">
-    <span>Iletisim</span>
+    <span>{ui.sidebar.contacts}</span>
     <a href="tel:+13685678954" class="nmbr">+1 800 529 10 37</a>
     <a href="mailto:atylus@mail.co" class="gmail">atylus@mail.co</a>
   </div>
   <div class="menu-links">
-    <span>Follow us:</span>
+    <span>{ui.sidebar.followUs}</span>
     <ul class="social-icon">
       <li>
         <a href="https://www.facebook.com/atylus_offical/"><i class="fab fa-facebook-f" /></a>
@@ -105,7 +111,7 @@ const { pathname } = Astro.props;
         <a href="https://www.youtube.com/atylus_offical/"><i class="fab fa-youtube" /></a>
       </li>
     </ul>
-    <a href="/contact/" class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
+    <a href={contactPath} class="ibt-btn ibt-btn-outline-3 ibt-btn-rounded">
       <span>Bize Ulasin</span>
     </a>
   </div>

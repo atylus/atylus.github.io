@@ -75,7 +75,7 @@ export default function Header1({
                   </Link>
                 )}
                   <Link
-                  href={`/${locale}/contact`}
+                  href="/contact"
                   title=""
                   className="ibt-btn ibt-btn-outline-3 ibt-btn-rounded"
                 >
